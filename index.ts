@@ -9,7 +9,7 @@ import {trace} from "./java/trace";
 // so_info('libsscronet.so')
 // inline_hook('libsscronet.so',0x2a01c8)
 
-trace('n1.a$b$a','')
+trace('com.ss.android.ugc.aweme.sec.SecApiImpl','')
 // setTimeout(trace,500,'com.spotify.core.http.HttpRequest','getHeaders')
 
 // console.log("Loading script...");

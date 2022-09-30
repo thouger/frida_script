@@ -1,9 +1,29 @@
-var class_loader = "java.util.ArrayList";
-var target_method = 'add';
+var class_loader = "ms.bd.o.k";
+var target_method = 'b';
 
 (function () {
-    let Color = { RESET: "\x1b[39;49;00m", Black: "0;01", Blue: "4;01", Cyan: "6;01", Gray: "7;11", "Green": "2;01", Purple: "5;01", Red: "1;01", Yellow: "3;01" };
-    let LightColor = { RESET: "\x1b[39;49;00m", Black: "0;11", Blue: "4;11", Cyan: "6;11", Gray: "7;01", "Green": "2;11", Purple: "5;11", Red: "1;11", Yellow: "3;11" };
+    let Color = {
+        RESET: "\x1b[39;49;00m",
+        Black: "0;01",
+        Blue: "4;01",
+        Cyan: "6;01",
+        Gray: "7;11",
+        "Green": "2;01",
+        Purple: "5;01",
+        Red: "1;01",
+        Yellow: "3;01"
+    };
+    let LightColor = {
+        RESET: "\x1b[39;49;00m",
+        Black: "0;11",
+        Blue: "4;11",
+        Cyan: "6;11",
+        Gray: "7;01",
+        "Green": "2;11",
+        Purple: "5;11",
+        Red: "1;11",
+        Yellow: "3;11"
+    };
     var colorPrefix = '\x1b[3', colorSuffix = 'm'
     for (let c in Color) {
         if (c == "RESET") continue;
@@ -16,6 +36,11 @@ var target_method = 'add';
     }
 })();
 
+function getRealClassName(obj) {
+    const objClass = Java.use("java.lang.Object").getClass.apply(obj);
+    return Java.use("java.lang.Class").getName.apply(objClass)
+}
+
 function main() {
     console.Blue("start");
     Java.perform(function () {
@@ -27,7 +52,8 @@ function main() {
                         Java.classFactory.loader = loader;
                         console.Blue("Switch Classloader Successfully ! ")
                     }
-                } catch (e) { }
+                } catch (e) {
+                }
             },
             onComplete: function () {
             }
@@ -38,15 +64,6 @@ function main() {
                 // console.log(className)
                 if (class_name.toString().toLowerCase() === class_loader.toLowerCase()) {
                     try {
-                        // var utils = Java.use(class_loader);
-                        // utils.add.implementation = function (str) {
-                        //
-                        //     var retval = this.b(str);
-                        //     console.log(str, retval);
-                        //
-                        //     return retval;
-                        // }
-
                         var hook = Java.use(class_loader);
                         var overloads = hook[target_method].overloads;
                         for (var i = 0; i < overloads.length; i++) {
@@ -57,7 +74,17 @@ function main() {
                                 for (var j = 0; j < arguments.length; j++) {
                                     console.Blue(arguments[j])
                                 }
-                                console.Green("retval:"+retval);
+                                console.Green("retval:" + retval);
+
+                                // console.log('a1: ' + arguments[0]);
+                                // console.log('a2: ' + arguments[1]);
+                                // console.log('a3: ' + arguments[2]);
+                                // console.log('a4: ' + arguments[3]);
+                                // var arg5 = arguments[4];
+                                // Java.openClassFile("/data/local/tmp/r0gson.dex").load();
+                                // const gson = Java.use('com.r0ysue.gson.Gson');
+                                // console.log('a5: ' + gson.$new().toJson(arg5));
+                                // console.log('retval: ' + gson.$new().toJson(retval));
                                 return retval;
                             }
 
@@ -66,14 +93,14 @@ function main() {
                         console.Red(e)
                     }
                 }
-            }, onComplete: function () { }
+            }, onComplete: function () {
+            }
         })
 
     })
 }
 
 setTimeout(main, 0)
-
 
 
 var isLite = false;
