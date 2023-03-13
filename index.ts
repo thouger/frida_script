@@ -1,16 +1,29 @@
 //@ts-nocheck
-// import {inline_hook} from "./so/inlinehook";
+import {inline_hook,_inline_hook} from "./so/inlinehook";
 import {trace} from "./java/trace";
-// import {log} from "./utils/log";
-// import {all_so} from "./so/all_so";
+import {all_so} from "./so/all_so";
 // import {so_info} from "./so/so_info";
+import {hook_hashmap} from "./java/hashmap";
+import {scan} from "./so/scan";
+import { init_array } from "./so/init_array";
+import { hook_string } from "./java/stringBuilder";
+import { one_instance } from "./java/one_instance";
 
 // setTimeout(all_so,5000)
 // so_info('libsscronet.so')
-// inline_hook('libsscronet.so',0x2a01c8)
+// inline_hook('libOnLoad.so',0x9E0)
+// init_array()
+// scan()
+// all_so()
 
-trace('com.ss.android.ugc.aweme.sec.SecApiImpl','')
-// setTimeout(trace,500,'com.spotify.core.http.HttpRequest','getHeaders')
+///////////////java
+// one_instance("com.appsflyer.internal.AFa1xSDK$AFa1wSDK",'values')
+trace('com.appsflyer.internal.AFb1zSDK')
+// trace('java.lang.StringBuilder','toString')
+// setTimeout(trace,1000,'com.appsflyer.internal.AFa1xSDK$AFa1wSDK','values')
+// setTimeout(main,3000)
+// hook_hashmap()
+// hook_string()
 
 // console.log("Loading script...");
 //

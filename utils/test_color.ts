@@ -1,0 +1,12 @@
+console.log('\x1b[30m%s\x1b[0m', '黑色');
+console.log('\x1b[31m%s\x1b[0m', '红色');
+console.log('\x1b[32m%s\x1b[0m', '绿色');
+console.log('\x1b[33m%s\x1b[0m', '黄色');
+console.log('\x1b[34m%s\x1b[0m', '蓝色');
+console.log('\x1b[35m%s\x1b[0m', '洋红色');
+console.log('\x1b[36m%s\x1b[0m', '青色');
+console.log('\x1b[45m%s\x1b[0m', '洋红色背景');
+console.log('\x1b[1m%s\x1b[0m', '粗体');
+console.log('\x1b[2m%s\x1b[0m', '淡色');
+console.log('\x1b[4m%s\x1b[0m', '下划线');
+console.log('\x1b[7m%s\x1b[0m', '反转前景色和背景色');

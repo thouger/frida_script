@@ -15,8 +15,8 @@ function main() {
                     send(Java.use("android.util.Log").getStackTraceString(Java.use("java.lang.Throwable").$new()));
                     send("key:" + arguments[0]);
                     send("value:" + arguments[1]);
-                    var data = this.put(arguments[0], arguments[1]);
-                    return data;
+                    var retval = this.put(arguments[0], arguments[1]);
+                    return retval;
                 }
             }
         }
