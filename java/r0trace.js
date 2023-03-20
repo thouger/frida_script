@@ -250,11 +250,11 @@ function main() {
         //以下三种模式，取消注释某一行以开启
         */
         //A. 简易trace单个函数
-        traceClass("javax.crypto.Cipher")
+        // traceClass("javax.crypto.Cipher")
         //B. 黑白名单trace多个函数，第一个参数是白名单(包含关键字)，第二个参数是黑名单(不包含的关键字)
         // hook("javax.crypto.Cipher", "$");
         //C. 报某个类找不到时，将某个类名填写到第三个参数，比如找不到com.roysue.check类。（前两个参数依旧是黑白名单）
-        // hook("com.roysue.check"," ","com.roysue.check");        
+        hook("dalvik.system.BaseDexClassLoader"," ","dalvik.system.BaseDexClassLoader");        
     })
 }
 /*

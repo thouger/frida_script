@@ -1,4 +1,3 @@
-console.log('\x1b[30m%s\x1b[0m', '黑色');
 console.log('\x1b[31m%s\x1b[0m', '红色');
 console.log('\x1b[32m%s\x1b[0m', '绿色');
 console.log('\x1b[33m%s\x1b[0m', '黄色');

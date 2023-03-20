@@ -8,6 +8,9 @@ import {scan} from "./so/scan";
 import { init_array } from "./so/init_array";
 import { hook_string } from "./java/stringBuilder";
 import { one_instance } from "./java/one_instance";
+import { encryption } from "./java/encryption";
+import { one_method_hook } from "./java/one_method_hook";
+import {anti_InMemoryDexClassLoader} from './java/anti_InMemoryDexClassLoader';
 
 // setTimeout(all_so,5000)
 // so_info('libsscronet.so')
@@ -17,13 +20,20 @@ import { one_instance } from "./java/one_instance";
 // all_so()
 
 ///////////////java
-// one_instance("com.appsflyer.internal.AFa1xSDK$AFa1wSDK",'values')
-trace('com.appsflyer.internal.AFb1zSDK')
-// trace('java.lang.StringBuilder','toString')
+// one_instance("com.example.appa.MainActivity",'timer')
+// trace("com.example.appa.MyClass",'myMethod')
+// trace("java.lang.Class",'forName')
+
+// trace('java.lang.ClassLoader') 
 // setTimeout(trace,1000,'com.appsflyer.internal.AFa1xSDK$AFa1wSDK','values')
-// setTimeout(main,3000)
 // hook_hashmap()
+// trace('java.util.HashMap','put')
+// trace('java.lang.ClassLoader','findClass')
+// trace('ava.lang.reflect.Method','invoke')
 // hook_string()
+// encryption()
+// one_method_hook()
+anti_InMemoryDexClassLoader()
 
 // console.log("Loading script...");
 //

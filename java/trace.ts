@@ -1,6 +1,6 @@
 //@ts-nocheck
 
-import { log } from "../utils/log";
+import { log, print_hashmap, stacktrace } from "../utils/log";
 
 function uniqBy(array, key) {
     var seen = {};
@@ -57,113 +57,121 @@ function inspectObject(obj, input) {
             if (!(obj[fieldName] === undefined))
                 fieldValue = obj[fieldName].value;
             input = input.concat(fieldType + " \t" + fieldName + " => ", fieldValue + " => ", JSON.stringify(fieldValue));
-            input = input.concat("\n\n")
+            input = input.concat("\n")
         }
     }
     return input;
 }
 
-function traceMethod(targetClassMethod) {
+function bytes2hex(array) {
+    // var result=Java.use("java.util.Arrays").toString();
+    //把结果存到数组里
+    var result = "";
+    for (var i = 0; i < array.length; ++i) {
+        result += array[i].charCodeAt(0);
+        result += ",";
+    }
+    return result;
+}
+
+function traceMethod(targetClassMethod, unparseMethod) {
+
     var delim = targetClassMethod.lastIndexOf(".");
     var targetClass = targetClassMethod.slice(0, delim)
     var targetMethod = targetClassMethod.slice(delim + 1, targetClassMethod.length)
     var hook = Java.use(targetClass);
-    //有时候会出现方法找不到的情况，这里try catch一下，直接返回
-    try {
-        var overloadCount = hook[targetMethod].overloads.length;
-    } catch (e) {
+    if (!hook[targetMethod]) {
         log("Class not found: " + targetClass);
         return;
     }
+    var overloadCount = hook[targetMethod].overloads.length;
 
-    log("Tracing Method : " + targetClassMethod + " [" + overloadCount + " overload(s)]");
+    //多个函数重载会有一个问题，当参数是Object[] objArr，不能给它赋值，因此需要单独重载特定参数函数
+    //     hook["values"].overload('java.lang.String', 'java.lang.String', 'int').implementation = function (str, str2, i) {
+    //     console.log(`AFa1xSDK.values is called: str=${str}, str2=${str2}, i=${i}`);
+    //     let result = this["values"](str, str2, i);
+    //     console.log(`AFa1xSDK.values result=${result}`);
+    //     return result;
+    // };
+
     for (var i = 0; i < overloadCount; i++) {
         hook[targetMethod].overloads[i].implementation = function () {
-            //初始化输出
             var output = "";
+
             //画个横线
             for (var p = 0; p < 100; p++) {
                 output = output.concat("==");
             }
-            //域值
-            output = inspectObject(this, output);
-            //进入函数
-            output = output.concat("\n*** entered " + targetClassMethod);
             output = output.concat("\n")
 
-            // output = output.concat("\n----------------------------------------\n")
-            // var cls = "com.appsflyer.internal.AFf1bSDK"
-            // var obj = Java.use(cls)
-            // var csl2 = 'com.appsflyer.internal.AFa1xSDK$AFa1wSDK'
-            // var obj2 = Java.use(csl2)
+            //域值
+            output = inspectObject(this, output);
+            // 进入函数
+            output = output.concat("*** entered " + unparseMethod + "***\n");
 
-            // output = output.concat("value AFKeystoreWrapper "+obj2._AFKeystoreWrapper.value+'\n');
-            // output = output.concat("value values "+obj2._values.value+'\n');
-            // output = output.concat("value AFInAppEventType " + obj2._AFInAppEventType.value + '\n');
-            // output = output.concat('value afInfoLog '+obj2.afInfoLog.value+'\n')
-            // output = output.concat("value AFf1bSDK.AFInAppEventType " + obj.AFInAppEventType.value + '\n');
-            // output = output.concat("value AFf1bSDK.valueOf " + obj.valueOf.value + '\n');
-            // output = output.concat("value AFf1bSDK.AFInAppEventParameterName " + obj.AFInAppEventParameterName.value + '\n');
-            // output = output.concat("value AFf1bSDK.AFKeystoreWrapper " + obj.AFKeystoreWrapper.value + '\n');
-            // output = output.concat(arguments[-1]+'\n')
-            // output = output.concat("----------------------------------------\n")
+            // log("*** entered " + targetClassMethod + "***\n");
 
-            //参数
-            var retval = this[targetMethod].apply(this, arguments);
+            //         // output = output.concat("\n----------------------------------------\n")
+            //         // var cls = "com.appsflyer.internal.AFf1cSDK"
+            //         // var obj = Java.use(cls)
+            //         // var csl2 = 'com.appsflyer.internal.AFa1xSDK'
+            //         // var obj2 = Java.use(csl2)
+
+            //         // output = output.concat("value values " + bytes2hex(obj2._values.value) + '\n');
+            //         // output = output.concat("value AFInAppEventType " + bytes2hex(obj2._AFInAppEventType.value) + '\n');
+            //         // output = output.concat("value AFKeystoreWrapper "+obj2._AFKeystoreWrapper.value.charCodeAt(0)+'\n');
+            //         // output = output.concat("value AFf1cSDK.AFInAppEventType " + bytes2hex(obj.AFInAppEventType.value) + '\n');
+            //         // output = output.concat("value AFf1cSDK.values " + obj.values.value.charCodeAt(0) + '\n');
+            //         // output = output.concat("value AFf1cSDK.AFKeystoreWrapper " + obj.AFKeystoreWrapper.value.charCodeAt(0) + '\n');
+            //         // output = output.concat("value AFf1cSDK.valueOf " + obj.valueOf.value + '\n');
+            //         // output = output.concat("value AFf1cSDK.AFInAppEventParameterName " + obj.AFInAppEventParameterName.value + '\n');
+            //         // output = output.concat("value AFf1cSDK.AFLogger " + obj.AFLogger.value + '\n');
+            //         // output = output.concat("value AFf1cSDK.afErrorLog " + obj.afErrorLog.value + '\n');
+
+            //         // output = output.concat(arguments[-1]+'\n')
+            //         // output = output.concat("----------------------------------------\n")
+
             for (var j = 0; j < arguments.length; j++) {
                 output = output.concat("arg[" + j + "]: " + arguments[j] + " => " + JSON.stringify(arguments[j]));
                 output = output.concat("\n")
             }
             //调用栈
-            output = output.concat(Java.use("android.util.Log").getStackTraceString(Java.use("java.lang.Throwable").$new()));
-            //返回值
+            output = output.concat(stacktrace());
+            var retval = this[targetMethod].apply(this, arguments);
+            // //返回值
             output = output.concat("\nretval: " + retval + " => " + JSON.stringify(retval));
-            // inspectObject(this)
+
             //离开函数
-            output = output.concat("\n*** exiting " + targetClassMethod);
+            output = output.concat("\n*** exiting " + targetClassMethod + '***\n');
 
-            //调用函数
+            //         //调用函数
+            //         // output = output.concat("\n----------------------------------------\n")
+            //         // var cls = "com.appsflyer.internal.AFf1cSDK"
+            //         // var obj = Java.use(cls)
+            //         // var csl2 = 'com.appsflyer.internal.AFa1xSDK'
+            //         // var obj2 = Java.use(csl2)
 
-            // output = output.concat("\n----------------------------------------\n")
-            // var cls = "com.appsflyer.internal.AFf1bSDK"
-            // var obj = Java.use(cls)
-            // var csl2 = 'com.appsflyer.internal.AFa1xSDK$AFa1wSDK'
-            // var obj2 = Java.use(csl2)
+            //         // output = output.concat("value values " + bytes2hex(obj2._values.value) + '\n');
+            //         // output = output.concat("value AFInAppEventType " + bytes2hex(obj2._AFInAppEventType.value) + '\n');
+            //         // output = output.concat("value AFKeystoreWrapper "+obj2._AFKeystoreWrapper.value.charCodeAt(0)+'\n');
+            //         // output = output.concat("value AFf1cSDK.AFInAppEventType " + bytes2hex(obj.AFInAppEventType.value) + '\n');
+            //         // output = output.concat("value AFf1cSDK.values " + obj.values.value.charCodeAt(0) + '\n');
+            //         // output = output.concat("value AFf1cSDK.AFKeystoreWrapper " + obj.AFKeystoreWrapper.value.charCodeAt(0) + '\n');
+            //         // output = output.concat("value AFf1cSDK.valueOf " + obj.valueOf.value + '\n');
+            //         // output = output.concat("value AFf1cSDK.AFInAppEventParameterName " + obj.AFInAppEventParameterName.value + '\n');
+            //         // output = output.concat("value AFf1cSDK.AFLogger " + obj.AFLogger.value + '\n');
+            //         // output = output.concat("value AFf1cSDK.afErrorLog " + obj.afErrorLog.value + '\n');
 
-            // output = output.concat("value AFKeystoreWrapper "+obj2._AFKeystoreWrapper.value+'\n');
-            // output = output.concat("value values "+obj2._values.value+'\n');
-            // output = output.concat('value afInfoLog '+obj2.afInfoLog.value+'\n')
-            // output = output.concat("value AFInAppEventType " + obj2._AFInAppEventType.value + '\n');
-            // output = output.concat("value AFf1bSDK.AFInAppEventType " + obj.AFInAppEventType.value + '\n');
-            // output = output.concat("value AFf1bSDK.valueOf " + obj.valueOf.value + '\n');
-            // output = output.concat("value AFf1bSDK.AFInAppEventParameterName " + obj.AFInAppEventParameterName.value + '\n');
-            // output = output.concat("value AFf1bSDK.AFKeystoreWrapper " + obj.AFKeystoreWrapper.value + '\n');
-            // output = output.concat(arguments[-1]+'\n')
-            // output = output.concat("----------------------------------------\n")
-
+            //         // output = output.concat(arguments[-1]+'\n')
+            //         // output = output.concat("----------------------------------------\n")
+            //画个横线
+            for (var p = 0; p < 100; p++) {
+                output = output.concat("==");
+            }
             log(output)
-
-            // var ByteString = Java.use("com.android.okhttp.okio.ByteString");
-            // log(hex2str(ByteString.of(retval).hex()))
             return retval;
         }
     }
-}
-
-function hex2str(hex) {
-    var trimedStr = hex.trim();
-    var rawStr = trimedStr.substr(0, 2).toLowerCase() === "0x" ? trimedStr.substr(2) : trimedStr;
-    var len = rawStr.length;
-    if (len % 2 !== 0) {
-        return "";
-    }
-    var curCharCode;
-    var resultStr = [];
-    for (var i = 0; i < len; i = i + 2) {
-        curCharCode = parseInt(rawStr.substr(i, 2), 16);
-        resultStr.push(String.fromCharCode(curCharCode));
-    }
-    return resultStr.join("");
 }
 
 function _trace(target, method) {
@@ -173,37 +181,38 @@ function _trace(target, method) {
     var methods = hook.class.getDeclaredMethods()
     hook.$dispose()
     var parsedMethods = [];
+    var unparseMethods = [];
     output = output.concat("\t\nSpec: => \n")
     methods.forEach(_method => {
         _method = _method.toString()
         if (method)
             if (_method.toLowerCase().indexOf(method.toLowerCase()) == -1)
-                continue;
-        output = output.concat(method + "\n")
+                return;
+        output = output.concat(_method + "\n")
         parsedMethods.push(_method.replace(target + ".", "TOKEN").match(/\sTOKEN(.*)\(/)[1]);
+        unparseMethods.push(_method);
     });
 
     output = output.concat(parsedMethods)
     //去掉一些重复的值
     var Targets = uniqBy(parsedMethods, JSON.stringify);
-    // targets = [];
+    //添加构造函数
     var constructors = hook.class.getDeclaredConstructors();
-    if (method != undefined && constructors.length > 0 && method.toLowerCase().indexOf("init") != -1) {
+    if (constructors.length > 0) {
         constructors.forEach(function (constructor) {
             output = output.concat("Tracing ", constructor.toString())
-            output = output.concat("\n\n")
+            output = output.concat("\r\n")
         })
-        Targets = Targets.concat("$init")
-    }
-    //对数组中所有的方法进行hook，
-    Targets.forEach(function (targetMethod) {
-        traceMethod(target + "." + targetMethod);
-    });
-    //画个横线
-    for (var p = 0; p < 100; p++) {
-        output = output.concat("+");
+        //有时候hook构造函数会报错，看情况取消
+        // Targets = Targets.concat("$init")
     }
     log(output);
+    //对数组中所有的方法进行hook，
+    Targets.forEach(function (targetMethod) {
+        unparseMethods.forEach(function (unparseMethod) {
+            traceMethod(target + "." + targetMethod, unparseMethod);
+        });
+    });
 }
 
 export function trace(target, method) {
@@ -215,7 +224,7 @@ export function trace(target, method) {
             // console.log(error)
         }
 
-        log('\ntrace begin ... !')
+        // log('\ntrace begin ... !')
 
         Java.enumerateClassLoaders({
             onMatch: function (loader) {
@@ -223,6 +232,7 @@ export function trace(target, method) {
                     // console.log(loader)
                     if (loader.findClass(target)) {
                         log("Successfully found loader")
+                        log(loader)
                         Java.classFactory.loader = loader;
                         log("Switch Classloader Successfully ! ")
                     }
@@ -236,10 +246,12 @@ export function trace(target, method) {
         })
 
         log('Begin enumerateClasses ...')
+        var targetClasses = new Array();
         Java.enumerateLoadedClasses({
             onMatch: function (clazz) {
                 // if (clazz.toLowerCase().indexOf(target.toLowerCase()) > -1) {
-                if (clazz.toLowerCase() == target.toLowerCase()) {
+                    if (clazz.toLowerCase() == target.toLowerCase()) {
+                    targetClasses.push(clazz)
                     log('find target class: ' + clazz)
                     _trace(clazz, method)
                 }
@@ -248,5 +260,11 @@ export function trace(target, method) {
                 log("Search Class Completed!")
             }
         })
+        var output = "On Total Tracing :" + String(targetClasses.length) + " classes :\r\n";
+        targetClasses.forEach(function (target) {
+            output = output.concat(target);
+            output = output.concat("\r\n")
+        })
+        log(output)
     })
 }
