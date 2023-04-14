@@ -10,6 +10,7 @@ import { hook_string } from "./java/stringBuilder";
 import { one_instance } from "./java/one_instance";
 import { encryption } from "./java/encryption";
 import { one_method_hook } from "./java/one_method_hook";
+import { findClass } from "./java/findClass";
 import {anti_InMemoryDexClassLoader} from './java/anti_InMemoryDexClassLoader';
 
 // setTimeout(all_so,5000)
@@ -21,7 +22,8 @@ import {anti_InMemoryDexClassLoader} from './java/anti_InMemoryDexClassLoader';
 
 ///////////////java
 // one_instance("com.example.appa.MainActivity",'timer')
-// trace("com.example.appa.MyClass",'myMethod')
+trace("com.appsflyer.internal.ai",'values')
+// trace('dalvik.system.BaseDexClassLoader')
 // trace("java.lang.Class",'forName')
 
 // trace('java.lang.ClassLoader') 
@@ -33,7 +35,8 @@ import {anti_InMemoryDexClassLoader} from './java/anti_InMemoryDexClassLoader';
 // hook_string()
 // encryption()
 // one_method_hook()
-anti_InMemoryDexClassLoader()
+// findClass('com.appsflyer.internal.AFa1nSDK$30218')
+// anti_InMemoryDexClassLoader()
 
 // console.log("Loading script...");
 //

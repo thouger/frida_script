@@ -174,7 +174,7 @@ function traceMethod(targetClassMethod, unparseMethod) {
     }
 }
 
-function _trace(target, method) {
+export function _trace(target, method) {
     var output = "";
     output = output.concat("Tracing Class : " + target + " \n");
     var hook = Java.use(target)
@@ -204,7 +204,7 @@ function _trace(target, method) {
             output = output.concat("\r\n")
         })
         //有时候hook构造函数会报错，看情况取消
-        // Targets = Targets.concat("$init")
+        Targets = Targets.concat("$init")
     }
     log(output);
     //对数组中所有的方法进行hook，
@@ -229,7 +229,7 @@ export function trace(target, method) {
         Java.enumerateClassLoaders({
             onMatch: function (loader) {
                 try {
-                    // console.log(loader)
+                    console.log(loader)
                     if (loader.findClass(target)) {
                         log("Successfully found loader")
                         log(loader)
@@ -249,8 +249,9 @@ export function trace(target, method) {
         var targetClasses = new Array();
         Java.enumerateLoadedClasses({
             onMatch: function (clazz) {
-                // if (clazz.toLowerCase().indexOf(target.toLowerCase()) > -1) {
-                    if (clazz.toLowerCase() == target.toLowerCase()) {
+                // console.log(clazz)x`
+                if (clazz.toLowerCase().indexOf(target.toLowerCase()) > -1) {
+                    // if (clazz.toLowerCase() == target.toLowerCase()) {
                     targetClasses.push(clazz)
                     log('find target class: ' + clazz)
                     _trace(clazz, method)
