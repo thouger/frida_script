@@ -2,17 +2,16 @@
 import { log, print_hashmap, stacktrace } from "../utils/log";
 import { _trace } from "./trace";
 
-export function findClass() {
-    var targetClass = "dalvik.system.BaseDexClassLoader";
-    var targetMethod = "$init";
-    var hook = Java.use(targetClass);
-    var overloadCount = hook[targetMethod].overloads.length;
+export function findClass(targetClass: string) {
+    var hook = Java.use("dalvik.system.BaseDexClassLoader");
+    var classLoaderInit = "$init";
+    var overloadCount = hook[classLoaderInit].overloads.length;
     for (var i = 0; i < overloadCount; i++) {
-        hook[targetMethod].overloads[i].implementation = function () {
+        hook[classLoaderInit].overloads[i].implementation = function () {
             for (var j = 0; j < arguments.length; j++) {
                 // log("arg[" + j + "]: " + arguments[j] + " => " + JSON.stringify(arguments[j]));
             }
-            var retval = this[targetMethod].apply(this, arguments);
+            var retval = this[classLoaderInit].apply(this, arguments);
             // if (arguments[0] == 'com.appsflyer.internal.AFa1nSDK$30218') {
             //     Java.classFactory.loader = this;
             //     // trace('findClass com.appsflyer.internal.AFa1nSDK$30218')
@@ -31,7 +30,7 @@ export function findClass() {
             
             var suppressedExceptions = Java.use('java.util.ArrayList').$new();
             log(this);
-            var result = this.pathList.value.findClass('com.appsflyer.internal.AFa1nSDK$30218',suppressedExceptions)
+            var result = this.pathList.value.findClass(targetClass,suppressedExceptions)
             var targetMethod = '$init'
             var overloadCount = result[targetMethod].overloads.length;
             for (var i = 0; i < overloadCount; i++) {

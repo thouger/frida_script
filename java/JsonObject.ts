@@ -1,4 +1,7 @@
-function main() {
+//@ts-nocheck
+import { stacktrace,log } from "../utils/log";
+
+export function main() {
     Java.perform(function () {
         var JSONObject = Java.use('org.json.JSONObject');
         JSONObject.toString.overload().implementation = function () {
