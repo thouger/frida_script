@@ -1,7 +1,7 @@
 // @ts-nocheck
 export function log(message: string) {
   let colorCode;
-  switch (Math.floor(Math.random() * 7)) {
+  switch (Math.floor(Math.random() * 6)) {
     case 0:
       colorCode = '\x1b[31m'; // 红色
       break;
@@ -12,15 +12,12 @@ export function log(message: string) {
       colorCode = '\x1b[33m'; // 黄色
       break;
     case 3:
-      colorCode = '\x1b[34m'; // 蓝色
-      break;
-    case 4:
       colorCode = '\x1b[35m'; // 紫色
       break;
-    case 5:
+    case 4:
       colorCode = '\x1b[36m'; // 青色
       break;
-    case 6:
+    case 5:
       colorCode = '\x1b[37m'; // 白色
       break;
     default:

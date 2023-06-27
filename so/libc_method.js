@@ -1,16 +1,17 @@
 // Hook libc.so
-var mkdirat_addr = null;
+Java.perform(function () {
+  var mkdirat_addr = null;
 
-var symbols = Process.findModuleByName("libc.so").enumerateSymbols();
-for (var i = 0; i < symbols.length; i++) {
-  if (symbols[i].name === "mkdirat") {
-    mkdirat_addr = symbols[i].address;
-    break;
+  var symbols = Process.findModuleByName("libc.so").enumerateSymbols();
+  for (var i = 0; i < symbols.length; i++) {
+    if (symbols[i].name === "mkdirat") {
+      mkdirat_addr = symbols[i].address;
+      break;
+    }
   }
-}
 
-if (mkdirat_addr) {
-  var output = "";
+  if (mkdirat_addr) {
+    var output = "";
 
   Interceptor.attach(mkdirat_addr, {
     onEnter: function (args) {

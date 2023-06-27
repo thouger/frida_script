@@ -1,17 +1,18 @@
 //@ts-nocheck
-import {inline_hook,_inline_hook} from "./so/inlinehook";
+// import {inline_hook,_inline_hook} from "./so/inlinehook";
 import {trace} from "./java/trace";
+import {trace_change} from './java/trace_change'
 import {all_so} from "./so/all_so";
-// import {so_info} from "./so/so_info";
+import {so_info} from "./so/so_info";
 import {hook_hashmap} from "./java/hashmap";
 import {scan} from "./so/scan";
 import { init_array } from "./so/init_array";
 import { hook_string } from "./java/stringBuilder";
-import { one_instance } from "./java/one_instance";
-import { encryption } from "./java/encryption";
-import { one_method_hook } from "./java/one_method_hook";
-import { findClass } from "./java/findClass";
-import {anti_InMemoryDexClassLoader} from './java/anti_InMemoryDexClassLoader';
+import { hook_file } from "./java/file";
+// import { one_instance } from "./java/one_instance";
+// import { encryption } from "./java/encryption";
+// import { findClass } from "./java/findClass";
+// import {anti_InMemoryDexClassLoader} from './java/anti_InMemoryDexClassLoader';
 
 // setTimeout(all_so,5000)
 // so_info('libsscronet.so')
@@ -21,12 +22,16 @@ import {anti_InMemoryDexClassLoader} from './java/anti_InMemoryDexClassLoader';
 // all_so()
 
 ///////////////java
-// one_instance("com.example.appa.MainActivity",'timer')
-trace("com.appsflyer.internal.ai",'values')
-// trace('dalvik.system.BaseDexClassLoader')
-// trace("java.lang.Class",'forName')
+trace_change('com.lazada.android.cpx.task.a','c')
+trace_change('com.lazada.android.cpx.o','a')
+// trace('а.б.а.а.а.г.а')
+// trace('java.io.File')
 
-// trace('java.lang.ClassLoader') 
+// hook_file()
+// trace('com.alibaba.wireless.security.open.SecException')
+// trace('com.uc.crashsdk.JNIBridge')
+// trace('dalvik.system.BaseDexClassLoader')
+
 // setTimeout(trace,1000,'com.appsflyer.internal.AFa1xSDK$AFa1wSDK','values')
 // hook_hashmap()
 // trace('java.util.HashMap','put')
@@ -34,7 +39,6 @@ trace("com.appsflyer.internal.ai",'values')
 // trace('ava.lang.reflect.Method','invoke')
 // hook_string()
 // encryption()
-// one_method_hook()
 // findClass('com.appsflyer.internal.AFa1nSDK$30218')
 // anti_InMemoryDexClassLoader()
 

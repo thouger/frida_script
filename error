@@ -1,0 +1,141 @@
+     ____
+    / _  |   Frida 16.0.14 - A world-class dynamic instrumentation toolkit
+   | (_| |
+    > _  |   Commands:
+   /_/ |_|       help      -> Displays the help system
+   . . . .       object?   -> Display information about 'object'
+   . . . .       exit/quit -> Exit
+   . . . .
+   . . . .   More info at https://frida.re/docs/home/
+   . . . .
+   . . . .   Connected to M2007J17C (id=8bfc7d7a)
+Spawning `com.lazada.android`...
+Spawned `com.lazada.android`. Resuming main thread!
+[M2007J17C::com.lazada.android ]-> dalvik.system.PathClassLoader[DexPathList[[directory "."],nativeLibraryDirectories=[/system/lib64, /system_ext/lib64, /product/lib64, /system/lib64, /system_ext/lib64, /product/lib64]]]
+java.lang.BootClassLoader@f8a8b34
+dalvik.system.PathClassLoader[DexPathList[[zip file "/data/app/~~AG2PGNc5tO6yc0LPSTmKUQ==/com.lazada.android-fH-av8uuDMoxJID_VhHazg==/base.apk"],nativeLibraryDirectories=[/data/app/~~AG2PGNc5tO6yc0LPSTmKUQ==/com.lazada.android-fH-av8uuDMoxJID_VhHazg==/lib/arm64, /data/app/~~AG2PGNc5tO6yc0LPSTmKUQ==/com.lazada.android-fH-av8uuDMoxJID_VhHazg==/base.apk!/lib/arm64-v8a, /system/lib64, /system_ext/lib64, /product/lib64]]]
+Successfully found loader
+dalvik.system.PathClassLoader[DexPathList[[zip file "/data/app/~~AG2PGNc5tO6yc0LPSTmKUQ==/com.lazada.android-fH-av8uuDMoxJID_VhHazg==/base.apk"],nativeLibraryDirectories=[/data/app/~~AG2PGNc5tO6yc0LPSTmKUQ==/com.lazada.android-fH-av8uuDMoxJID_VhHazg==/lib/arm64, /data/app/~~AG2PGNc5tO6yc0LPSTmKUQ==/com.lazada.android-fH-av8uuDMoxJID_VhHazg==/base.apk!/lib/arm64-v8a, /system/lib64, /system_ext/lib64, /product/lib64]]]
+Switch Classloader Successfully ! 
+EnumerateClassloader END
+Begin enumerateClasses ...
+find target class: com.alibaba.wireless.security.framework.d
+Tracing Class: com.alibaba.wireless.security.framework.d
+	
+Spec: => 
+static android.content.Context com.alibaba.wireless.security.framework.d.a(com.alibaba.wireless.security.framework.d)
+static void com.alibaba.wireless.security.framework.d.a(com.alibaba.wireless.security.framework.d,int,int,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+static void com.alibaba.wireless.security.framework.d.a(com.alibaba.wireless.security.framework.d,java.io.File)
+static boolean com.alibaba.wireless.security.framework.d.a(com.alibaba.wireless.security.framework.d,java.lang.String,java.lang.String,boolean)
+private android.content.pm.PackageInfo com.alibaba.wireless.security.framework.d.b(com.alibaba.wireless.security.framework.d$f,java.lang.String,java.lang.String)
+static void com.alibaba.wireless.security.framework.d.b(com.alibaba.wireless.security.framework.d)
+private com.alibaba.wireless.security.framework.c com.alibaba.wireless.security.framework.d.c(java.lang.String,com.alibaba.wireless.security.framework.d$f,android.content.Context,java.lang.String)
+private dalvik.system.BaseDexClassLoader com.alibaba.wireless.security.framework.d.d(java.lang.String,java.lang.String,boolean)
+private java.io.File com.alibaba.wireless.security.framework.d.e(java.io.File,java.lang.String)
+private static java.io.File com.alibaba.wireless.security.framework.d.f(java.lang.String,java.io.File,java.lang.String,java.lang.String)
+private static java.io.File com.alibaba.wireless.security.framework.d.g(java.lang.String,java.io.File,java.util.zip.ZipFile,java.lang.String)
+private static java.lang.Class com.alibaba.wireless.security.framework.d.h(dalvik.system.BaseDexClassLoader,java.lang.String)
+private static void com.alibaba.wireless.security.framework.d.i(int,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,int)
+private void com.alibaba.wireless.security.framework.d.j(com.alibaba.wireless.security.framework.d$f,java.lang.String,java.lang.String)
+private static void com.alibaba.wireless.security.framework.d.k(java.io.File)
+private void com.alibaba.wireless.security.framework.d.l(java.lang.String,java.lang.String)
+private static boolean com.alibaba.wireless.security.framework.d.m(java.io.File,java.io.File)
+private synchronized boolean com.alibaba.wireless.security.framework.d.n(java.lang.String,java.lang.String,java.io.File,java.lang.String,boolean)
+private static int com.alibaba.wireless.security.framework.d.o(java.lang.String,java.lang.String)
+private com.alibaba.wireless.security.framework.d$f com.alibaba.wireless.security.framework.d.p(java.lang.String,boolean)
+private java.io.File com.alibaba.wireless.security.framework.d.q(java.io.File)
+private java.io.File com.alibaba.wireless.security.framework.d.r(java.lang.String)
+private void com.alibaba.wireless.security.framework.d.s()
+private static boolean com.alibaba.wireless.security.framework.d.t(java.io.File,java.io.File)
+private synchronized com.alibaba.wireless.security.framework.ISGPluginInfo com.alibaba.wireless.security.framework.d.u(java.lang.String,java.lang.String,boolean)
+private static java.lang.String com.alibaba.wireless.security.framework.d.v(java.lang.String)
+private boolean com.alibaba.wireless.security.framework.d.w(java.io.File)
+private java.lang.String com.alibaba.wireless.security.framework.d.x()
+private void com.alibaba.wireless.security.framework.d.y(java.lang.String,java.lang.String,boolean)
+private static boolean com.alibaba.wireless.security.framework.d.z(java.io.File)
+public void com.alibaba.wireless.security.framework.d.a(android.content.Context,java.lang.String,java.lang.String,boolean,java.lang.Object[])
+public synchronized java.lang.Object com.alibaba.wireless.security.framework.d.getInterface(java.lang.Class)
+public java.lang.String com.alibaba.wireless.security.framework.d.getMainPluginName()
+public com.alibaba.wireless.security.framework.ISGPluginInfo com.alibaba.wireless.security.framework.d.getPluginInfo(java.lang.String)
+public com.alibaba.wireless.security.framework.IRouterComponent com.alibaba.wireless.security.framework.d.getRouter()
+Tracing public com.alibaba.wireless.security.framework.d()
+
+Search Class Completed!
+On Total Tracing :1 classes :
+com.alibaba.wireless.security.framework.d
+
+*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+
+ retval: /data/user/0/com.lazada.android => "<instance: java.io.File>"*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+----------------------------------------
+replace path is => /data/user/0/com.lazada.android/app_ratel_env_mock/default_0/data/
+
+*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+
+ retval: /data/user_de/0/com.lazada.android => "<instance: java.io.File>"*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+----------------------------------------
+replace path is => /data/user_de/0/com.lazada.android/app_ratel_env_mock/default_0/data/
+
+*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+
+ retval: /data/user/0/com.lazada.android => "<instance: java.io.File>"*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+----------------------------------------
+replace path is => /data/user/0/com.lazada.android/app_ratel_env_mock/default_0/data/
+
+*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+
+ retval: /data/user/0/com.lazada.android => "<instance: java.io.File>"*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+----------------------------------------
+replace path is => /data/user/0/com.lazada.android/app_ratel_env_mock/default_0/data/
+
+*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+
+ retval: /data/user/0/com.lazada.android => "<instance: java.io.File>"*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+----------------------------------------
+replace path is => /data/user/0/com.lazada.android/app_ratel_env_mock/default_0/data/
+
+*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+
+ retval: /data/user/0/com.lazada.android => "<instance: java.io.File>"*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+----------------------------------------
+replace path is => /data/user/0/com.lazada.android/app_ratel_env_mock/default_0/data/
+
+*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+
+ retval: /data/user/0/com.lazada.android => "<instance: java.io.File>"*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+----------------------------------------
+replace path is => /data/user/0/com.lazada.android/app_ratel_env_mock/default_0/data/
+
+*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+
+ retval: /data/user/0/com.lazada.android => "<instance: java.io.File>"*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+----------------------------------------
+replace path is => /data/user/0/com.lazada.android/app_ratel_env_mock/default_0/data/
+
+*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+
+ retval: /data/user/0/com.lazada.android => "<instance: java.io.File>"*********entered public java.io.File android.app.ContextImpl.getDataDir()********* 
+
+----------------------------------------
+replace path is => /data/user/0/com.lazada.android/app_ratel_env_mock/default_0/data/
+
+Process terminated
+
+Thank you for using Frida!

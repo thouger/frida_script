@@ -1,15 +1,6 @@
 //@ts-nocheck
 
 import { log, print_hashmap, stacktrace } from "../utils/log";
-
-function uniqBy(array, key) {
-    var seen = {};
-    return array.filter(function (item) {
-        var k = key(item);
-        return seen.hasOwnProperty(k) ? false : (seen[k] = true);
-    });
-}
-
 function hasOwnProperty(obj, name) {
     try {
         return obj.hasOwnProperty(name) || name in obj;
@@ -74,11 +65,11 @@ function bytes2hex(array) {
     return result;
 }
 
-function traceMethod(targetClassMethod, unparseMethod) {
+function traceMethod(targetMethod, unparseMethod) {
 
-    var delim = targetClassMethod.lastIndexOf(".");
-    var targetClass = targetClassMethod.slice(0, delim)
-    var targetMethod = targetClassMethod.slice(delim + 1, targetClassMethod.length)
+    var delim = targetMethod.lastIndexOf(".");
+    var targetClass = targetMethod.slice(0, delim)
+    var targetMethod = targetMethod.slice(delim + 1, targetMethod.length)
     var hook = Java.use(targetClass);
     if (!hook[targetMethod]) {
         log("Class not found: " + targetClass);
@@ -107,11 +98,12 @@ function traceMethod(targetClassMethod, unparseMethod) {
             //域值
             output = inspectObject(this, output);
             // 进入函数
-            output = output.concat("*** entered " + unparseMethod + "***\n");
+            output = output.concat("*********entered " + unparseMethod + "********* \n");
 
-            // log("*** entered " + targetClassMethod + "***\n");
-
-            //         // output = output.concat("\n----------------------------------------\n")
+                    output = output.concat("\n----------------------------------------\n")
+                    // var context= arguments[0];
+                    // var dir = context.getDir("SGLib",0);
+                    // output = output.concat("dir is => ",dir.getAbsolutePath(),"\n");
             //         // var cls = "com.appsflyer.internal.AFf1cSDK"
             //         // var obj = Java.use(cls)
             //         // var csl2 = 'com.appsflyer.internal.AFa1xSDK'
@@ -129,41 +121,23 @@ function traceMethod(targetClassMethod, unparseMethod) {
             //         // output = output.concat("value AFf1cSDK.afErrorLog " + obj.afErrorLog.value + '\n');
 
             //         // output = output.concat(arguments[-1]+'\n')
-            //         // output = output.concat("----------------------------------------\n")
+                    output = output.concat("----------------------------------------\n")
 
             for (var j = 0; j < arguments.length; j++) {
                 output = output.concat("arg[" + j + "]: " + arguments[j] + " => " + JSON.stringify(arguments[j]));
                 output = output.concat("\n")
             }
             //调用栈
-            output = output.concat(stacktrace());
+            var stacktraceLog = stacktrace();
+            output = output.concat(stacktraceLog);
+            
             var retval = this[targetMethod].apply(this, arguments);
             // //返回值
-            output = output.concat("\nretval: " + retval + " => " + JSON.stringify(retval));
+            output = output.concat("\n retval: " + retval + " => " + JSON.stringify(retval));
 
             //离开函数
-            output = output.concat("\n*** exiting " + targetClassMethod + '***\n');
+            output = output.concat("\n ********* exiting " + targetMethod + '*********\n');
 
-            //         //调用函数
-            //         // output = output.concat("\n----------------------------------------\n")
-            //         // var cls = "com.appsflyer.internal.AFf1cSDK"
-            //         // var obj = Java.use(cls)
-            //         // var csl2 = 'com.appsflyer.internal.AFa1xSDK'
-            //         // var obj2 = Java.use(csl2)
-
-            //         // output = output.concat("value values " + bytes2hex(obj2._values.value) + '\n');
-            //         // output = output.concat("value AFInAppEventType " + bytes2hex(obj2._AFInAppEventType.value) + '\n');
-            //         // output = output.concat("value AFKeystoreWrapper "+obj2._AFKeystoreWrapper.value.charCodeAt(0)+'\n');
-            //         // output = output.concat("value AFf1cSDK.AFInAppEventType " + bytes2hex(obj.AFInAppEventType.value) + '\n');
-            //         // output = output.concat("value AFf1cSDK.values " + obj.values.value.charCodeAt(0) + '\n');
-            //         // output = output.concat("value AFf1cSDK.AFKeystoreWrapper " + obj.AFKeystoreWrapper.value.charCodeAt(0) + '\n');
-            //         // output = output.concat("value AFf1cSDK.valueOf " + obj.valueOf.value + '\n');
-            //         // output = output.concat("value AFf1cSDK.AFInAppEventParameterName " + obj.AFInAppEventParameterName.value + '\n');
-            //         // output = output.concat("value AFf1cSDK.AFLogger " + obj.AFLogger.value + '\n');
-            //         // output = output.concat("value AFf1cSDK.afErrorLog " + obj.afErrorLog.value + '\n');
-
-            //         // output = output.concat(arguments[-1]+'\n')
-            //         // output = output.concat("----------------------------------------\n")
             //画个横线
             for (var p = 0; p < 100; p++) {
                 output = output.concat("==");
@@ -174,45 +148,45 @@ function traceMethod(targetClassMethod, unparseMethod) {
     }
 }
 
-export function _trace(target, method) {
-    var output = "";
-    output = output.concat("Tracing Class : " + target + " \n");
-    var hook = Java.use(target)
+export function _trace(targetClass, method) {
+    var output = "Tracing Class: " + targetClass + "\n";
+    var hook = Java.use(targetClass)
     var methods = hook.class.getDeclaredMethods()
     hook.$dispose()
-    var parsedMethods = [];
-    var unparseMethods = [];
-    output = output.concat("\t\nSpec: => \n")
+    var methodsDict = {};
+
+    output += "\t\nSpec: => \n";
     methods.forEach(_method => {
         _method = _method.toString()
-        if (method)
-            if (_method.toLowerCase().indexOf(method.toLowerCase()) == -1)
-                return;
-        output = output.concat(_method + "\n")
-        parsedMethods.push(_method.replace(target + ".", "TOKEN").match(/\sTOKEN(.*)\(/)[1]);
-        unparseMethods.push(_method);
-    });
 
-    output = output.concat(parsedMethods)
+        output += _method + "\n";
+        var parsedMethod = _method.replace(targetClass + ".", "TOKEN").match(/\sTOKEN(.*)\(/)[1];
+        if (method && method.toLowerCase() !== parsedMethod.toLowerCase())
+        return;
+        methodsDict[parsedMethod] = _method;
+    });
+    
     //去掉一些重复的值
-    var Targets = uniqBy(parsedMethods, JSON.stringify);
+    // var Targets = Object.values(methodsDict).flat().filter(function (value, index, self) {
+    //     return self.indexOf(value) === index;
+    //   });
+    var Targets=methodsDict;
     //添加构造函数
     var constructors = hook.class.getDeclaredConstructors();
     if (constructors.length > 0) {
         constructors.forEach(function (constructor) {
-            output = output.concat("Tracing ", constructor.toString())
-            output = output.concat("\r\n")
+            output += "Tracing " + constructor.toString() + "\n";
         })
         //有时候hook构造函数会报错，看情况取消
-        Targets = Targets.concat("$init")
+        methodsDict["$init"]='$init';
     }
     log(output);
+
     //对数组中所有的方法进行hook，
-    Targets.forEach(function (targetMethod) {
-        unparseMethods.forEach(function (unparseMethod) {
-            traceMethod(target + "." + targetMethod, unparseMethod);
-        });
-    });
+    for (var parsedMethod in methodsDict) {
+        var unparseMethod = methodsDict[parsedMethod];
+        traceMethod(targetClass + "." + parsedMethod, unparseMethod);
+    }
 }
 
 export function trace(target, method) {
@@ -229,7 +203,7 @@ export function trace(target, method) {
         Java.enumerateClassLoaders({
             onMatch: function (loader) {
                 try {
-                    console.log(loader)
+                    log(loader)
                     if (loader.findClass(target)) {
                         log("Successfully found loader")
                         log(loader)
@@ -249,9 +223,9 @@ export function trace(target, method) {
         var targetClasses = new Array();
         Java.enumerateLoadedClasses({
             onMatch: function (clazz) {
-                // console.log(clazz)x`
-                if (clazz.toLowerCase().indexOf(target.toLowerCase()) > -1) {
-                    // if (clazz.toLowerCase() == target.toLowerCase()) {
+                // console.log(clazz)
+                // if (clazz.toLowerCase().indexOf(target.toLowerCase()) > -1) {
+                    if (clazz.toLowerCase() == target.toLowerCase()) {
                     targetClasses.push(clazz)
                     log('find target class: ' + clazz)
                     _trace(clazz, method)
