@@ -1,1 +1,0 @@
-{"version":3,"file":"jsx.d.ts","sourceRoot":"","sources":["../../../../src/compiler/transformers/jsx.ts"],"names":[],"mappings":"AAAA,OAAO,EAGH,MAAM,EAmEN,UAAU,EAOV,qBAAqB,EAOxB,MAAM,mBAAmB,CAAC;AAE3B,gBAAgB;AAChB,wBAAgB,YAAY,CAAC,OAAO,EAAE,qBAAqB,GAAG,CAAC,CAAC,EAAE,UAAU,GAAG,MAAM,KAAK,UAAU,GAAG,MAAM,CA0kB5G"}

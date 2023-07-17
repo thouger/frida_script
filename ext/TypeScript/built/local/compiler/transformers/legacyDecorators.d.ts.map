@@ -1,1 +1,0 @@
-{"version":3,"file":"legacyDecorators.d.ts","sourceRoot":"","sources":["../../../../src/compiler/transformers/legacyDecorators.ts"],"names":[],"mappings":"AAAA,OAAO,EAMH,MAAM,EAsEN,UAAU,EAGV,qBAAqB,EAMxB,MAAM,mBAAmB,CAAC;AAE3B,gBAAgB;AAChB,wBAAgB,yBAAyB,CAAC,OAAO,EAAE,qBAAqB,GAAG,CAAC,CAAC,EAAE,UAAU,GAAG,MAAM,KAAK,UAAU,GAAG,MAAM,CA+uBzH"}

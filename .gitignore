@@ -1,3 +1,9 @@
 .history
 .idea/
 node_modules
+
+/dist/
+/ext/*.d.ts
+/ext/typescript.js
+/node_modules/
+/npm-debug.log
