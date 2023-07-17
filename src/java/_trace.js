@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { log, stacktrace } from "../utils/log";
+import { log, stacktrace } from "../utils/log.js";
 function hasOwnProperty(obj, name) {
     try {
         return obj.hasOwnProperty(name) || name in obj;

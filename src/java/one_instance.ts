@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { stacktrace,log } from "../utils/log";
+import { stacktrace,log } from "../utils/log.js";
 
 export function one_instance(target){
     Java.enumerateClassLoaders({

@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { log, stacktrace } from "../utils/log";
+import { log, stacktrace } from "../utils/log.js";
 function extractPackageName(path) {
     var startIndex = path.lastIndexOf('/');
     var endIndex = path.indexOf('/', startIndex + 1);

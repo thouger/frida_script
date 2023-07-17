@@ -1,5 +1,5 @@
 //@ts-nocheck
-// import {log} from "../utils/log";
+// import {log} from "../utils/log.js";
 
 export function all_so(system: boolean = false) {
     {

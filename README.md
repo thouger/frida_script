@@ -1,4 +1,12 @@
 # frida_script
+
+node版本要升级一下
+```
+sudo npm install n -g
+sudo n stable
+hash -r
+```
+
 运行make安装<br>
 每次用时先运行npm run watch然后改代码改index.ts文件,运行时运行命令frida -U -f 包名 --no-pause -l _agent.js
 

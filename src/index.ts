@@ -4,7 +4,7 @@ import {hook_func} from "./so/hook_func.js"
 import { so_method } from "./so/so_method.js"
 
 import {trace} from "./java/trace.js"
-import {trace_change} from './java/trace_change'
+import {trace_change} from './java/trace_change.js'
 import {all_so} from "./so/all_so.js"
 import {so_info} from "./so/so_info.js"
 import {scan} from "./so/scan.js"

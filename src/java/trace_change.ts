@@ -1,6 +1,6 @@
 //@ts-nocheck
 
-import { log, print_hashmap, stacktrace } from "../utils/log";
+import { log, print_hashmap, stacktrace } from "../utils/log.js";
 
 function extractPackageName(path) {
     var startIndex = path.lastIndexOf('/');

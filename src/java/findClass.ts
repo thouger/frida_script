@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { log, print_hashmap, stacktrace } from "../utils/log";
+import { log, print_hashmap, stacktrace } from "../utils/log.js";
 import { _trace } from "./trace";
 
 export function findClass(targetClass: string) {

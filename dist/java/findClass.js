@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { log, stacktrace } from "../utils/log";
+import { log, stacktrace } from "../utils/log.js";
 export function findClass(targetClass) {
     var hook = Java.use("dalvik.system.BaseDexClassLoader");
     var classLoaderInit = "$init";

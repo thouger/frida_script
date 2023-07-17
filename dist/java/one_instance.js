@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { log } from "../utils/log";
+import { log } from "../utils/log.js";
 export function one_instance(target) {
     Java.enumerateClassLoaders({
         onMatch: function (loader) {
