@@ -1,0 +1,314 @@
+2023-07-12 12:16:23.475 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:16:23.478 | INFO     | __main__:on_message:233 - [SSL_write] 192.168.166.242:44523 --> 14.215.177.92:443
+2023-07-12 12:16:23.480 | INFO     | __main__:on_message:241 - POST /sdkcs/verify HTTP/1.1..Content-Type: application/x-www-form-urlencoded..User-Agent: Dalvik/2.1.0 (Linux; U; Android 10; MI 6 Build/QQ3A.200605.001)..Host: api.map.baidu.com..Connection: Keep-Alive..Accept-Encoding: gzip..Content-Length: 481....ver=1&cuid=2B7F07BA7B8420224E97EB82D099A4F1%7CERO&sv=7.4.2&os=Android29&screen=%281080%2C1920%29&ak=wTtO90Et024eZuFLLTZj2HNGz5lwukw5&language=en&resid=02&version=1.0.25&url=https%3A%2F%2Fapi.map.baidu.com%2Fsdkcs%2Fverify&macaddr=&from_service=lbs_androidmapsdk&output=json&imt=1&mcode=F7%3ABD%3AFC%3A10%3AC8%3AD7%3A20%3A0F%3A89%3AB6%3AE5%3ACC%3ABF%3A50%3A17%3A46%3AF6%3A3C%3A36%3A16%3Bcom.gmt.app&mb=MI+6&appid=-1&name=GMT&from=lbs_yunsdk&pcn=com.gmt.app&dpi=%28480%2C480%29&net=0
+2023-07-12 12:16:23.480 | INFO     | __main__:on_message:242 - None
+2023-07-12 12:16:23.513 | INFO     | __main__:on_message:232 - SSL Session: 8E9E7E38BD0F5D840B2B7B80243C8C584EEC7FF28922213A46B060911F11D7DD
+2023-07-12 12:16:23.514 | INFO     | __main__:on_message:233 - [SSL_read] 14.215.177.92:443 --> 192.168.166.242:44523
+2023-07-12 12:16:23.515 | INFO     | __main__:on_message:241 - HTTP/1.1 200 OK..Cache-Control: max-age=86400..Connection: keep-alive..Content-Length: 89..Content-Type: application/json..Date: Wed, 12 Jul 2023 04:16:23 GMT..Expires: Thu, 13 Jul 2023 04:16:23 GMT..Http_x_bd_logid: 0983547672..Http_x_bd_logid64: 0983547140357664010..Http_x_bd_product: map..Http_x_bd_subsys: apimap..Server: apache....{"status":230,"message":"APP Mcode...............","user_permission":0,"ak_permission":0}
+2023-07-12 12:16:23.515 | INFO     | __main__:on_message:242 - None
+2023-07-12 12:17:21.341 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.343 | INFO     | __main__:on_message:233 - [HTTP_recv] 127.0.0.1:46021 --> 127.0.0.1:2021
+2023-07-12 12:17:21.346 | INFO     | __main__:on_message:241 - GET / HTTP/1.1..Host: 127.0.0.1:2021..Connection: keep-alive..Upgrade-Insecure-Requests: 1..User-Agent: Mozilla/5.0 (Linux; Android 10; MI 6 Build/QQ3A.200605.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/102.0.4961.0 Mobile Safari/537.36..Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9..dnt: 1..X-Requested-With: mark.via..Sec-Fetch-Site: none..Sec-Fetch-Mode: navigate..Sec-Fetch-User: ?1..Sec-Fetch-Dest: document..Accept-Encoding: gzip, deflate..Accept-Language: en-US,en;q=0.9....
+2023-07-12 12:17:21.347 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.socketRead(SocketInputStream.java:119)
+	at java.net.SocketInputStream.read(SocketInputStream.java:176)
+	at java.net.SocketInputStream.read(SocketInputStream.java:144)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:248)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:288)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:347)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:354)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
+2023-07-12 12:17:21.360 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.361 | INFO     | __main__:on_message:233 - [HTTP_send] 127.0.0.1:2021 --> 127.0.0.1:46021
+2023-07-12 12:17:21.362 | INFO     | __main__:on_message:241 - HTTP/1.1 200 OK ..Content-Type: text/html; charset=UTF-8..Date: Wed, 12 Jul 2023 04:17:21 GMT..Connection: keep-alive..Content-Encoding: gzip..Transfer-Encoding: chunked....
+2023-07-12 12:17:21.362 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:161)
+	at sun.nio.cs.StreamEncoder.writeBytes(StreamEncoder.java:221)
+	at sun.nio.cs.StreamEncoder.implFlushBuffer(StreamEncoder.java:291)
+	at sun.nio.cs.StreamEncoder.implFlush(StreamEncoder.java:295)
+	at sun.nio.cs.StreamEncoder.flush(StreamEncoder.java:141)
+	at java.io.OutputStreamWriter.flush(OutputStreamWriter.java:229)
+	at java.io.BufferedWriter.flush(BufferedWriter.java:254)
+	at java.io.PrintWriter.flush(PrintWriter.java:320)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.send(Response.java:267)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:432)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
+2023-07-12 12:17:21.374 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.374 | INFO     | __main__:on_message:233 - [HTTP_send] 127.0.0.1:2021 --> 127.0.0.1:46021
+2023-07-12 12:17:21.374 | INFO     | __main__:on_message:241 - a..
+2023-07-12 12:17:21.374 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:68)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:61)
+	at java.util.zip.GZIPOutputStream.writeHeader(GZIPOutputStream.java:182)
+	at java.util.zip.GZIPOutputStream.<init>(GZIPOutputStream.java:94)
+	at java.util.zip.GZIPOutputStream.<init>(GZIPOutputStream.java:109)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectEncoding(Response.java:316)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectTransferAndEncoding(Response.java:299)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.send(Response.java:268)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:432)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
+2023-07-12 12:17:21.404 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.404 | INFO     | __main__:on_message:233 - [HTTP_send] 127.0.0.1:2021 --> 127.0.0.1:46021
+2023-07-12 12:17:21.404 | INFO     | __main__:on_message:241 - ..........
+2023-07-12 12:17:21.405 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:161)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:69)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:61)
+	at java.util.zip.GZIPOutputStream.writeHeader(GZIPOutputStream.java:182)
+	at java.util.zip.GZIPOutputStream.<init>(GZIPOutputStream.java:94)
+	at java.util.zip.GZIPOutputStream.<init>(GZIPOutputStream.java:109)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectEncoding(Response.java:316)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectTransferAndEncoding(Response.java:299)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.send(Response.java:268)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:432)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
+2023-07-12 12:17:21.405 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.405 | INFO     | __main__:on_message:233 - [HTTP_send] 127.0.0.1:2021 --> 127.0.0.1:46021
+2023-07-12 12:17:21.405 | INFO     | __main__:on_message:241 - ..
+2023-07-12 12:17:21.406 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:70)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:61)
+	at java.util.zip.GZIPOutputStream.writeHeader(GZIPOutputStream.java:182)
+	at java.util.zip.GZIPOutputStream.<init>(GZIPOutputStream.java:94)
+	at java.util.zip.GZIPOutputStream.<init>(GZIPOutputStream.java:109)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectEncoding(Response.java:316)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectTransferAndEncoding(Response.java:299)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.send(Response.java:268)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:432)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
+2023-07-12 12:17:21.406 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.406 | INFO     | __main__:on_message:233 - [HTTP_send] 127.0.0.1:2021 --> 127.0.0.1:46021
+2023-07-12 12:17:21.406 | INFO     | __main__:on_message:241 - 5f..
+2023-07-12 12:17:21.406 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:68)
+	at java.util.zip.GZIPOutputStream.finish(GZIPOutputStream.java:164)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectEncoding(Response.java:324)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectTransferAndEncoding(Response.java:299)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.send(Response.java:268)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:432)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
+2023-07-12 12:17:21.407 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.407 | INFO     | __main__:on_message:233 - [HTTP_send] 127.0.0.1:2021 --> 127.0.0.1:46021
+2023-07-12 12:17:21.407 | INFO     | __main__:on_message:241 - .VJ.OIU.210.QJI,IT..+...Q.M-.NL..(=...Y.......]..o....:/.o.............NX.l.........T...'S.V...
+2023-07-12 12:17:21.407 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:161)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:69)
+	at java.util.zip.GZIPOutputStream.finish(GZIPOutputStream.java:164)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectEncoding(Response.java:324)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectTransferAndEncoding(Response.java:299)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.send(Response.java:268)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:432)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
+2023-07-12 12:17:21.407 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.407 | INFO     | __main__:on_message:233 - [HTTP_send] 127.0.0.1:2021 --> 127.0.0.1:46021
+2023-07-12 12:17:21.408 | INFO     | __main__:on_message:241 - ..
+2023-07-12 12:17:21.408 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:70)
+	at java.util.zip.GZIPOutputStream.finish(GZIPOutputStream.java:164)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectEncoding(Response.java:324)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectTransferAndEncoding(Response.java:299)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.send(Response.java:268)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:432)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
+2023-07-12 12:17:21.437 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.437 | INFO     | __main__:on_message:233 - [HTTP_send] 127.0.0.1:2021 --> 127.0.0.1:46021
+2023-07-12 12:17:21.437 | INFO     | __main__:on_message:241 - 0....
+2023-07-12 12:17:21.437 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.finish(ChunkedOutputStream.java:74)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectTransferAndEncoding(Response.java:301)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.send(Response.java:268)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:432)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
+2023-07-12 12:17:21.451 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.451 | INFO     | __main__:on_message:233 - [HTTP_recv] 127.0.0.1:46021 --> 127.0.0.1:2021
+2023-07-12 12:17:21.451 | INFO     | __main__:on_message:241 - GET /favicon.ico HTTP/1.1..Host: 127.0.0.1:2021..Connection: keep-alive..User-Agent: Mozilla/5.0 (Linux; Android 10; MI 6 Build/QQ3A.200605.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/102.0.4961.0 Mobile Safari/537.36..Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8..X-Requested-With: mark.via..Sec-Fetch-Site: same-origin..Sec-Fetch-Mode: no-cors..Sec-Fetch-Dest: image..Referer: http://127.0.0.1:2021/..Accept-Encoding: gzip, deflate..Accept-Language: en-US,en;q=0.9....
+2023-07-12 12:17:21.452 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.socketRead(SocketInputStream.java:119)
+	at java.net.SocketInputStream.read(SocketInputStream.java:176)
+	at java.net.SocketInputStream.read(SocketInputStream.java:144)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:248)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:288)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:347)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:354)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
+2023-07-12 12:17:21.452 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.452 | INFO     | __main__:on_message:233 - [HTTP_send] 127.0.0.1:2021 --> 127.0.0.1:46021
+2023-07-12 12:17:21.452 | INFO     | __main__:on_message:241 - HTTP/1.1 200 OK ..Content-Type: text/html; charset=UTF-8..Date: Wed, 12 Jul 2023 04:17:21 GMT..Connection: keep-alive..Content-Encoding: gzip..Transfer-Encoding: chunked....
+2023-07-12 12:17:21.452 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:161)
+	at sun.nio.cs.StreamEncoder.writeBytes(StreamEncoder.java:221)
+	at sun.nio.cs.StreamEncoder.implFlushBuffer(StreamEncoder.java:291)
+	at sun.nio.cs.StreamEncoder.implFlush(StreamEncoder.java:295)
+	at sun.nio.cs.StreamEncoder.flush(StreamEncoder.java:141)
+	at java.io.OutputStreamWriter.flush(OutputStreamWriter.java:229)
+	at java.io.BufferedWriter.flush(BufferedWriter.java:254)
+	at java.io.PrintWriter.flush(PrintWriter.java:320)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.send(Response.java:267)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:432)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
+2023-07-12 12:17:21.452 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.452 | INFO     | __main__:on_message:233 - [HTTP_send] 127.0.0.1:2021 --> 127.0.0.1:46021
+2023-07-12 12:17:21.453 | INFO     | __main__:on_message:241 - a..
+2023-07-12 12:17:21.453 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:68)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:61)
+	at java.util.zip.GZIPOutputStream.writeHeader(GZIPOutputStream.java:182)
+	at java.util.zip.GZIPOutputStream.<init>(GZIPOutputStream.java:94)
+	at java.util.zip.GZIPOutputStream.<init>(GZIPOutputStream.java:109)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectEncoding(Response.java:316)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectTransferAndEncoding(Response.java:299)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.send(Response.java:268)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:432)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
+2023-07-12 12:17:21.453 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.453 | INFO     | __main__:on_message:233 - [HTTP_send] 127.0.0.1:2021 --> 127.0.0.1:46021
+2023-07-12 12:17:21.453 | INFO     | __main__:on_message:241 - ..........
+2023-07-12 12:17:21.453 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:161)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:69)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:61)
+	at java.util.zip.GZIPOutputStream.writeHeader(GZIPOutputStream.java:182)
+	at java.util.zip.GZIPOutputStream.<init>(GZIPOutputStream.java:94)
+	at java.util.zip.GZIPOutputStream.<init>(GZIPOutputStream.java:109)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectEncoding(Response.java:316)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectTransferAndEncoding(Response.java:299)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.send(Response.java:268)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:432)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
+2023-07-12 12:17:21.454 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.454 | INFO     | __main__:on_message:233 - [HTTP_send] 127.0.0.1:2021 --> 127.0.0.1:46021
+2023-07-12 12:17:21.454 | INFO     | __main__:on_message:241 - ..
+2023-07-12 12:17:21.454 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:70)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:61)
+	at java.util.zip.GZIPOutputStream.writeHeader(GZIPOutputStream.java:182)
+	at java.util.zip.GZIPOutputStream.<init>(GZIPOutputStream.java:94)
+	at java.util.zip.GZIPOutputStream.<init>(GZIPOutputStream.java:109)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectEncoding(Response.java:316)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectTransferAndEncoding(Response.java:299)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.send(Response.java:268)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:432)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
+2023-07-12 12:17:21.464 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.465 | INFO     | __main__:on_message:233 - [HTTP_send] 127.0.0.1:2021 --> 127.0.0.1:46021
+2023-07-12 12:17:21.465 | INFO     | __main__:on_message:241 - 5f..
+2023-07-12 12:17:21.465 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:68)
+	at java.util.zip.GZIPOutputStream.finish(GZIPOutputStream.java:164)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectEncoding(Response.java:324)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectTransferAndEncoding(Response.java:299)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.send(Response.java:268)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:432)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
+2023-07-12 12:17:21.465 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.465 | INFO     | __main__:on_message:233 - [HTTP_send] 127.0.0.1:2021 --> 127.0.0.1:46021
+2023-07-12 12:17:21.465 | INFO     | __main__:on_message:241 - .VJ.OIU.210.QJI,IT..+...Q.M-.NL..(=...Y.......]..o....:/.o.............NX.l.........T...'S.V...
+2023-07-12 12:17:21.466 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:161)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:69)
+	at java.util.zip.GZIPOutputStream.finish(GZIPOutputStream.java:164)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectEncoding(Response.java:324)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectTransferAndEncoding(Response.java:299)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.send(Response.java:268)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:432)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
+2023-07-12 12:17:21.466 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.466 | INFO     | __main__:on_message:233 - [HTTP_send] 127.0.0.1:2021 --> 127.0.0.1:46021
+2023-07-12 12:17:21.466 | INFO     | __main__:on_message:241 - ..
+2023-07-12 12:17:21.466 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.write(ChunkedOutputStream.java:70)
+	at java.util.zip.GZIPOutputStream.finish(GZIPOutputStream.java:164)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectEncoding(Response.java:324)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectTransferAndEncoding(Response.java:299)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.send(Response.java:268)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:432)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
+2023-07-12 12:17:21.477 | INFO     | __main__:on_message:232 - SSL Session: 
+2023-07-12 12:17:21.477 | INFO     | __main__:on_message:233 - [HTTP_send] 127.0.0.1:2021 --> 127.0.0.1:46021
+2023-07-12 12:17:21.477 | INFO     | __main__:on_message:241 - 0....
+2023-07-12 12:17:21.478 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.ChunkedOutputStream.finish(ChunkedOutputStream.java:74)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.sendBodyWithCorrectTransferAndEncoding(Response.java:301)
+	at com.gmt.httpServer.nanohttpd.protocols.http.response.Response.send(Response.java:268)
+	at com.gmt.httpServer.nanohttpd.protocols.http.HTTPSession.execute(HTTPSession.java:432)
+	at com.gmt.httpServer.nanohttpd.protocols.http.ClientHandler.run(ClientHandler.java:76)
+	at java.lang.Thread.run(Thread.java:919)
+
