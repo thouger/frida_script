@@ -1,0 +1,9 @@
+=== tests/cases/compiler/es3-oldStyleOctalLiteralTypes.ts ===
+let x: 010;
+>x : 8
+
+let y: -020;
+>y : -16
+>-020 : -16
+>020 : 16
+

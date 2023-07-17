@@ -1,0 +1,4 @@
+=== tests/cases/conformance/typings/a.ts ===
+
+module.exports = 1;
+

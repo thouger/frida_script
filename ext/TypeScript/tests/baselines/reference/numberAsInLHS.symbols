@@ -1,0 +1,3 @@
+=== tests/cases/compiler/numberAsInLHS.ts ===
+
+3 in [0, 1]

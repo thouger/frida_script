@@ -1,0 +1,3 @@
+=== tests/cases/compiler/es6ImportParseErrors.ts ===
+
+import 10;

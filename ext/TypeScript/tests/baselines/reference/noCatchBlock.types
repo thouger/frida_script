@@ -1,0 +1,7 @@
+=== tests/cases/compiler/noCatchBlock.ts ===
+
+try {
+ // ...
+} finally {
+ // N.B. No 'catch' block
+}

@@ -1,0 +1,4 @@
+=== tests/cases/compiler/exportClassWithoutName.ts ===
+
+export class {
+}

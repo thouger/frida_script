@@ -1,0 +1,5 @@
+=== tests/cases/compiler/duplicateDefaultExport.ts ===
+
+export default 0;
+export default function() {}
+

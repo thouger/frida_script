@@ -1,0 +1,6 @@
+=== c:/test.d.ts ===
+
+export {}; 
+=== c:/app/main.ts ===
+
+import "test"

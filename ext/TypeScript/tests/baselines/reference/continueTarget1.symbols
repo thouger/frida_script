@@ -1,0 +1,4 @@
+=== tests/cases/compiler/continueTarget1.ts ===
+
+target:
+  continue target;

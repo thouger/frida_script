@@ -1,0 +1,5 @@
+=== tests/cases/compiler/unusedModuleInModule.ts ===
+
+module A {
+    module B {}
+}

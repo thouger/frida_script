@@ -1,0 +1,5 @@
+=== tests/cases/compiler/binaryArithmatic4.ts ===
+var v = null | null;
+>v : number
+>null | null : number
+

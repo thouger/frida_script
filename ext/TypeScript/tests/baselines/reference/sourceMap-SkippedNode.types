@@ -1,0 +1,7 @@
+=== tests/cases/compiler/sourceMap-SkippedNode.ts ===
+
+try {
+// ...
+} finally {
+// N.B. No 'catch' block
+}

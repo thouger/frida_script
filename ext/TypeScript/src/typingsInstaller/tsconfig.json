@@ -1,0 +1,14 @@
+{
+    "extends": "../tsconfig-base",
+    "compilerOptions": {
+        "types": [
+            "node"
+        ]
+    },
+    "references": [
+        { "path": "../compiler" },
+        { "path": "../jsTyping" },
+        { "path": "../typingsInstallerCore" }
+    ],
+    "include": ["**/*"]
+}
