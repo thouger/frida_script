@@ -1,0 +1,9 @@
+=== tests/cases/compiler/duplicateLabel4.ts ===
+
+target:
+while (true) {
+}
+
+target: 
+while (true) {
+}

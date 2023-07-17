@@ -1,0 +1,1 @@
+{"version":3,"file":"node.d.ts","sourceRoot":"","sources":["../../../../../src/compiler/transformers/module/node.ts"],"names":[],"mappings":"AAAA,OAAO,EACH,MAAM,EAON,UAAU,EAEV,qBAAqB,EAGxB,MAAM,sBAAsB,CAAC;AAE9B,gBAAgB;AAChB,wBAAgB,mBAAmB,CAAC,OAAO,EAAE,qBAAqB,UAyEnB,UAAU,GAAG,MAAM,yBAOjE"}

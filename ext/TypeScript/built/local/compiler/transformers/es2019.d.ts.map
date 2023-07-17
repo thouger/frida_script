@@ -1,0 +1,1 @@
+{"version":3,"file":"es2019.d.ts","sourceRoot":"","sources":["../../../../src/compiler/transformers/es2019.ts"],"names":[],"mappings":"AAAA,OAAO,EACH,MAAM,EAKN,UAAU,EAEV,qBAAqB,EAKxB,MAAM,mBAAmB,CAAC;AAE3B,gBAAgB;AAChB,wBAAgB,eAAe,CAAC,OAAO,EAAE,qBAAqB,GAAG,CAAC,CAAC,EAAE,UAAU,GAAG,MAAM,KAAK,UAAU,GAAG,MAAM,CAkC/G"}

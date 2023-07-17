@@ -1,0 +1,4 @@
+=== tests/cases/compiler/parseCommaSeparatedNewlineNumber.ts ===
+
+(a,
+1)

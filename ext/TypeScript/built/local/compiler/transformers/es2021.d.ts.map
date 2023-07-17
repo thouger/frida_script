@@ -1,0 +1,1 @@
+{"version":3,"file":"es2021.d.ts","sourceRoot":"","sources":["../../../../src/compiler/transformers/es2021.ts"],"names":[],"mappings":"AAAA,OAAO,EAEH,MAAM,EAYN,UAAU,EAEV,qBAAqB,EAKxB,MAAM,mBAAmB,CAAC;AAE3B,gBAAgB;AAChB,wBAAgB,eAAe,CAAC,OAAO,EAAE,qBAAqB,GAAG,CAAC,CAAC,EAAE,UAAU,GAAG,MAAM,KAAK,UAAU,GAAG,MAAM,CAiF/G"}

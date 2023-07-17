@@ -1,0 +1,1 @@
+{"version":3,"file":"identifierProperties.d.ts","sourceRoot":"","sources":["../../../../src/deprecatedCompat/5.0/identifierProperties.ts"],"names":[],"mappings":"AASA,OAAO,QAAQ,sBAAsB,CAAC;IAClC,UAAiB,UAAU;QACvB,uDAAuD;QACvD,QAAQ,CAAC,mBAAmB,CAAC,EAAE,UAAU,CAAC;QAE1C,sFAAsF;QACtF,QAAQ,CAAC,kBAAkB,CAAC,EAAE,OAAO,CAAC;KACzC;CACJ"}

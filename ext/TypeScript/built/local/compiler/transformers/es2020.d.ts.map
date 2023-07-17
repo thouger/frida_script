@@ -1,0 +1,1 @@
+{"version":3,"file":"es2020.d.ts","sourceRoot":"","sources":["../../../../src/compiler/transformers/es2020.ts"],"names":[],"mappings":"AAAA,OAAO,EAIH,MAAM,EA0BN,UAAU,EAEV,qBAAqB,EAMxB,MAAM,mBAAmB,CAAC;AAE3B,gBAAgB;AAChB,wBAAgB,eAAe,CAAC,OAAO,EAAE,qBAAqB,GAAG,CAAC,CAAC,EAAE,UAAU,GAAG,MAAM,KAAK,UAAU,GAAG,MAAM,CA0N/G"}

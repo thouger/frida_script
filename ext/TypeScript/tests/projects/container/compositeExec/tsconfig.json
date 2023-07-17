@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "ignoreDeprecations": "5.0",
+        "outFile": "../built/local/compositeExec.js",
+        "composite": true,
+        "declarationMap": true,
+    },
+    "files": [
+        "index.ts"
+    ],
+    "references": [
+        { "path": "../lib", "prepend": true }
+    ]
+}

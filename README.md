@@ -1,5 +1,5 @@
 # frida_script
-运行npm install安装<br>
+运行make安装<br>
 每次用时先运行npm run watch然后改代码改index.ts文件,运行时运行命令frida -U -f 包名 --no-pause -l _agent.js
 
 新版的frida可以直接运行ts文件
@@ -10,4 +10,4 @@
 3. encryption.ts java层自吐加密算法
 4. one_instance.ts hook一个类的实例化时候
 5. stringBuilder.ts 和JsonObject.ts 两个类，对有时候没有思路hook一下有奇效
-6. 
+6. so_method.ts 输出所有 so 的方法

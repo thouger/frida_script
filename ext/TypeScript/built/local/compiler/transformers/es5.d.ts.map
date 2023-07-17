@@ -1,0 +1,1 @@
+{"version":3,"file":"es5.d.ts","sourceRoot":"","sources":["../../../../src/compiler/transformers/es5.ts"],"names":[],"mappings":"AAAA,OAAO,EACH,MAAM,EAmBN,UAAU,EAEV,qBAAqB,EACxB,MAAM,mBAAmB,CAAC;AAE3B;;;;;;GAMG;AACH,wBAAgB,YAAY,CAAC,OAAO,EAAE,qBAAqB,GAAG,CAAC,CAAC,EAAE,UAAU,GAAG,MAAM,KAAK,UAAU,GAAG,MAAM,CAiH5G"}
