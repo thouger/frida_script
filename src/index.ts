@@ -16,7 +16,7 @@ import { hook_file } from "./java/file.js"
 // import { findClass } from "./java/findClass.js"
 // import {anti_InMemoryDexClassLoader} from './java/anti_InMemoryDexClassLoader';
 
-so_method('libnative-lib.so')
+// so_method('libnative-lib.so')
 // setTimeout(all_so,5000)
 // so_info('libsscronet.so')
 // inline_hook('libOnLoad.so',0x9E0)
@@ -24,10 +24,10 @@ so_method('libnative-lib.so')
 // scan()
 // all_so()
 
-///////////////java
-// trace_change('com.lazada.android.cpx.task.a','c')
+//java
+// trace_change()
 // trace('com.alibaba.aliexpress.gundam.ocean.netscene.GdmNetRequest','d')
-// trace('java.io.File')
+trace('android.telephony.TelephonyManager','getSimOperator')
 
 // hook_file()
 // trace('com.alibaba.wireless.security.open.SecException')

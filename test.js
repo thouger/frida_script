@@ -1,15 +1,13 @@
-function main() {
-    Java.perform(function () {
-        var addr = Module.findExportByName("libnative-lib.so", "func_four");
-        console.log("func_four addr is: ", addr);
-        var func_four = new NativeFunction(addr, 'pointer', ['pointer', 'pointer', 'pointer']);
-
-        var env = Java.vm.getEnv();
-        var instance = NULL
-        var jstring = env.newStringUtf('15');
-
-        func_four(env, instance, jstring)
-    });
-}
-
-setImmediate(main)
+Java.perform(function() {
+    // 获取 TelephonyManager 类
+    var TelephonyManager = Java.use('android.telephony.TelephonyManager');
+  
+    // Hook getSimOperator 方法
+    TelephonyManager.getSimOperator.overload() = function() {
+      // 打印调用栈
+      console.log(Java.use("android.util.Log").getStackTraceString(Java.use("java.lang.Throwable").$new()));
+  
+      // 调用原始的 getSimOperator 方法
+      return this.getSimOperator();
+    };
+  });

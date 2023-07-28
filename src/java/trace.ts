@@ -142,7 +142,7 @@ function traceMethod(targetMethod, unparseMethod) {
             for (var p = 0; p < 100; p++) {
                 output = output.concat("==");
             }
-            print_hashmap(retval)
+            // print_hashmap(retval)
             log(output)
             return retval;
         }
@@ -179,7 +179,7 @@ export function _trace(targetClass, method) {
             output += "Tracing " + constructor.toString() + "\n";
         })
         //有时候hook构造函数会报错，看情况取消
-        methodsDict["$init"]='$init';
+        // methodsDict["$init"]='$init';
     }
     log(output);
 
