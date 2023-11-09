@@ -65,8 +65,66 @@ function bytes2hex(array) {
     return result;
 }
 
-function traceMethod(targetMethod, unparseMethod) {
+function getReflectFields(val1,output) {
+    var clazz = Java.use("java.lang.Class");
+    var parametersTest = Java.cast(val1.getClass(),clazz);
+    //getDeclaredFields()获取所有字段
+    var fields = parametersTest.getDeclaredFields();
+    fields.forEach(function (field) {//依次打印字段的类型、名称、值
+        output = output.concat("field type is: " + (field.getType())+"\n");
+        output = output.concat("field name is: " + (field.getName())+"\n");
+        output = output.concat("field value is: " + field.get(val1)+"\n");
+    })
+    return output;
+  }
 
+function getReflectMethod(val1) {
+try{
+    var clazz = Java.use("java.lang.Class");
+    var parametersTest = Java.cast(val1.getClass(),clazz);
+    //getDeclaredMethods()获取所有方法
+    var methods = parametersTest.getDeclaredMethods();
+    methods.forEach(function (method) {
+        var methodName = method.getName();
+        var val1Class = val1.getClass();
+        var val1ClassName = Java.use(val1Class.getName());
+        var overloads = val1ClassName[methodName].overloads;
+        overloads.forEach(function (overload) {
+        var proto = "(";
+        overload.argumentTypes.forEach(function (type) {
+            proto += type.className + ", ";
+        });
+        if(proto.length > 1){
+            proto = proto.substr(0 ,proto.length - 2);
+        }
+        proto += ")";
+        overload.implementation = function () {
+            var args = [];
+            for(var j = 0; j < arguments.length; j++){
+            for(var i in arguments[j]){
+                var value = String(arguments[j][i]);
+                send(val1ClassName + "." + methodName + " and arguments value is: " + value);
+            }
+            args[j] = arguments[j] + "";
+            }
+            //打印方法参数
+            send(val1ClassName + "." + methodName + " and args is: " + args);
+            //调用方法
+            var retval = this[methodName].apply(this,arguments);
+            //打印方法返回值
+            send(methodName + " return value is: " + retval);
+            return retval;//返回方法返回值
+        }
+        })
+    })
+
+    }catch(e){
+    send("'" + val1 + "' hook fail: " + e);
+    }
+}
+
+function traceMethod(targetMethod, unparseMethod) {
+    log("targetMethod: " + targetMethod)
     var delim = targetMethod.lastIndexOf(".");
     var targetClass = targetMethod.slice(0, delim)
     var targetMethod = targetMethod.slice(delim + 1, targetMethod.length)
@@ -80,7 +138,7 @@ function traceMethod(targetMethod, unparseMethod) {
     //多个函数重载会有一个问题，当参数是Object[] objArr，不能给它赋值，因此需要单独重载特定参数函数
     //     hook["values"].overload('java.lang.String', 'java.lang.String', 'int').implementation = function (str, str2, i) {
     //     console.log(`AFa1xSDK.values is called: str=${str}, str2=${str2}, i=${i}`);
-    //     let result = this["values"](str, str2, i);
+    //     var result = this["values"](str, str2, i);
     //     console.log(`AFa1xSDK.values result=${result}`);
     //     return result;
     // };
@@ -99,30 +157,6 @@ function traceMethod(targetMethod, unparseMethod) {
             output = inspectObject(this, output);
             // 进入函数
             output = output.concat("*********entered " + unparseMethod + "********* \n");
-
-                    output = output.concat("\n----------------------------------------\n")
-                    // var context= arguments[0];
-                    // var dir = context.getDir("SGLib",0);
-                    // output = output.concat("dir is => ",dir.getAbsolutePath(),"\n");
-            //         // var cls = "com.appsflyer.internal.AFf1cSDK"
-            //         // var obj = Java.use(cls)
-            //         // var csl2 = 'com.appsflyer.internal.AFa1xSDK'
-            //         // var obj2 = Java.use(csl2)
-
-            //         // output = output.concat("value values " + bytes2hex(obj2._values.value) + '\n');
-            //         // output = output.concat("value AFInAppEventType " + bytes2hex(obj2._AFInAppEventType.value) + '\n');
-            //         // output = output.concat("value AFKeystoreWrapper "+obj2._AFKeystoreWrapper.value.charCodeAt(0)+'\n');
-            //         // output = output.concat("value AFf1cSDK.AFInAppEventType " + bytes2hex(obj.AFInAppEventType.value) + '\n');
-            //         // output = output.concat("value AFf1cSDK.values " + obj.values.value.charCodeAt(0) + '\n');
-            //         // output = output.concat("value AFf1cSDK.AFKeystoreWrapper " + obj.AFKeystoreWrapper.value.charCodeAt(0) + '\n');
-            //         // output = output.concat("value AFf1cSDK.valueOf " + obj.valueOf.value + '\n');
-            //         // output = output.concat("value AFf1cSDK.AFInAppEventParameterName " + obj.AFInAppEventParameterName.value + '\n');
-            //         // output = output.concat("value AFf1cSDK.AFLogger " + obj.AFLogger.value + '\n');
-            //         // output = output.concat("value AFf1cSDK.afErrorLog " + obj.afErrorLog.value + '\n');
-
-            //         // output = output.concat(arguments[-1]+'\n')
-                    output = output.concat("----------------------------------------\n")
-
             for (var j = 0; j < arguments.length; j++) {
                 output = output.concat("arg[" + j + "]: " + arguments[j] + " => " + JSON.stringify(arguments[j]));
                 output = output.concat("\n")
@@ -132,8 +166,18 @@ function traceMethod(targetMethod, unparseMethod) {
             output = output.concat(stacktraceLog);
             
             var retval = this[targetMethod].apply(this, arguments);
+            // retval = ""
             // //返回值
             output = output.concat("\n retval: " + retval + " => " + JSON.stringify(retval));
+
+            output = output.concat("\n-------------------test---------------------\n")
+            // 测试的地方
+            try {
+                print_hashmap(this._AFInAppEventType.value);
+            } catch (error) {
+                // console.log('enumerateClassLoaders error: ' + error + '\n')
+            }
+            output = output.concat("---------------------test-------------------\n")
 
             //离开函数
             output = output.concat("\n ********* exiting " + targetMethod + '*********\n');
@@ -153,94 +197,136 @@ export function _trace(targetClass, method) {
     var output = "Tracing Class: " + targetClass + "\n";
     var hook = Java.use(targetClass)
     var methods = hook.class.getDeclaredMethods()
-    hook.$dispose()
+    hook.$dispose();
     var methodsDict = {};
-
+    
     output += "\t\nSpec: => \n";
     methods.forEach(_method => {
         _method = _method.toString()
-
+        
         output += _method + "\n";
         var parsedMethod = _method.replace(targetClass + ".", "TOKEN").match(/\sTOKEN(.*)\(/)[1];
         if (method && method.toLowerCase() !== parsedMethod.toLowerCase())
         return;
-        methodsDict[parsedMethod] = _method;
+    methodsDict[_method] = parsedMethod;
     });
-    
-    //去掉一些重复的值
-    // var Targets = Object.values(methodsDict).flat().filter(function (value, index, self) {
-    //     return self.indexOf(value) === index;
-    //   });
-    var Targets=methodsDict;
+
     //添加构造函数
-    var constructors = hook.class.getDeclaredConstructors();
-    if (constructors.length > 0) {
-        constructors.forEach(function (constructor) {
-            output += "Tracing " + constructor.toString() + "\n";
+    var varructors = hook.class.getDeclaredConstructors();
+    if (varructors.length > 0) {
+        varructors.forEach(function (varructor) {
+            output += "Tracing " + varructor.toString() + "\n";
         })
         //有时候hook构造函数会报错，看情况取消
-        // methodsDict["$init"]='$init';
+        methodsDict["$init"]='$init';
     }
     log(output);
 
     //对数组中所有的方法进行hook，
-    for (var parsedMethod in methodsDict) {
-        var unparseMethod = methodsDict[parsedMethod];
+    for (var unparseMethod in methodsDict) {
+        var parsedMethod = methodsDict[unparseMethod];
         traceMethod(targetClass + "." + parsedMethod, unparseMethod);
     }
 }
 
-export function trace(target, method) {
-    Java.perform(function () {
-        //有一种特殊的情况，需要use一下，才能hook到
-        try {
-            Java.use(target);
-        } catch (error) {
-            // console.log(error)
-        }
+var BaseDexClassLoader = Java.use("dalvik.system.BaseDexClassLoader");
+var DexPathList = Java.use("dalvik.system.DexPathList");
+var DexFile = Java.use("dalvik.system.DexFile");
+var DexPathListElement = Java.use("dalvik.system.DexPathList$Element");
 
-        // log('\ntrace begin ... !')
 
-        Java.enumerateClassLoaders({
-            onMatch: function (loader) {
-                try {
-                    log(loader)
-                    if (loader.findClass(target)) {
-                        log("Successfully found loader")
-                        log(loader)
+// 遍历所有类加载器并查找目标类
+function findClassesInClassLoader(loader, targetClass,targetMethod,trace) {
+    var pathClassLoader = Java.cast(loader, BaseDexClassLoader);
+    // log("ClassLoader pathList: " + pathClassLoader.pathList.value);
+    var dexPathList = Java.cast(pathClassLoader.pathList.value, DexPathList);
+    // log("ClassLoader dexElements: " + dexPathList.dexElements.value.length);
+    
+    for (var i = 0; i < dexPathList.dexElements.value.length; i++) {
+        var dexPathListElement = Java.cast(dexPathList.dexElements.value[i], DexPathListElement);
+        if (dexPathListElement.dexFile.value) {
+            var dexFile = Java.cast(dexPathListElement.dexFile.value, DexFile);
+            var mCookie = dexFile.mCookie.value;
+            
+            if (dexFile.mInternalCookie.value) {
+                mCookie = dexFile.mInternalCookie.value;
+            }
+            
+            var classNameArr = dexPathListElement.dexFile.value.getClassNameList(mCookie);
+            // log("dexFile.getClassNameList.length: " + classNameArr.length);
+            // log("Enumerate ClassName Start");
+            
+            for (var i = 0; i < classNameArr.length; i++) {
+                var className = classNameArr[i];
+                if (className.includes(targetClass)) {
+                    log("Find class: " + className);
+                    if(trace){
                         Java.classFactory.loader = loader;
-                        log("Switch Classloader Successfully ! ")
+                        _trace(className,targetMethod)
                     }
-                } catch (error) {
-                    // console.log('enumerateClassLoaders error: ' + error + '\n')
                 }
-            },
-            onComplete: function () {
-                log("EnumerateClassloader END")
             }
-        })
+        }
+    }
+}
 
-        log('Begin enumerateClasses ...')
-        var targetClasses = new Array();
-        Java.enumerateLoadedClasses({
-            onMatch: function (clazz) {
-                // console.log(clazz)
-                // if (clazz.toLowerCase().indexOf(target.toLowerCase()) > -1) {
-                    if (clazz.toLowerCase() == target.toLowerCase()) {
-                    targetClasses.push(clazz)
-                    log('find target class: ' + clazz)
-                    _trace(clazz, method)
+// 钩住所有的类加载器
+export function findAllJavaClasses(targetClass,targetMethod,trace) {
+    var overloadCount = BaseDexClassLoader["$init"].overloads.length;
+    
+    for (var i = 0; i < overloadCount; i++) {
+        BaseDexClassLoader["$init"].overloads[i].implementation = function () {
+            var retval = this["$init"].apply(this, arguments);
+            findClassesInClassLoader(this, targetClass,targetMethod,trace);
+            return retval;
+        }
+    }
+}
+
+
+export function trace(targetClass, targetMethod) {
+    findAllJavaClasses(targetClass,targetMethod,true);
+
+    Java.enumerateClassLoaders({
+        onMatch: function (loader) {
+            try {
+                console.log(loader)
+                if (loader.findClass(targetClass)) {
+                    // log("Successfully found loader")
+                    log(loader)
+                    Java.classFactory.loader = loader;
+                    // log("Switch Classloader Successfully ! ")
                 }
-            },
-            onComplete: function () {
-                log("Search Class Completed!")
+            } catch (error) {
+                // console.log('enumerateClassLoaders error: ' + error + '\n')
             }
-        })
-        var output = "On Total Tracing :" + String(targetClasses.length) + " classes :\r\n";
-        targetClasses.forEach(function (target) {
-            output = output.concat(target);
-            output = output.concat("\r\n")
-        })
-        log(output)
+        },
+        onComplete: function () {
+            // log("EnumerateClassloader END")
+        }
     })
+
+    log('Begin enumerateClasses ...')
+    var targetClasses = new Array();
+    Java.enumerateLoadedClasses({
+        onMatch: function (clazz) {
+            // console.log(clazz)
+            if (clazz.toLowerCase().indexOf(targetClass.toLowerCase()) > -1) {
+                // if (clazz.toLowerCase() == targetClass.toLowerCase()) {
+                log('find targetClass class: ' + clazz)
+                targetClasses.push(clazz);
+                _trace(clazz,targetMethod);
+            }
+        },
+        onComplete: function () {
+            log("Search Class Completed!")
+        }
+    });
+
+    var output = "On Total Tracing :" + String(targetClasses.length) + " classes :\r\n";
+    targetClasses.forEach(function (target) {
+        output = output.concat(target);
+        output = output.concat("\r\n");
+    })
+    log(output)
 }

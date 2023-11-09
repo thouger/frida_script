@@ -11,11 +11,15 @@ import {scan} from "./so/scan.js"
 import { init_array } from "./so/init_array.js"
 // import { hook_string } from "./java/stringBuilder.js"
 import { hook_file } from "./java/file.js"
+import {findClass} from './java/findClass.js'
+import {all_java} from './java/all_java.js'
+Java.perform(function () {
 // import { one_instance } from "./java/one_instance.js"
 // import { encryption } from "./java/encryption.js"
 // import { findClass } from "./java/findClass.js"
 // import {anti_InMemoryDexClassLoader} from './java/anti_InMemoryDexClassLoader';
 
+// native层
 // so_method('libnative-lib.so')
 // setTimeout(all_so,5000)
 // so_info('libsscronet.so')
@@ -23,11 +27,17 @@ import { hook_file } from "./java/file.js"
 // init_array()
 // scan()
 // all_so()
+// hook_func('libc.so','openat')
 
 //java
 // trace_change()
-// trace('com.alibaba.aliexpress.gundam.ocean.netscene.GdmNetRequest','d')
-trace('android.telephony.TelephonyManager','getSimOperator')
+trace("com.appsflyer.internal.AFe1fSDK",'AFInAppEventParameterName')
+// trace("com.appsflyer.internal.AFe1fSDK")
+
+// setTimeout(trace,3000,'com.alibaba.minilibc.android.MtopMethodJniBridge')
+// all_java('com.alibaba.minilibc.android.MtopMethodJniBridge')
+// setTimeout(all_java,5000)
+// findClass('com.alibaba.minilibc.android.MtopMethodJniBridge')
 
 // hook_file()
 // trace('com.alibaba.wireless.security.open.SecException')
@@ -41,7 +51,5 @@ trace('android.telephony.TelephonyManager','getSimOperator')
 // trace('ava.lang.reflect.Method','invoke')
 // hook_string()
 // encryption()
-// findClass('com.appsflyer.internal.AFa1nSDK$30218')
 // anti_InMemoryDexClassLoader()
-
-// console.log("Loading script...");
+})

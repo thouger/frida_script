@@ -5,6 +5,7 @@ export function hook_func(so_name, addr) {
         Interceptor.attach(android_dlopen_ext, {
             onEnter: function (args) {
                 var soName = args[0].readCString();
+                console.log("soName: " + soName);
                 if (soName.indexOf(so_name) != -1) {
                     this.hook = true;
                 }
