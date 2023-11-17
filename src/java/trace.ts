@@ -169,15 +169,8 @@ function traceMethod(targetMethod, unparseMethod) {
             // retval = ""
             // //返回值
             output = output.concat("\n retval: " + retval + " => " + JSON.stringify(retval));
-
             output = output.concat("\n-------------------test---------------------\n")
             // 测试的地方
-            try {
-                print_hashmap(this._AFInAppEventType.value);
-            } catch (error) {
-                // console.log('enumerateClassLoaders error: ' + error + '\n')
-            }
-            output = output.concat("---------------------test-------------------\n")
 
             //离开函数
             output = output.concat("\n ********* exiting " + targetMethod + '*********\n');

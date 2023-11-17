@@ -1,6 +1,5 @@
 .history
 .idea/
-node_modules
 
 /dist/
 /ext/*.d.ts

@@ -31,8 +31,8 @@ Java.perform(function () {
 
 //java
 // trace_change()
-trace("com.appsflyer.internal.AFe1fSDK",'AFInAppEventParameterName')
-// trace("com.appsflyer.internal.AFe1fSDK")
+trace("android.providers.settings.SettingsProvider")
+// trace("com.appsflyer.internal.AFe1fSDK") 
 
 // setTimeout(trace,3000,'com.alibaba.minilibc.android.MtopMethodJniBridge')
 // all_java('com.alibaba.minilibc.android.MtopMethodJniBridge')
