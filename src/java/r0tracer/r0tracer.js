@@ -430,15 +430,14 @@ function hookALLappClasses(loader) {
             console.log("dexFile.getClassNameList.length:", classNameArr.length);
             console.log("r0ysue-Enumerate ClassName Start");
             for (var i = 0; i < classNameArr.length; i++) {
-                console.log("r0ysue  ", classNameArr[i]);
-                // if (classNameArr[i].indexOf("android.") < 0 &&
-                //     classNameArr[i].indexOf("androidx.") < 0 &&
-                //     classNameArr[i].indexOf("java.") < 0 &&
-                //     classNameArr[i].indexOf("javax.") < 0
-                // ) {
-                //     console.log("r0ysue  ", classNameArr[i]);
-                //     traceClass(classNameArr[i])
-                // }
+                if (classNameArr[i].indexOf("android.") < 0 &&
+                    classNameArr[i].indexOf("androidx.") < 0 &&
+                    classNameArr[i].indexOf("java.") < 0 &&
+                    classNameArr[i].indexOf("javax.") < 0
+                ) {
+                    console.log("r0ysue  ", classNameArr[i]);
+                    traceClass(classNameArr[i])
+                }
             }
             console.log("r0ysue-Enumerate ClassName End");
         }
@@ -450,14 +449,14 @@ function JavahookALL() {
     Java.enumerateClassLoaders({
         onMatch: function (loader) {
             try {
-                // if (loader.toString().indexOf("base.apk") >= 0 &&
-                //     loader.toString().indexOf(".jar") < 0) {
+                if (loader.toString().indexOf("base.apk") >= 0 &&
+                    loader.toString().indexOf(".jar") < 0) {
                     console.Red("Successfully found app specifec classloader")
                     console.Blue(loader);
                     Java.classFactory.loader = loader;
                     console.Red("Switch Classloader Successfully ! ")
                     hookALLappClasses(loader)
-                // }
+                }
             }
             catch (error) {
                 console.Red(" continuing :" + error)
@@ -484,7 +483,7 @@ function main() {
     // hook("com.uzmap.pkg.EntranceActivity", "$");
     // hook("ViewController","UI")
     //C. 报某个类找不到时，将某个类名填写到第三个参数，比如找不到com.roysue.check类。（前两个参数依旧是黑白名单）
-    hook("anet.channel.request.Request"," ","anet.channel.request.Request");    
+    hook("com.appsflyer.internal.AFb1zSDK"," ","com.appsflyer.internal.AFb1zSDK");    
     //D. 新增hookALL() 打开这个模式的情况下，会hook属于app自己的所有业务类，小型app可用 ，中大型app几乎会崩溃，经不起
     // hookALL()
 }
@@ -494,9 +493,9 @@ function main() {
 //在spawn模式下，hook系统API时如javax.crypto.Cipher建议使用setImmediate立即执行，不需要延时
 //在spawn模式下，hook应用自己的函数或含壳时，建议使用setTimeout并给出适当的延时(500~5000)
 */
-// setImmediate(main)
-
-setTimeout(main, 2000);
+setImmediate(main)
+//
+// setTimeout(main, 2000);
 
 
 // 玄之又玄，众妙之门

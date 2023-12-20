@@ -1,6 +1,6 @@
 //@ts-nocheck
 import { log } from "../utils/log.js";
-export function hook_dlopen(so_name,hook_func) {
+export function hook_dlopen(so_name,hook_func,args) {
     log('hook_dlopen')
     var android_dlopen_ext = Module.findExportByName(null, "android_dlopen_ext");
     if (android_dlopen_ext != null) {
@@ -14,7 +14,7 @@ export function hook_dlopen(so_name,hook_func) {
             },
             onLeave: function (retval) {
                 if (this.hook) 
-                    hook_func() ;
+                    hook_func(args) ;
             }
         });
     }

@@ -9,10 +9,13 @@ import {all_so} from "./so/all_so.js"
 import {so_info} from "./so/so_info.js"
 import {scan} from "./so/scan.js"
 import { init_array } from "./so/init_array.js"
-// import { hook_string } from "./java/stringBuilder.js"
+import { stalker,native_trace } from "./so/stalker.js"
+import { hook_string } from "./java/stringBuilder.js"
 import { hook_file } from "./java/file.js"
-import {findClass} from './java/findClass.js'
-import {all_java} from './java/all_java.js'
+import { native_print } from "./utils/log.js"
+
+// import {findClass} from './java/findClass.js'
+// import {all_java} from './java/all_java.js'
 Java.perform(function () {
 // import { one_instance } from "./java/one_instance.js"
 // import { encryption } from "./java/encryption.js"
@@ -20,19 +23,23 @@ Java.perform(function () {
 // import {anti_InMemoryDexClassLoader} from './java/anti_InMemoryDexClassLoader';
 
 // native层
-// so_method('libnative-lib.so')
+// so_method('libnativeLib.so')
 // setTimeout(all_so,5000)
 // so_info('libsscronet.so')
 // inline_hook('libOnLoad.so',0x9E0)
 // init_array()
 // scan()
-// all_so()
+// all_so(false)
 // hook_func('libc.so','openat')
+native_trace("libnativeLib.so",0x1208,0x14d);
+// native_print("libnativeLib.so",0x1208)
 
 //java
 // trace_change()
-trace("android.providers.settings.SettingsProvider")
-// trace("com.appsflyer.internal.AFe1fSDK") 
+// trace("android.security.net.config.Domain")
+// trace("java.util.HashMap",'get')
+// trace('com.appsflyer.internal.AFb1zSDK','AFInAppEventParameterName')
+// setTimeout(trace,1000,'com.appsflyer.internal.AFb1zSDK')
 
 // setTimeout(trace,3000,'com.alibaba.minilibc.android.MtopMethodJniBridge')
 // all_java('com.alibaba.minilibc.android.MtopMethodJniBridge')
@@ -52,4 +59,5 @@ trace("android.providers.settings.SettingsProvider")
 // hook_string()
 // encryption()
 // anti_InMemoryDexClassLoader()
-})
+
+}

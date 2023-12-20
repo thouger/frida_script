@@ -86,7 +86,5 @@ function hook_constructor() {
         })
     }
 }
-function main() {
-    hook_constructor();
-}
-setImmediate(main);
+
+setImmediate(hook_constructor);

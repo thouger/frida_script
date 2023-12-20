@@ -171,7 +171,9 @@ function traceMethod(targetMethod, unparseMethod) {
             output = output.concat("\n retval: " + retval + " => " + JSON.stringify(retval));
             output = output.concat("\n-------------------test---------------------\n")
             // 测试的地方
-
+            // var CopyOnWriteArrayList = Java.use('java.util.concurrent.CopyOnWriteArrayList');
+            // var val1 = Java.cast(retval, CopyOnWriteArrayList);
+            // console.log('CopyOnWriteArrayList values: ' + val1.toArray());
             //离开函数
             output = output.concat("\n ********* exiting " + targetMethod + '*********\n');
 
