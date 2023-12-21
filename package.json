@@ -17,8 +17,9 @@
     "/ext/*.js"
   ],
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w"
+    "prepare": "npm run build",
+    "build": "frida-compile src/index.ts -o _agent.js -c",
+    "watch": "frida-compile src/index.ts -o _agent.js -w"
   },
   "dependencies": {
     "@frida/assert": "^3.0.1",

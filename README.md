@@ -21,3 +21,4 @@ hash -r
 6. so_method.ts 输出所有 so 的方法
 7. all_java.ts 输出所有 java 的方法，包括隐藏的，真正解决一代壳加载的问题
 8. stalker.ts stalker函数输出所有调用与被调用的函数地址,native_trace函数输出一段内存所有寄存器变化的值
+9. 增加sktrace native层的trace

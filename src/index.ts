@@ -9,6 +9,7 @@ import {all_so} from "./so/all_so.js"
 import {so_info} from "./so/so_info.js"
 import {scan} from "./so/scan.js"
 import { init_array } from "./so/init_array.js"
+import { sktrace } from "./so/sktrace/sktrace.js"
 import { stalker,native_trace } from "./so/stalker.js"
 import { hook_string } from "./java/stringBuilder.js"
 import { hook_file } from "./java/file.js"
@@ -31,8 +32,9 @@ Java.perform(function () {
 // scan()
 // all_so(false)
 // hook_func('libc.so','openat')
-native_trace("libnativeLib.so",0x1208,0x14d);
+// native_trace("libnativeLib.so",0x1208,0x14d);
 // native_print("libnativeLib.so",0x1208)
+sktrace('libnativeLib.so')
 
 //java
 // trace_change()
@@ -60,4 +62,4 @@ native_trace("libnativeLib.so",0x1208,0x14d);
 // encryption()
 // anti_InMemoryDexClassLoader()
 
-}
+})
