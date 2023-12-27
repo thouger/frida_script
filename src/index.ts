@@ -34,14 +34,17 @@ Java.perform(function () {
 // hook_func('libc.so','openat')
 // native_trace("libnativeLib.so",0x1208,0x14d);
 // native_print("libnativeLib.so",0x1208)
-sktrace('libnativeLib.so')
+// sktrace('libnativeLib.so')
 
 //java
 // trace_change()
-// trace("android.security.net.config.Domain")
-// trace("java.util.HashMap",'get')
-// trace('com.appsflyer.internal.AFb1zSDK','AFInAppEventParameterName')
-// setTimeout(trace,1000,'com.appsflyer.internal.AFb1zSDK')
+// trace("dalvik.system.BaseDexClassLoader")
+// trace("java.lang.ClassLoader")
+// trace("android.content.Intent",'getIntExtra')
+// trace("android.hardware.SensorManager",'getSensorList')
+trace('com.appsflyer.internal.AFa1uSDK')
+// trace('com.appsflyer.internal.AFa1xSDK$AFa1zSDK$AFa1zSDK','AFInAppEventType')  
+// setTimeout(trace,1000,'com.appsflyer.internal.AFa1uSDK')
 
 // setTimeout(trace,3000,'com.alibaba.minilibc.android.MtopMethodJniBridge')
 // all_java('com.alibaba.minilibc.android.MtopMethodJniBridge')

@@ -152,6 +152,7 @@ function traceMethod(targetMethod, unparseMethod) {
                 output = output.concat("==");
             }
             output = output.concat("\n")
+            var retval = this[targetMethod].apply(this, arguments);
 
             //域值
             output = inspectObject(this, output);
@@ -165,15 +166,18 @@ function traceMethod(targetMethod, unparseMethod) {
             var stacktraceLog = stacktrace();
             output = output.concat(stacktraceLog);
             
-            var retval = this[targetMethod].apply(this, arguments);
-            // retval = ""
             // //返回值
             output = output.concat("\n retval: " + retval + " => " + JSON.stringify(retval));
             output = output.concat("\n-------------------test---------------------\n")
             // 测试的地方
-            // var CopyOnWriteArrayList = Java.use('java.util.concurrent.CopyOnWriteArrayList');
-            // var val1 = Java.cast(retval, CopyOnWriteArrayList);
-            // console.log('CopyOnWriteArrayList values: ' + val1.toArray());
+            // var change_class = Java.use('java.util.ArrayList');
+            // var val = Java.cast(retval, change_class);
+            // for (var i = 0; i < val.size(); i++) {
+            //     var val1 = val.get(i);
+            //     output = output.concat("\n val1: " + val1 + " => " + JSON.stringify(val1));
+            //     output = output.concat("\n")
+            // }
+            // console.log('CopyOnWriteArrayList values: ' + val.size());
             //离开函数
             output = output.concat("\n ********* exiting " + targetMethod + '*********\n');
 
@@ -213,7 +217,7 @@ export function _trace(targetClass, method) {
             output += "Tracing " + varructor.toString() + "\n";
         })
         //有时候hook构造函数会报错，看情况取消
-        methodsDict["$init"]='$init';
+        // methodsDict["$init"]='$init';
     }
     log(output);
 
@@ -225,6 +229,7 @@ export function _trace(targetClass, method) {
 }
 
 var BaseDexClassLoader = Java.use("dalvik.system.BaseDexClassLoader");
+var classloader = Java.use("java.lang.ClassLoader");
 var DexPathList = Java.use("dalvik.system.DexPathList");
 var DexFile = Java.use("dalvik.system.DexFile");
 var DexPathListElement = Java.use("dalvik.system.DexPathList$Element");
@@ -232,43 +237,60 @@ var DexPathListElement = Java.use("dalvik.system.DexPathList$Element");
 
 // 遍历所有类加载器并查找目标类
 function findClassesInClassLoader(loader, targetClass,targetMethod,trace) {
-    var pathClassLoader = Java.cast(loader, BaseDexClassLoader);
-    // log("ClassLoader pathList: " + pathClassLoader.pathList.value);
-    var dexPathList = Java.cast(pathClassLoader.pathList.value, DexPathList);
-    // log("ClassLoader dexElements: " + dexPathList.dexElements.value.length);
+    // var pathClassLoader = Java.cast(loader, BaseDexClassLoader);
+    // // log("ClassLoader pathList: " + pathClassLoader.pathList.value);
+    // var dexPathList = Java.cast(pathClassLoader.pathList.value, DexPathList);
+    // // log("ClassLoader dexElements: " + dexPathList.dexElements.value.length);
     
-    for (var i = 0; i < dexPathList.dexElements.value.length; i++) {
-        var dexPathListElement = Java.cast(dexPathList.dexElements.value[i], DexPathListElement);
-        if (dexPathListElement.dexFile.value) {
-            var dexFile = Java.cast(dexPathListElement.dexFile.value, DexFile);
-            var mCookie = dexFile.mCookie.value;
+    // for (var i = 0; i < dexPathList.dexElements.value.length; i++) {
+    //     var dexPathListElement = Java.cast(dexPathList.dexElements.value[i], DexPathListElement);
+    //     if (dexPathListElement.dexFile.value) {
+    //         var dexFile = Java.cast(dexPathListElement.dexFile.value, DexFile);
             
-            if (dexFile.mInternalCookie.value) {
-                mCookie = dexFile.mInternalCookie.value;
-            }
+    //         var mCookie = dexFile.mCookie.value;
             
-            var classNameArr = dexPathListElement.dexFile.value.getClassNameList(mCookie);
-            // log("dexFile.getClassNameList.length: " + classNameArr.length);
-            // log("Enumerate ClassName Start");
+    //         if (dexFile.mInternalCookie.value) {
+    //             mCookie = dexFile.mInternalCookie.value;
+    //         }
             
-            for (var i = 0; i < classNameArr.length; i++) {
-                var className = classNameArr[i];
-                if (className.includes(targetClass)) {
-                    log("Find class: " + className);
-                    if(trace){
-                        Java.classFactory.loader = loader;
-                        _trace(className,targetMethod)
-                    }
-                }
-            }
-        }
-    }
+    //         var classNameArr = dexPathListElement.dexFile.value.getClassNameList(mCookie);
+    //         // log("dexFile.getClassNameList.length: " + classNameArr.length);
+            
+    //         for (var i = 0; i < classNameArr.length; i++) {
+    //             var className = classNameArr[i];
+    //             if (className.includes(targetClass)) {
+    //                 log("Find class: " + className);
+    //                 if(trace){
+    //                     Java.classFactory.loader = loader;
+    //                     _trace(className,targetMethod)
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 }
 
 // 钩住所有的类加载器
 export function findAllJavaClasses(targetClass,targetMethod,trace) {
-    var overloadCount = BaseDexClassLoader["$init"].overloads.length;
     
+    // 第一种，通过加载资源文件的方式，例如：jar
+    var loadClass = classloader["loadClass"].overloads.length;
+    for (var i = 0; i < loadClass; i++) {
+        classloader["loadClass"].overloads[i].implementation = function () {
+            var retval = this["loadClass"].apply(this, arguments);
+            var className = arguments[0];
+            if (className.includes(targetClass)) {
+                log("Find class: " + className);
+                if(trace){
+                    enumerateClassLoaders(targetClass,targetMethod)
+                }
+            }
+            return retval;
+        }
+    }
+
+    // 第二种，通过热加载dex的方式
+    var overloadCount = BaseDexClassLoader["$init"].overloads.length;
     for (var i = 0; i < overloadCount; i++) {
         BaseDexClassLoader["$init"].overloads[i].implementation = function () {
             var retval = this["$init"].apply(this, arguments);
@@ -278,10 +300,7 @@ export function findAllJavaClasses(targetClass,targetMethod,trace) {
     }
 }
 
-
-export function trace(targetClass, targetMethod) {
-    findAllJavaClasses(targetClass,targetMethod,true);
-
+function enumerateClassLoaders(targetClass, targetMethod){
     Java.enumerateClassLoaders({
         onMatch: function (loader) {
             try {
@@ -324,4 +343,11 @@ export function trace(targetClass, targetMethod) {
         output = output.concat("\r\n");
     })
     log(output)
+}
+
+
+export function trace(targetClass, targetMethod) {
+    findAllJavaClasses(targetClass,targetMethod,true);
+
+    enumerateClassLoaders(targetClass, targetMethod);
 }

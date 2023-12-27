@@ -34,6 +34,11 @@ export function stacktrace(){
     return Java.use("android.util.Log").getStackTraceString(Java.use("java.lang.Throwable").$new())
 }
 
+export function hook_byte(byte){
+  var str = Java.use("java.lang.String").$new(arg1);
+  return  JSON.stringify(str);
+}
+
 export function print_hashmap(hashmap) {
   if (!hashmap) {
     console.log('Invalid hashmap');
