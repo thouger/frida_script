@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: frida-dexdump
+Version: 2.0.1
+Summary: Useful and fast android unpacker
+Home-page: https://github.com/hluwa/frida-dexdump
+Author: hluwa
+Author-email: hluwa888@gmail.com
+Keywords: frida android dexdump unpacker wallbreaker
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+License-File: LICENSE

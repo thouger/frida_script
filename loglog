@@ -1,0 +1,417 @@
+     ____
+    / _  |   Frida 16.1.3 - A world-class dynamic instrumentation toolkit
+   | (_| |
+    > _  |   Commands:
+   /_/ |_|       help      -> Displays the help system
+   . . . .       object?   -> Display information about 'object'
+   . . . .       exit/quit -> Exit
+   . . . .
+   . . . .   More info at https://frida.re/docs/home/
+   . . . .
+   . . . .   Connected to MI 6 (id=971dcf24)
+Spawning `com.intech.c66app`...
+Spawned `com.intech.c66app`. Resuming main thread!
+[MI 6::com.intech.c66app ]-> retval: com.google.firebase.installations.FirebaseInstallationsRegistrar@26e9f96
+arg1: 
+retval: com.google.firebase.datatransport.TransportRegistrar@e3ecdb3
+arg1: 
+retval: com.google.firebase.messaging.FirebaseMessagingRegistrar@4a222e9
+arg1: 
+retval: android.net.http.X509TrustManagerExtensions@ac35481
+arg1: android.security.net.config.RootTrustManager@5b07926
+retval: android.widget.LinearLayout{bc18554 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.SplashActivity@6a7d89d,android.content.res.XmlBlock$Parser@afd8cfd
+retval: android.view.ViewStub{7984df2 G.E...... ......I. 0,0-0,0 #1020194 android:id/action_mode_bar_stub}
+arg1: android.view.ContextThemeWrapper@ec51c43,android.content.res.XmlBlock$Parser@afd8cfd
+retval: android.widget.FrameLayout{75ba2c0 V.E...... ......I. 0,0-0,0 #1020002 android:id/content}
+arg1: com.intech.c66app.main.SplashActivity@6a7d89d,android.content.res.XmlBlock$Parser@afd8cfd
+retval: android.widget.FrameLayout{27309d8 V.E...... ......ID 0,0-0,0}
+arg1: com.intech.c66app.main.SplashActivity@6a7d89d,android.content.res.XmlBlock$Parser@d0b3131
+retval: androidx.appcompat.widget.AppCompatTextView{6cd5f25 V.ED..... ......ID 0,0-0,0 #7f0a0876 app:id/tvVersion}
+arg1: com.intech.c66app.main.SplashActivity@6a7d89d,android.content.res.XmlBlock$Parser@d0b3131
+retval: androidx.appcompat.widget.FitWindowsLinearLayout{1694ddd V.E...... ......I. 0,0-0,0 #7f0a004d app:id/action_bar_root}
+arg1: com.intech.c66app.main.SplashActivity@6a7d89d,android.content.res.XmlBlock$Parser@57dad52
+retval: androidx.appcompat.widget.ViewStubCompat{bdf823 G.E...... ......I. 0,0-0,0 #7f0a0058 app:id/action_mode_bar_stub}
+arg1: com.intech.c66app.main.SplashActivity@6a7d89d,android.content.res.XmlBlock$Parser@57dad52
+retval: androidx.appcompat.widget.ContentFrameLayout{531ead9 V.E...... ......I. 0,0-0,0 #7f0a004b app:id/action_bar_activity_content}
+arg1: com.intech.c66app.main.SplashActivity@6a7d89d,android.content.res.XmlBlock$Parser@8a54c9e
+retval: /data/user/0/com.intech.c66app/code_cache/. ​ ​  
+arg1: /data/user/0/com.intech.c66app/code_cache,. ​ ​  
+retval: /data/user/0/com.intech.c66app/code_cache/.    ​
+arg1: /data/user/0/com.intech.c66app/code_cache,.    ​
+retval: /data/user/0/com.intech.c66app/code_cache/.    
+arg1: /data/user/0/com.intech.c66app/code_cache,.    
+retval: /data/user/0/com.intech.c66app/code_cache/.  ​
+arg1: /data/user/0/com.intech.c66app/code_cache,.  ​
+retval: java.io.FileOutputStream@da08bb3
+arg1: /data/user/0/com.intech.c66app/code_cache/.  ​
+retval: java.io.DataInputStream@3e22791
+arg1: libcore.io.ClassPathURLStreamHandler$ClassPathURLConnection$1@a7f36f6
+retval: java.io.ByteArrayInputStream@32d8af7
+arg1: [B@cc59d64,16,7072
+retval: java.io.FileOutputStream@4e937c9
+arg1: /data/user/0/com.intech.c66app/code_cache/. ​ ​  
+retval: ivi.net.base.netlibrary.model.ResponseModel@87a03cf
+arg1: null
+retval: Head{cost=0.0, errCode='null', errMsg='null'}
+arg1: null
+retval: com.appsflyer.internal.AFa1zSDK$$@b302c65
+arg1: /data/user/0/com.intech.c66app/code_cache/. ​ ​  ,false
+retval: java.io.DataInputStream@73d0deb
+arg1: libcore.io.ClassPathURLStreamHandler$ClassPathURLConnection$1@dfeb748
+retval: java.io.ByteArrayInputStream@afc29e1
+arg1: [B@7269306,16,13000
+retval: java.io.FileOutputStream@8dc9dc7
+arg1: /data/user/0/com.intech.c66app/code_cache/.    ​
+retval: com.appsflyer.internal.AFa1zSDK$$@330831d
+arg1: /data/user/0/com.intech.c66app/code_cache/.    ​,false
+retval: android.widget.LinearLayout{21f3420 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@9eb21d9
+retval: android.view.ViewStub{443b79e G.E...... ......I. 0,0-0,0 #1020194 android:id/action_mode_bar_stub}
+arg1: android.view.ContextThemeWrapper@4fb827f,android.content.res.XmlBlock$Parser@9eb21d9
+retval: android.widget.FrameLayout{e13724c V.E...... ......I. 0,0-0,0 #1020002 android:id/content}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@9eb21d9
+retval: androidx.constraintlayout.widget.ConstraintLayout{63e3311 V.E...... ......I. 0,0-0,0 #7f0a0120 app:id/container}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c311c76
+retval: android.widget.FrameLayout{d94277 V.E...... ......I. 0,0-0,0 #7f0a023f app:id/fr_nav}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c311c76
+retval: android.widget.RelativeLayout{c41ef4d V.E...... ......I. 0,0-0,0 #7f0a0534 app:id/rl_container}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@18a8a02
+retval: android.widget.RelativeLayout{d958f13 V.E...... ......I. 0,0-0,0 #7f0a0062 app:id/add_rl}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@18a8a02
+retval: android.view.View{5f7e550 V.ED..... ......ID 0,0-0,0 #7f0a011a app:id/common_horizontal_line}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@18a8a02
+retval: android.widget.LinearLayout{e4b3349 V.E...... ......I. 0,0-0,0 #7f0a04a4 app:id/navigation_ll}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@18a8a02
+retval: android.view.View{31b444e V.ED..... ......I. 0,0-0,0 #7f0a017c app:id/empty_line}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@18a8a02
+retval: android.widget.LinearLayout{3c0096f G.E...... ......I. 0,0-0,0 #7f0a0063 app:id/add_view_ll}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@18a8a02
+retval: com.next.easynavigation.view.EasyNavigationBar{67e067c V.E...... ......I. 0,0-0,0 #7f0a049e app:id/navigationBar}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c311c76
+retval: com.aries.ui.view.radius.RadiusTextView{8e30e68 G.ED..... ......I. 0,0-0,0 #7f0a0932 app:id/tv_msg_count}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c311c76
+retval: android.widget.FrameLayout{3810281 V.E...... ......I. 0,0-0,0 #7f0a0237 app:id/fr_guid}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c311c76
+retval: androidx.appcompat.widget.FitWindowsLinearLayout{6e9b767 V.E...... ......I. 0,0-0,0 #7f0a004d app:id/action_bar_root}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@80ea914
+retval: androidx.appcompat.widget.ViewStubCompat{f3a45bd G.E...... ......I. 0,0-0,0 #7f0a0058 app:id/action_mode_bar_stub}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@80ea914
+retval: androidx.appcompat.widget.ContentFrameLayout{c506303 V.E...... ......I. 0,0-0,0 #7f0a004b app:id/action_bar_activity_content}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@3b74280
+retval: android.widget.RelativeLayout{9f17d4b V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@3016328
+retval: android.widget.LinearLayout{5e0b9a5 V.E...... ......ID 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@3dd817a
+retval: com.github.nukc.stateview.StateView{11f7d2b V.E...... ......I. 0,0-0,0 #7f0a0801 app:id/stateView}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@3dd817a
+retval: androidx.appcompat.widget.LinearLayoutCompat{ccd9588 V.E...... ......I. 0,0-0,0 #7f0a0405 app:id/ll_header}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@3dd817a
+retval: android.widget.RelativeLayout{6484b21 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@3dd817a
+retval: com.scwang.smart.refresh.layout.SmartRefreshLayout{323b46 V.E...... ......I. 0,0-0,0 #7f0a07e2 app:id/smart_refresh}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@3dd817a
+retval: android.widget.FrameLayout{196c107 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@3dd817a
+retval: androidx.core.widget.NestedScrollView{f3d785d VFED..... ......ID 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@3dd817a
+retval: androidx.appcompat.widget.LinearLayoutCompat{cc6c5d2 V.E...... ......ID 0,0-0,0 #7f0a0121 app:id/content}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@3dd817a
+retval: android.widget.RelativeLayout{35466a3 V.E...... ......I. 0,0-0,0 #7f0a054c app:id/rl_pendants}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@3dd817a
+retval: android.widget.LinearLayout{fbcc9ff V.E...... ......I. 0,0-0,0 #7f0a07f7 app:id/srl_classics_center}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@327e3cc
+retval: android.widget.RelativeLayout{d893e91 V.E...... ......ID 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@9a601f6
+retval: android.widget.RelativeLayout{a8bf9f7 V.E...... ......I. 0,0-0,0 #7f0a041c app:id/ll_no_login}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@9a601f6
+retval: androidx.appcompat.widget.AppCompatImageView{7f232cd V.ED..... ......ID 0,0-0,0 #7f0a0363 app:id/iv_logo}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@9a601f6
+retval: com.aries.ui.view.radius.RadiusTextView{5284782 V.ED..... ......I. 0,0-0,0 #7f0a00b5 app:id/btn_join}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@9a601f6
+retval: android.widget.RelativeLayout{87c3e93 G.E...... ......I. 0,0-0,0 #7f0a043c app:id/ll_userinfo}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@9a601f6
+retval: de.hdodenhof.circleimageview.CircleImageView{b7c2ec9 V.ED..... ......ID 0,0-0,0 #7f0a03b4 app:id/iv_user_head}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@9a601f6
+retval: androidx.appcompat.widget.LinearLayoutCompat{29759ce V.E...... ......I. 0,0-0,0 #7f0a043b app:id/ll_user}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@9a601f6
+retval: androidx.appcompat.widget.LinearLayoutCompat{51d7fc V.E...... ......I. 0,0-0,0 #7f0a0419 app:id/ll_money}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@9a601f6
+retval: android.widget.FrameLayout{6d344da V.E...... ......I. 0,0-0,0 #7f0a0240 app:id/fr_pushnotice}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@9a601f6
+retval: androidx.appcompat.widget.AppCompatTextView{2b0d4a6 G.ED..... ......I. 0,0-0,0 #7f0a0927 app:id/tv_message_count}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@9a601f6
+retval: com.aries.ui.view.radius.RadiusLinearLayout{4794ee7 V.E...... ......I. 0,0-0,0 #7f0a0571 app:id/rrl_deposit}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@9a601f6
+retval: android.widget.FrameLayout{d859532 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c01f283
+retval: android.widget.FrameLayout{90a5c00 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c01f283
+retval: com.github.nukc.stateview.StateView{9715c39 V.E...... ......I. 0,0-0,0 #7f0a0807 app:id/stateview}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c01f283
+retval: com.youth.banner.Banner{2e733df VFE...C.. ......I. 0,0-0,0 #7f0a007e app:id/banner}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c01f283
+retval: androidx.cardview.widget.CardView{b0282f5 V.E...... ......ID 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@276988a
+retval: android.widget.FrameLayout{269aee2 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@f148273
+retval: android.widget.LinearLayout{36cc530 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@f148273
+retval: androidx.recyclerview.widget.RecyclerView{c84c5a9 VFED..... ......I. 0,0-0,0 #7f0a0588 app:id/rv_game_kind}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@f148273
+retval: android.widget.FrameLayout{277d72e V.E...... ......I. 0,0-0,0 #7f0a0421 app:id/ll_pages}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@f148273
+retval: androidx.viewpager2.widget.ViewPager2{c2ad2cf V.E...... ......I. 0,0-0,0 #7f0a0a0c app:id/vp_game}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@f148273
+retval: com.github.nukc.stateview.StateView{591045c V.E...... ......I. 0,0-0,0 #7f0a0806 app:id/state_view}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@f148273
+retval: androidx.cardview.widget.CardView{93b1365 V.E...... ......ID 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@32e383a
+retval: android.widget.LinearLayout{8580a48 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c4e80e1
+retval: androidx.appcompat.widget.AppCompatTextView{7b79e06 V.ED..... ......ID 0,0-0,0 #7f0a09a5 app:id/tv_title1}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c4e80e1
+retval: androidx.appcompat.widget.AppCompatTextView{9f84cc7 V.ED..... ......ID 0,0-0,0 #7f0a08b1 app:id/tv_content1}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c4e80e1
+retval: androidx.appcompat.widget.AppCompatTextView{f0782f4 V.ED..... ......ID 0,0-0,0 #7f0a09a6 app:id/tv_title2}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c4e80e1
+retval: androidx.appcompat.widget.AppCompatTextView{cd14a1d V.ED..... ......ID 0,0-0,0 #7f0a08b2 app:id/tv_content2}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c4e80e1
+retval: androidx.appcompat.widget.AppCompatTextView{ca2ee63 V.ED..... ......ID 0,0-0,0 #7f0a09a7 app:id/tv_title3}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c4e80e1
+retval: androidx.appcompat.widget.AppCompatTextView{6bd6b19 V.ED..... ......ID 0,0-0,0 #7f0a08b3 app:id/tv_content3}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c4e80e1
+retval: ivi.net.base.netlibrary.model.ResponseModel@993da60
+arg1: null
+retval: Head{cost=0.0, errCode='null', errMsg='null'}
+arg1: null
+retval: androidx.appcompat.widget.LinearLayoutCompat{1b09fd5 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ca523ea
+retval: android.widget.RelativeLayout{da994b6 G.E...... ......I. 0,0-0,0 #7f0a054c app:id/rl_pendants}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ca523ea
+retval: ivi.net.base.netlibrary.model.ResponseModel@95c3653
+arg1: null
+retval: androidx.appcompat.widget.AppCompatImageView{c029b90 V.ED..... ........ 0,0-0,0 #7f0a037b app:id/iv_pendants}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ca523ea
+retval: Head{cost=0.0, errCode='null', errMsg='null'}
+arg1: null
+retval: androidx.appcompat.widget.AppCompatImageView{3a2848e V.ED..... ......I. 0,0-0,0 #7f0a0318 app:id/iv_close}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ca523ea
+retval: android.widget.RelativeLayout{469e4af G.E...... ......I. 0,0-0,0 #7f0a054d app:id/rl_pendants1}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ca523ea
+retval: androidx.appcompat.widget.AppCompatImageView{31de0bc V.ED..... ........ 0,0-0,0 #7f0a037c app:id/iv_pendants1}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ca523ea
+retval: androidx.appcompat.widget.AppCompatImageView{3465b9a V.ED..... ......I. 0,0-0,0 #7f0a0319 app:id/iv_close1}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ca523ea
+retval: ivi.net.base.netlibrary.model.ResponseModel@1fc08c0
+arg1: null
+retval: Head{cost=0.0, errCode='null', errMsg='null'}
+arg1: null
+retval: androidx.appcompat.widget.LinearLayoutCompat{603469b V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@5ca7a38
+retval: androidx.cardview.widget.CardView{7c34a11 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@5ca7a38
+retval: android.widget.FrameLayout{8dde776 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@5ca7a38
+retval: androidx.appcompat.widget.AppCompatImageView{8c901e4 V.ED..... ......ID 0,0-0,0 #7f0a02fc app:id/iv_ball}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@5ca7a38
+retval: com.hl.ui.widget.SmartTextView{681764d V.ED..... ......ID 0,0-0,0 #7f0a09c4 app:id/tv_wait_message}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@5ca7a38
+retval: android.widget.LinearLayout{9366f4e V.E...... ......I. 0,0-0,0}
+arg1: android.view.ContextThemeWrapper@3b90502,android.content.res.XmlBlock$Parser@66b586f
+retval: android.view.ViewStub{580a97c G.E...... ......I. 0,0-0,0 #1020194 android:id/action_mode_bar_stub}
+arg1: android.view.ContextThemeWrapper@d542205,android.content.res.XmlBlock$Parser@66b586f
+retval: android.widget.FrameLayout{40e325a V.E...... ......I. 0,0-0,0 #1020002 android:id/content}
+arg1: android.view.ContextThemeWrapper@3b90502,android.content.res.XmlBlock$Parser@66b586f
+retval: androidx.appcompat.widget.FitWindowsFrameLayout{6d1a26 V.E...... ......I. 0,0-0,0 #7f0a004d app:id/action_bar_root}
+arg1: android.view.ContextThemeWrapper@3b90502,android.content.res.XmlBlock$Parser@bcfe667
+retval: androidx.appcompat.widget.ContentFrameLayout{7e98cbd V.E...... ......I. 0,0-0,0 #7f0a004b app:id/action_bar_activity_content}
+arg1: android.view.ContextThemeWrapper@3b90502,android.content.res.XmlBlock$Parser@e80b2b2
+retval: androidx.appcompat.widget.ViewStubCompat{aea8203 G.E...... ......I. 0,0-0,0 #7f0a0058 app:id/action_mode_bar_stub}
+arg1: android.view.ContextThemeWrapper@3b90502,android.content.res.XmlBlock$Parser@bcfe667
+retval: android.net.http.X509TrustManagerExtensions@1c347fe
+arg1: android.security.net.config.RootTrustManager@5b07926
+retval: androidx.constraintlayout.widget.ConstraintLayout{34facae V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c1dba4f
+retval: androidx.recyclerview.widget.RecyclerView{f8695dc VFED..... ......I. 0,0-0,0 #7f0a059b app:id/rv_promos}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c1dba4f
+retval: android.widget.FrameLayout{21f06e5 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c1dba4f
+retval: com.github.nukc.stateview.StateView{56de5ba V.E...... ......I. 0,0-0,0 #7f0a0801 app:id/stateView}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c1dba4f
+retval: androidx.constraintlayout.widget.ConstraintLayout{b211ef8 V.E...... ......ID 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@59efd1
+retval: com.google.android.material.tabs.TabLayout{bc532a4 VFED..... ......ID 0,0-0,0 #7f0a081a app:id/tab_layout}
+arg1: android.view.ContextThemeWrapper@a02fa36,android.content.res.XmlBlock$Parser@59efd1
+retval: androidx.recyclerview.widget.RecyclerView{73cb80d VFED..... ......I. 0,0-0,0 #7f0a0594 app:id/rv_news}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@59efd1
+retval: com.github.nukc.stateview.StateView{bfc83c2 V.E...... ......I. 0,0-0,0 #7f0a0123 app:id/contentStateView}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@59efd1
+retval: android.widget.FrameLayout{4b565d3 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@59efd1
+retval: com.github.nukc.stateview.StateView{a74d510 V.E...... ......I. 0,0-0,0 #7f0a0801 app:id/stateView}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@59efd1
+retval: com.scwang.smart.refresh.layout.SmartRefreshLayout{a0668f7 V.E...... ......I. 0,0-0,0 #7f0a0513 app:id/refresh_layout}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.core.widget.NestedScrollView{33cc282 VFED..... ......ID 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.constraintlayout.widget.ConstraintLayout{d9c1fda V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: android.widget.RelativeLayout{32ed032 G.E...... ......ID 0,0-0,0 #7f0a03f3 app:id/ll_bingo_card}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: com.aries.ui.view.radius.RadiusTextView{2f5bd7e V.ED..... ......I. 0,0-0,0 #7f0a09bd app:id/tv_use_now}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatTextView{fd242df V.ED..... ......ID 0,0-0,0 #7f0a0906 app:id/tv_id}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatImageView{c71a9f5 V.ED..... ......ID 0,0-0,0 #7f0a0330 app:id/iv_copy_id}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatImageView{6ac338a G.ED..... ......I. 0,0-0,0 #7f0a039c app:id/iv_scan}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: com.hjq.bar.TitleBar{8d23e18 G.E...... ......ID 0,0-0,0 #7f0a0852 app:id/title_bar}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: de.hdodenhof.circleimageview.CircleImageView{efff071 V.ED..... ......ID 0,0-0,0 #7f0a03b4 app:id/iv_user_head}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatImageView{afbaed7 V.ED..... ......ID 0,0-0,0 #7f0a0354 app:id/iv_head_edit}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.LinearLayoutCompat{db923c4 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatTextView{7e26173 V.ED..... ......ID 0,0-0,0 #7f0a09c0 app:id/tv_user_name}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatImageView{f1b3ca9 G.ED..... ......I. 0,0-0,0 #7f0a0332 app:id/iv_customer_level}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatTextView{eca822e G.ED..... ......I. 0,0-0,0 #7f0a089e app:id/tv_bio}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.constraintlayout.widget.ConstraintLayout{457275c V.E...... ......I. 0,0-0,0 #7f0a00f8 app:id/cl_balance}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatTextView{441fa65 V.ED..... ......ID 0,0-0,0 #7f0a088c app:id/tv_balance_title}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: android.widget.LinearLayout{980933a V.E...... ......I. 0,0-0,0 #7f0a03f0 app:id/ll_banlance}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatTextView{1768beb V.ED..... ......ID 0,0-0,0 #7f0a088d app:id/tv_balance_unit}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatTextView{dd5d48 G.ED..... ......I. 0,0-0,0 #7f0a088e app:id/tv_balance_value}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: android.widget.LinearLayout{54a906 G.E...... ......I. 0,0-0,0 #7f0a03c2 app:id/lay_balance_withdrawable}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: android.widget.LinearLayout{2ffbc7 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatTextView{60f05f4 V.ED..... ......ID 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatTextView{6ee111d V.ED..... ......ID 0,0-0,0 #7f0a088f app:id/tv_balance_withdrawable}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: android.widget.LinearLayout{6024f92 G.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatTextView{268d63 V.ED..... ......ID 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatTextView{d108d60 V.ED..... ......ID 0,0-0,0 #7f0a088b app:id/tv_balance_promo_bonus}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: com.aries.ui.view.radius.RadiusRelativeLayout{35fa219 V.E...... ......I. 0,0-0,0 #7f0a053b app:id/rl_deposit}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatImageView{36a9cbf V.ED..... ......ID 0,0-0,0 #7f0a0335 app:id/iv_deposit}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatTextView{ae11f8c V.ED..... ......ID 0,0-0,0 #7f0a08cf app:id/tv_deposit}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: com.aries.ui.view.radius.RadiusRelativeLayout{bbf46d5 V.E...... ......I. 0,0-0,0 #7f0a0564 app:id/rl_withdraw}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatImageView{2b645db V.ED..... ......ID 0,0-0,0 #7f0a03b8 app:id/iv_withdraw}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: androidx.appcompat.widget.AppCompatTextView{346a878 V.ED..... ......ID 0,0-0,0 #7f0a09c7 app:id/tv_withdraw}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: android.widget.FrameLayout{13a7b51 V.E...... ......I. 0,0-0,0 #7f0a052e app:id/rl_bzj}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: com.aries.ui.view.radius.RadiusTextView{e4964b7 G.ED..... ......I. 0,0-0,0 #7f0a093e app:id/tv_notify_count}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@e79d424
+retval: android.widget.LinearLayout{5a7b8d V.E...... ......I. 0,0-0,0 #7f0a0429 app:id/ll_right}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@e79d424
+retval: android.view.View{b004389 G.ED..... ......I. 0,0-0,0 #7f0a09fb app:id/view_point}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@e79d424
+retval: com.hl.ui.widget.UserItemView{9b183bc V.E...... ......I. 0,0-0,0 #7f0a02c7 app:id/item_fund_account}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: com.aries.ui.view.radius.RadiusTextView{6208f45 G.ED..... ......I. 0,0-0,0 #7f0a093e app:id/tv_notify_count}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@be2369a
+retval: android.widget.LinearLayout{1105bcb V.E...... ......I. 0,0-0,0 #7f0a0429 app:id/ll_right}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@be2369a
+retval: android.view.View{9f11fa8 G.ED..... ......I. 0,0-0,0 #7f0a09fb app:id/view_point}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@be2369a
+retval: com.hl.ui.widget.UserItemView{d1d2266 V.E...... ......I. 0,0-0,0 #7f0a02e9 app:id/item_transaction}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: com.aries.ui.view.radius.RadiusTextView{6c6e9a7 G.ED..... ......I. 0,0-0,0 #7f0a093e app:id/tv_notify_count}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c0c8e54
+retval: android.widget.LinearLayout{dae61fd V.E...... ......I. 0,0-0,0 #7f0a0429 app:id/ll_right}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c0c8e54
+retval: android.view.View{bc8fef2 G.ED..... ......I. 0,0-0,0 #7f0a09fb app:id/view_point}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c0c8e54
+retval: com.hl.ui.widget.UserItemView{bce3bc0 V.E...... ......I. 0,0-0,0 #7f0a02e2 app:id/item_security}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: com.aries.ui.view.radius.RadiusTextView{38420f9 G.ED..... ......I. 0,0-0,0 #7f0a093e app:id/tv_notify_count}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ae4183e
+retval: android.widget.LinearLayout{75669f V.E...... ......I. 0,0-0,0 #7f0a0429 app:id/ll_right}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ae4183e
+retval: android.view.View{53b53ec G.ED..... ......I. 0,0-0,0 #7f0a09fb app:id/view_point}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ae4183e
+retval: com.hl.ui.widget.UserItemView{d057a4a G.E...... ......I. 0,0-0,0 #7f0a02cb app:id/item_help}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: com.aries.ui.view.radius.RadiusTextView{5d3cdbb G.ED..... ......I. 0,0-0,0 #7f0a093e app:id/tv_notify_count}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@d7fc2d8
+retval: android.widget.LinearLayout{7d3f631 V.E...... ......I. 0,0-0,0 #7f0a0429 app:id/ll_right}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@d7fc2d8
+retval: android.view.View{528f116 G.ED..... ......I. 0,0-0,0 #7f0a09fb app:id/view_point}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@d7fc2d8
+retval: com.hl.ui.widget.UserItemView{5c0c46d G.E...... ......I. 0,0-0,0 #7f0a02e1 app:id/item_refer}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: com.aries.ui.view.radius.RadiusTextView{83b08a2 G.ED..... ......I. 0,0-0,0 #7f0a093e app:id/tv_notify_count}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@d103933
+retval: android.widget.LinearLayout{1c814f0 V.E...... ......I. 0,0-0,0 #7f0a0429 app:id/ll_right}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@d103933
+retval: android.view.View{a323a69 G.ED..... ......I. 0,0-0,0 #7f0a09fb app:id/view_point}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@d103933
+retval: com.hl.ui.widget.UserItemView{b2b1425 V.E...... ......I. 0,0-0,0 #7f0a02d6 app:id/item_more}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@ec02364
+retval: android.widget.LinearLayout{21dcda1 V.E...... ......I. 0,0-0,0 #7f0a07f7 app:id/srl_classics_center}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@6ddcbc6
+retval: android.widget.RelativeLayout{375e6c4 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@51b29ad
+retval: android.widget.LinearLayout{c11a4e2 V.E...... ......I. 0,0-0,0 #7f0a042f app:id/ll_tab_content}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@51b29ad
+retval: android.view.View{f4cab30 G.ED..... ......I. 0,0-0,0 #7f0a0511 app:id/red_point}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@51b29ad
+retval: android.widget.RelativeLayout{da92d2e V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c6070cf
+retval: android.widget.LinearLayout{6894a5c V.E...... ......I. 0,0-0,0 #7f0a042f app:id/ll_tab_content}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c6070cf
+retval: android.view.View{c44e165 G.ED..... ......I. 0,0-0,0 #7f0a0511 app:id/red_point}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@c6070cf
+retval: android.widget.RelativeLayout{f1eee3a V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@79d4aeb
+retval: android.widget.LinearLayout{78eb048 V.E...... ......I. 0,0-0,0 #7f0a042f app:id/ll_tab_content}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@79d4aeb
+retval: android.view.View{1272ee1 G.ED..... ......I. 0,0-0,0 #7f0a0511 app:id/red_point}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@79d4aeb
+retval: android.widget.RelativeLayout{fdb406 V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@b83aac7
+retval: android.widget.LinearLayout{20288f4 V.E...... ......I. 0,0-0,0 #7f0a042f app:id/ll_tab_content}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@b83aac7
+retval: android.view.View{186d81d G.ED..... ......I. 0,0-0,0 #7f0a0511 app:id/red_point}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@b83aac7
+retval: androidx.cardview.widget.CardView{233028d V.E...... ......I. 0,0-0,0}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@8d3c42
+retval: android.widget.LinearLayout{18af453 V.E...... ......I. 0,0-0,0 #7f0a0407 app:id/ll_horizontal}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@8d3c42
+retval: android.widget.LinearLayout{f5a3a89 G.E...... ......I. 0,0-0,0 #7f0a043d app:id/ll_vertical}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@8d3c42
+retval: androidx.appcompat.widget.LinearLayoutCompat{ba2f645 V.E...... ......ID 0,0-0,0 #7f0a0514 app:id/refresh_overView}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@9ca119a
+retval: com.aries.ui.view.radius.RadiusTextView{dc7f2a8 V.ED..... ......ID 0,0-0,0 #7f0a0977 app:id/tv_reload}
+arg1: com.intech.c66app.main.MainActivity@60ec08,android.content.res.XmlBlock$Parser@9ca119a
+
+[MI 6::com.intech.c66app ]-> 
+[MI 6::com.intech.c66app ]-> 
+[MI 6::com.intech.c66app ]-> 
+[MI 6::com.intech.c66app ]-> 
+[MI 6::com.intech.c66app ]-> Failed to load script: could not parse '/src/java/trace.js' line 260: unexpected token in expression: ';'
+
+[MI 6::com.intech.c66app ]-> 
+[MI 6::com.intech.c66app ]-> 
+[MI 6::com.intech.c66app ]-> Process terminated
+
+Thank you for using Frida!

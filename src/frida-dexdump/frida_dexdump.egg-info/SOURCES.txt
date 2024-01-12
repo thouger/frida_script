@@ -1,0 +1,14 @@
+LICENSE
+README.md
+setup.py
+frida_dexdump/__init__.py
+frida_dexdump/__main__.py
+frida_dexdump/banner.py
+frida_dexdump.egg-info/PKG-INFO
+frida_dexdump.egg-info/SOURCES.txt
+frida_dexdump.egg-info/dependency_links.txt
+frida_dexdump.egg-info/entry_points.txt
+frida_dexdump.egg-info/requires.txt
+frida_dexdump.egg-info/top_level.txt
+frida_dexdump/agent/__init__.py
+frida_dexdump/agent/agent.js

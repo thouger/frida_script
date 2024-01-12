@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { log, print_hashmap, stacktrace } from "../utils/log.js";
+import { log, print_hashmap,print_byte, stacktrace } from "../utils/log.js";
 
 function hasOwnProperty(obj, name) {
     try {
@@ -170,13 +170,7 @@ function traceMethod(targetMethod, unparseMethod) {
             output = output.concat("\n retval: " + retval + " => " + JSON.stringify(retval));
             output = output.concat("\n-------------------test---------------------\n")
             // 测试的地方
-            // var change_class = Java.use('java.util.ArrayList');
-            // var val = Java.cast(retval, change_class);
-            // for (var i = 0; i < val.size(); i++) {
-            //     var val1 = val.get(i);
-            //     output = output.concat("\n val1: " + val1 + " => " + JSON.stringify(val1));
-            //     output = output.concat("\n")
-            // }
+            // output = output.concat(print_byte(arguments[0]));
             // console.log('CopyOnWriteArrayList values: ' + val.size());
             //离开函数
             output = output.concat("\n ********* exiting " + targetMethod + '*********\n');
@@ -193,12 +187,11 @@ function traceMethod(targetMethod, unparseMethod) {
 }
 
 export function _trace(targetClass, method) {
-    var output = "Tracing Class: " + targetClass + "\n";
+    var output = "Tracing Class: " + hook + "\n";
     var hook = Java.use(targetClass)
     var methods = hook.class.getDeclaredMethods()
     hook.$dispose();
     var methodsDict = {};
-    
     output += "\t\nSpec: => \n";
     methods.forEach(_method => {
         _method = _method.toString()
@@ -217,7 +210,7 @@ export function _trace(targetClass, method) {
             output += "Tracing " + varructor.toString() + "\n";
         })
         //有时候hook构造函数会报错，看情况取消
-        // methodsDict["$init"]='$init';
+        methodsDict["$init"]='$init';
     }
     log(output);
 
@@ -237,117 +230,174 @@ var DexPathListElement = Java.use("dalvik.system.DexPathList$Element");
 
 // 遍历所有类加载器并查找目标类
 function findClassesInClassLoader(loader, targetClass,targetMethod,trace) {
-    // var pathClassLoader = Java.cast(loader, BaseDexClassLoader);
-    // // log("ClassLoader pathList: " + pathClassLoader.pathList.value);
-    // var dexPathList = Java.cast(pathClassLoader.pathList.value, DexPathList);
-    // // log("ClassLoader dexElements: " + dexPathList.dexElements.value.length);
+    var pathClassLoader = Java.cast(loader, BaseDexClassLoader);
+    // log("ClassLoader pathList: " + pathClassLoader.pathList.value);
+    var dexPathList = Java.cast(pathClassLoader.pathList.value, DexPathList);
+    // log("ClassLoader dexElements: " + dexPathList.dexElements.value.length);
     
-    // for (var i = 0; i < dexPathList.dexElements.value.length; i++) {
-    //     var dexPathListElement = Java.cast(dexPathList.dexElements.value[i], DexPathListElement);
-    //     if (dexPathListElement.dexFile.value) {
-    //         var dexFile = Java.cast(dexPathListElement.dexFile.value, DexFile);
+    for (var i = 0; i < dexPathList.dexElements.value.length; i++) {
+        var dexPathListElement = Java.cast(dexPathList.dexElements.value[i], DexPathListElement);
+        if (dexPathListElement.dexFile.value) {
+            var dexFile = Java.cast(dexPathListElement.dexFile.value, DexFile);
             
-    //         var mCookie = dexFile.mCookie.value;
+            var mCookie = dexFile.mCookie.value;
             
-    //         if (dexFile.mInternalCookie.value) {
-    //             mCookie = dexFile.mInternalCookie.value;
-    //         }
+            if (dexFile.mInternalCookie.value) {
+                mCookie = dexFile.mInternalCookie.value;
+            }
             
-    //         var classNameArr = dexPathListElement.dexFile.value.getClassNameList(mCookie);
-    //         // log("dexFile.getClassNameList.length: " + classNameArr.length);
+            var classNameArr = dexPathListElement.dexFile.value.getClassNameList(mCookie);
+            // log("dexFile.getClassNameList.length: " + classNameArr.length);
             
-    //         for (var i = 0; i < classNameArr.length; i++) {
-    //             var className = classNameArr[i];
-    //             if (className.includes(targetClass)) {
-    //                 log("Find class: " + className);
-    //                 if(trace){
-    //                     Java.classFactory.loader = loader;
-    //                     _trace(className,targetMethod)
+            for (var i = 0; i < classNameArr.length; i++) {
+                var className = classNameArr[i];
+                if (className.includes(targetClass)) {
+                    log("Find class: " + className);
+                    if(trace){
+                        Java.classFactory.loader = loader;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 钩住所有的类加载器
+export function findAllJavaClasses(targetClass,targetMethod,is_trace) {
+
+    // // 第一种,不行，报错global reference table overflow,可以在返回值找到类，不能找到方法
+    // var loadClass = classloader["loadClass"].overloads.length;
+    // for (var i = 0; i < loadClass; i++) {
+    //     classloader["loadClass"].overloads[i].implementation = function () {
+    //         var retval = this["loadClass"].apply(this, arguments);
+    //         var className = arguments[0];
+    //         if (className.includes(targetClass)) {
+    //             log("Find class: " + className);
+    //             Java.classFactory.loader = this;
+    //             Java.enumerateLoadedClasses({
+    //                 onMatch: function (clazz) {
+    //                     if (clazz.toLowerCase() == targetClass.toLowerCase()) {
+    //                         log('find targetClass class: ' + clazz)
+
+
+    //                         var method;
+    //                         var output = "Tracing Class: " + targetClass + "\n";
+    //                         var methods = retval.getDeclaredMethods()
+    //                         var methodsDict = {};
+    //                         output += "\t\nSpec: => \n";
+    //                         methods.forEach(_method => {
+    //                             _method = _method.toString()
+                                
+    //                             output += _method + "\n";
+    //                             var parsedMethod = _method.replace(targetClass + ".", "TOKEN").match(/\sTOKEN(.*)\(/)[1];
+    //                             if (method && method.toLowerCase() !== parsedMethod.toLowerCase())
+    //                             return;
+    //                         methodsDict[_method] = parsedMethod;
+    //                         });
+                        
+    //                         //添加构造函数
+    //                         var varructors = retval.getDeclaredConstructors();
+    //                         if (varructors.length > 0) {
+    //                             varructors.forEach(function (varructor) {
+    //                                 output += "Tracing " + varructor.toString() + "\n";
+    //                             })
+    //                             //有时候hook构造函数会报错，看情况取消
+    //                             methodsDict["$init"]='$init';
+    //                         }
+    //                         log(output);
+                        
+    //                         //对数组中所有的方法进行hook，
+    //                         for (var unparseMethod in methodsDict) {
+    //                             var parsedMethod = methodsDict[unparseMethod];
+    //                             traceMethod(targetClass + "." + parsedMethod, unparseMethod);
+    //                         }
+
+    //                     }
+    //                 },
+    //                 onComplete: function () {
+    //                     log("Search Class Completed!")
     //                 }
-    //             }
+    //             });         
+    //          }
+    //         return retval;
+    //     }
+    // }
+
+    // jni指针错误
+    // var BaseDexClassLoader = Java.use("dalvik.system.BaseDexClassLoader");
+    // var loadClass = BaseDexClassLoader["findResource"].overloads.length;
+    // for (var i = 0; i < loadClass; i++) {
+    //     BaseDexClassLoader["findResource"].overloads[i].implementation = function () {
+    //         var retval = this["findResource"].apply(this, arguments);
+    //         if (arguments[0].includes("com/appsflyer/internal")) {
+    //             log("Find class: "); 
     //         }
+    //         return retval;
+    //     }
+    // }
+
+    // // // 第三种，通过热加载dex的方式
+    // var overloadCount = BaseDexClassLoader["$init"].overloads.length;
+    // for (var i = 0; i < overloadCount; i++) {
+    //     BaseDexClassLoader["$init"].overloads[i].implementation = function () {
+    //         var retval = this["$init"].apply(this, arguments);
+    //         findClassesInClassLoader(this, targetClass,targetMethod,trace);
+    //         return retval;
     //     }
     // }
 }
 
-// 钩住所有的类加载器
-export function findAllJavaClasses(targetClass,targetMethod,trace) {
-    
-    // 第一种，通过加载资源文件的方式，例如：jar
-    var loadClass = classloader["loadClass"].overloads.length;
-    for (var i = 0; i < loadClass; i++) {
-        classloader["loadClass"].overloads[i].implementation = function () {
-            var retval = this["loadClass"].apply(this, arguments);
-            var className = arguments[0];
-            if (className.includes(targetClass)) {
-                log("Find class: " + className);
-                if(trace){
-                    enumerateClassLoaders(targetClass,targetMethod)
-                }
-            }
-            return retval;
-        }
-    }
-
-    // 第二种，通过热加载dex的方式
-    var overloadCount = BaseDexClassLoader["$init"].overloads.length;
-    for (var i = 0; i < overloadCount; i++) {
-        BaseDexClassLoader["$init"].overloads[i].implementation = function () {
-            var retval = this["$init"].apply(this, arguments);
-            findClassesInClassLoader(this, targetClass,targetMethod,trace);
-            return retval;
-        }
-    }
-}
-
 function enumerateClassLoaders(targetClass, targetMethod){
-    Java.enumerateClassLoaders({
-        onMatch: function (loader) {
-            try {
-                console.log(loader)
-                if (loader.findClass(targetClass)) {
-                    // log("Successfully found loader")
-                    log(loader)
-                    Java.classFactory.loader = loader;
-                    // log("Switch Classloader Successfully ! ")
+    var find = false;
+    while (!find){
+        Java.enumerateClassLoaders({
+            onMatch: function (loader) {
+                try {
+                    if (loader.findClass(targetClass)) {
+                        log("Successfully found loader")
+                        // log(loader)
+                        Java.classFactory.loader = loader;
+                        log("Switch Classloader Successfully ! ")
+                    }
+                } catch (error) {
+                    // console.log('enumerateClassLoaders error: ' + error + '\n')
                 }
-            } catch (error) {
-                // console.log('enumerateClassLoaders error: ' + error + '\n')
+            },
+            onComplete: function () {
+                // log("EnumerateClassloader END")
             }
-        },
-        onComplete: function () {
-            // log("EnumerateClassloader END")
-        }
-    })
+        })
 
-    log('Begin enumerateClasses ...')
-    var targetClasses = new Array();
-    Java.enumerateLoadedClasses({
-        onMatch: function (clazz) {
-            // console.log(clazz)
-            if (clazz.toLowerCase().indexOf(targetClass.toLowerCase()) > -1) {
-                // if (clazz.toLowerCase() == targetClass.toLowerCase()) {
-                log('find targetClass class: ' + clazz)
-                targetClasses.push(clazz);
-                _trace(clazz,targetMethod);
+        log('Begin enumerateClasses ...')
+        var targetClasses = new Array();
+        Java.enumerateLoadedClasses({
+            onMatch: function (clazz) {
+                // console.log(clazz)
+                // if (clazz.toLowerCase().indexOf(targetClass.toLowerCase()) > -1) {
+                    if (clazz.toLowerCase() == targetClass.toLowerCase()) {
+                    log('find targetClass class: ' + clazz)
+                    find = true;
+                    targetClasses.push(clazz);
+                    _trace(clazz,targetMethod);
+                }
+            },
+            onComplete: function () {
+                log("Search Class Completed!")
             }
-        },
-        onComplete: function () {
-            log("Search Class Completed!")
-        }
-    });
+        });
 
-    var output = "On Total Tracing :" + String(targetClasses.length) + " classes :\r\n";
-    targetClasses.forEach(function (target) {
-        output = output.concat(target);
-        output = output.concat("\r\n");
-    })
-    log(output)
+        var output = "On Total Tracing :" + String(targetClasses.length) + " classes :\r\n";
+        targetClasses.forEach(function (target) {
+            output = output.concat(target);
+            output = output.concat("\r\n");
+        })
+        log(output)
+    }
 }
 
 
 export function trace(targetClass, targetMethod) {
-    findAllJavaClasses(targetClass,targetMethod,true);
+    // findAllJavaClasses(targetClass,targetMethod,true);
 
     enumerateClassLoaders(targetClass, targetMethod);
 }

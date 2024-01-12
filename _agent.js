@@ -1,6 +1,6 @@
 📦
-787 /src/index.js.map
-1989 /src/index.js
+797 /src/index.js.map
+2009 /src/index.js
 11 /src/index.d.ts
 43 /src/java/file.d.ts
 1010 /src/java/file.js.map
@@ -8,9 +8,9 @@
 45 /src/java/stringBuilder.d.ts
 824 /src/java/stringBuilder.js.map
 1440 /src/java/stringBuilder.js
-242 /src/java/trace.d.ts
-11088 /src/java/trace.js.map
-13533 /src/java/trace.js
+245 /src/java/trace.d.ts
+11741 /src/java/trace.js.map
+16222 /src/java/trace.js
 139 /src/java/trace_change.d.ts
 4621 /src/java/trace_change.js.map
 6558 /src/java/trace_change.js
@@ -44,11 +44,11 @@
 84 /src/so/utils.d.ts
 777 /src/so/utils.js.map
 695 /src/so/utils.js
-294 /src/utils/log.d.ts
-4083 /src/utils/log.js.map
-3694 /src/utils/log.js
+292 /src/utils/log.d.ts
+4057 /src/utils/log.js.map
+3679 /src/utils/log.js
 ✄
-{"version":3,"file":"index.js","sourceRoot":"/home/thouger/Desktop/code/frida_script/","sources":["src/index.ts"],"names":[],"mappings":"AAKA,OAAO,EAAC,KAAK,EAAC,MAAM,iBAAiB,CAAA;AAYrC,gDAAgD;AAChD,8CAA8C;AAC9C,IAAI,CAAC,OAAO,CAAC;IACb,wDAAwD;IACxD,oDAAoD;IACpD,kDAAkD;IAClD,kFAAkF;IAElF,UAAU;IACV,+BAA+B;IAC/B,0BAA0B;IAC1B,4BAA4B;IAC5B,oCAAoC;IACpC,eAAe;IACf,SAAS;IACT,gBAAgB;IAChB,gCAAgC;IAChC,gDAAgD;IAChD,yCAAyC;IACzC,6BAA6B;IAE7B,MAAM;IACN,iBAAiB;IACjB,4CAA4C;IAC5C,iCAAiC;IACjC,gDAAgD;IAChD,0DAA0D;IAC1D,KAAK,CAAC,iCAAiC,CAAC,CAAA;IACxC,kFAAkF;IAClF,2DAA2D;IAE3D,4EAA4E;IAC5E,+DAA+D;IAC/D,4BAA4B;IAC5B,gEAAgE;IAEhE,cAAc;IACd,2DAA2D;IAC3D,qCAAqC;IACrC,4CAA4C;IAE5C,6EAA6E;IAC7E,iBAAiB;IACjB,mCAAmC;IACnC,6CAA6C;IAC7C,4CAA4C;IAC5C,gBAAgB;IAChB,eAAe;IACf,gCAAgC;AAEhC,CAAC,CAAC,CAAA"}
+{"version":3,"file":"index.js","sourceRoot":"/home/thouger/Desktop/code/frida_script/","sources":["src/index.ts"],"names":[],"mappings":"AAKA,OAAO,EAAC,KAAK,EAAC,MAAM,iBAAiB,CAAA;AAYrC,gDAAgD;AAChD,8CAA8C;AAC9C,IAAI,CAAC,OAAO,CAAC;IACb,wDAAwD;IACxD,oDAAoD;IACpD,kDAAkD;IAClD,kFAAkF;IAElF,UAAU;IACV,+BAA+B;IAC/B,0BAA0B;IAC1B,4BAA4B;IAC5B,oCAAoC;IACpC,eAAe;IACf,SAAS;IACT,gBAAgB;IAChB,gCAAgC;IAChC,gDAAgD;IAChD,yCAAyC;IACzC,6BAA6B;IAE7B,MAAM;IACN,iBAAiB;IACjB,KAAK,CAAC,gCAAgC,EAAC,QAAQ,CAAC,CAAA;IAChD,4CAA4C;IAC5C,iCAAiC;IACjC,gDAAgD;IAChD,uEAAuE;IACvE,kFAAkF;IAClF,2CAA2C;IAC3C,2DAA2D;IAE3D,4EAA4E;IAC5E,+DAA+D;IAC/D,4BAA4B;IAC5B,gEAAgE;IAEhE,cAAc;IACd,2DAA2D;IAC3D,qCAAqC;IACrC,4CAA4C;IAE5C,6EAA6E;IAC7E,iBAAiB;IACjB,mCAAmC;IACnC,4CAA4C;IAC5C,gBAAgB;IAChB,eAAe;IACf,gCAAgC;AAEhC,CAAC,CAAC,CAAA"}
 ✄
 import { trace } from "./java/trace.js";
 // import {findClass} from './java/findClass.js'
@@ -72,13 +72,14 @@ Java.perform(function () {
     // sktrace('libnativeLib.so')
     //java
     // trace_change()
+    trace('com.cyjh.mobileanjian.vip.m.ab', 'isRoot');
     // trace("dalvik.system.BaseDexClassLoader")
-    // trace("java.lang.ClassLoader")
+    // trace('java.lang.ClassLoader')
     // trace("android.content.Intent",'getIntExtra')
-    // trace("android.hardware.SensorManager",'getSensorList')
-    trace('com.appsflyer.internal.AFa1uSDK');
+    // trace("libcore.io.ClassPathURLStreamHandler$ClassPathURLConnection")
     // trace('com.appsflyer.internal.AFa1xSDK$AFa1zSDK$AFa1zSDK','AFInAppEventType')  
-    // setTimeout(trace,1000,'com.appsflyer.internal.AFa1uSDK')
+    // trace('com.appsflyer.internal.AFa1ySDK')
+    // setTimeout(trace,1000,'com.appsflyer.internal.AFa1ySDK')
     // setTimeout(trace,3000,'com.alibaba.minilibc.android.MtopMethodJniBridge')
     // all_java('com.alibaba.minilibc.android.MtopMethodJniBridge')
     // setTimeout(all_java,5000)
@@ -90,7 +91,6 @@ Java.perform(function () {
     // setTimeout(trace,1000,'com.appsflyer.internal.AFa1xSDK$AFa1wSDK','values')
     // hook_hashmap()
     // trace('java.util.HashMap','put')
-    // trace('java.lang.ClassLoader','findClass')
     // trace('ava.lang.reflect.Method','invoke')
     // hook_string()
     // encryption()
@@ -172,11 +172,11 @@ export function hook_string() {
 // }
 ✄
 export declare function _trace(targetClass: any, method: any): void;
-export declare function findAllJavaClasses(targetClass: any, targetMethod: any, trace: any): void;
+export declare function findAllJavaClasses(targetClass: any, targetMethod: any, is_trace: any): void;
 export declare function trace(targetClass: any, targetMethod: any): void;
 
 ✄
-{"version":3,"file":"trace.js","sourceRoot":"/home/thouger/Desktop/code/frida_script/","sources":["src/java/trace.ts"],"names":[],"mappings":"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"}
+{"version":3,"file":"trace.js","sourceRoot":"/home/thouger/Desktop/code/frida_script/","sources":["src/java/trace.ts"],"names":[],"mappings":"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"}
 ✄
 //@ts-nocheck
 import { log, stacktrace } from "../utils/log.js";
@@ -340,13 +340,7 @@ function traceMethod(targetMethod, unparseMethod) {
             output = output.concat("\n retval: " + retval + " => " + JSON.stringify(retval));
             output = output.concat("\n-------------------test---------------------\n");
             // 测试的地方
-            // var change_class = Java.use('java.util.ArrayList');
-            // var val = Java.cast(retval, change_class);
-            // for (var i = 0; i < val.size(); i++) {
-            //     var val1 = val.get(i);
-            //     output = output.concat("\n val1: " + val1 + " => " + JSON.stringify(val1));
-            //     output = output.concat("\n")
-            // }
+            // output = output.concat(print_byte(arguments[0]));
             // console.log('CopyOnWriteArrayList values: ' + val.size());
             //离开函数
             output = output.concat("\n ********* exiting " + targetMethod + '*********\n');
@@ -361,7 +355,7 @@ function traceMethod(targetMethod, unparseMethod) {
     }
 }
 export function _trace(targetClass, method) {
-    var output = "Tracing Class: " + targetClass + "\n";
+    var output = "Tracing Class: " + hook + "\n";
     var hook = Java.use(targetClass);
     var methods = hook.class.getDeclaredMethods();
     hook.$dispose();
@@ -382,7 +376,7 @@ export function _trace(targetClass, method) {
             output += "Tracing " + varructor.toString() + "\n";
         });
         //有时候hook构造函数会报错，看情况取消
-        // methodsDict["$init"]='$init';
+        methodsDict["$init"] = '$init';
     }
     log(output);
     //对数组中所有的方法进行hook，
@@ -398,105 +392,155 @@ var DexFile = Java.use("dalvik.system.DexFile");
 var DexPathListElement = Java.use("dalvik.system.DexPathList$Element");
 // 遍历所有类加载器并查找目标类
 function findClassesInClassLoader(loader, targetClass, targetMethod, trace) {
-    // var pathClassLoader = Java.cast(loader, BaseDexClassLoader);
-    // // log("ClassLoader pathList: " + pathClassLoader.pathList.value);
-    // var dexPathList = Java.cast(pathClassLoader.pathList.value, DexPathList);
-    // // log("ClassLoader dexElements: " + dexPathList.dexElements.value.length);
-    // for (var i = 0; i < dexPathList.dexElements.value.length; i++) {
-    //     var dexPathListElement = Java.cast(dexPathList.dexElements.value[i], DexPathListElement);
-    //     if (dexPathListElement.dexFile.value) {
-    //         var dexFile = Java.cast(dexPathListElement.dexFile.value, DexFile);
-    //         var mCookie = dexFile.mCookie.value;
-    //         if (dexFile.mInternalCookie.value) {
-    //             mCookie = dexFile.mInternalCookie.value;
-    //         }
-    //         var classNameArr = dexPathListElement.dexFile.value.getClassNameList(mCookie);
-    //         // log("dexFile.getClassNameList.length: " + classNameArr.length);
-    //         for (var i = 0; i < classNameArr.length; i++) {
-    //             var className = classNameArr[i];
-    //             if (className.includes(targetClass)) {
-    //                 log("Find class: " + className);
-    //                 if(trace){
-    //                     Java.classFactory.loader = loader;
-    //                     _trace(className,targetMethod)
+    var pathClassLoader = Java.cast(loader, BaseDexClassLoader);
+    // log("ClassLoader pathList: " + pathClassLoader.pathList.value);
+    var dexPathList = Java.cast(pathClassLoader.pathList.value, DexPathList);
+    // log("ClassLoader dexElements: " + dexPathList.dexElements.value.length);
+    for (var i = 0; i < dexPathList.dexElements.value.length; i++) {
+        var dexPathListElement = Java.cast(dexPathList.dexElements.value[i], DexPathListElement);
+        if (dexPathListElement.dexFile.value) {
+            var dexFile = Java.cast(dexPathListElement.dexFile.value, DexFile);
+            var mCookie = dexFile.mCookie.value;
+            if (dexFile.mInternalCookie.value) {
+                mCookie = dexFile.mInternalCookie.value;
+            }
+            var classNameArr = dexPathListElement.dexFile.value.getClassNameList(mCookie);
+            // log("dexFile.getClassNameList.length: " + classNameArr.length);
+            for (var i = 0; i < classNameArr.length; i++) {
+                var className = classNameArr[i];
+                if (className.includes(targetClass)) {
+                    log("Find class: " + className);
+                    if (trace) {
+                        Java.classFactory.loader = loader;
+                    }
+                }
+            }
+        }
+    }
+}
+// 钩住所有的类加载器
+export function findAllJavaClasses(targetClass, targetMethod, is_trace) {
+    // // 第一种,不行，报错global reference table overflow,可以在返回值找到类，不能找到方法
+    // var loadClass = classloader["loadClass"].overloads.length;
+    // for (var i = 0; i < loadClass; i++) {
+    //     classloader["loadClass"].overloads[i].implementation = function () {
+    //         var retval = this["loadClass"].apply(this, arguments);
+    //         var className = arguments[0];
+    //         if (className.includes(targetClass)) {
+    //             log("Find class: " + className);
+    //             Java.classFactory.loader = this;
+    //             Java.enumerateLoadedClasses({
+    //                 onMatch: function (clazz) {
+    //                     if (clazz.toLowerCase() == targetClass.toLowerCase()) {
+    //                         log('find targetClass class: ' + clazz)
+    //                         var method;
+    //                         var output = "Tracing Class: " + targetClass + "\n";
+    //                         var methods = retval.getDeclaredMethods()
+    //                         var methodsDict = {};
+    //                         output += "\t\nSpec: => \n";
+    //                         methods.forEach(_method => {
+    //                             _method = _method.toString()
+    //                             output += _method + "\n";
+    //                             var parsedMethod = _method.replace(targetClass + ".", "TOKEN").match(/\sTOKEN(.*)\(/)[1];
+    //                             if (method && method.toLowerCase() !== parsedMethod.toLowerCase())
+    //                             return;
+    //                         methodsDict[_method] = parsedMethod;
+    //                         });
+    //                         //添加构造函数
+    //                         var varructors = retval.getDeclaredConstructors();
+    //                         if (varructors.length > 0) {
+    //                             varructors.forEach(function (varructor) {
+    //                                 output += "Tracing " + varructor.toString() + "\n";
+    //                             })
+    //                             //有时候hook构造函数会报错，看情况取消
+    //                             methodsDict["$init"]='$init';
+    //                         }
+    //                         log(output);
+    //                         //对数组中所有的方法进行hook，
+    //                         for (var unparseMethod in methodsDict) {
+    //                             var parsedMethod = methodsDict[unparseMethod];
+    //                             traceMethod(targetClass + "." + parsedMethod, unparseMethod);
+    //                         }
+    //                     }
+    //                 },
+    //                 onComplete: function () {
+    //                     log("Search Class Completed!")
     //                 }
-    //             }
+    //             });         
+    //          }
+    //         return retval;
+    //     }
+    // }
+    // jni指针错误
+    // var BaseDexClassLoader = Java.use("dalvik.system.BaseDexClassLoader");
+    // var loadClass = BaseDexClassLoader["findResource"].overloads.length;
+    // for (var i = 0; i < loadClass; i++) {
+    //     BaseDexClassLoader["findResource"].overloads[i].implementation = function () {
+    //         var retval = this["findResource"].apply(this, arguments);
+    //         if (arguments[0].includes("com/appsflyer/internal")) {
+    //             log("Find class: "); 
     //         }
+    //         return retval;
+    //     }
+    // }
+    // // // 第三种，通过热加载dex的方式
+    // var overloadCount = BaseDexClassLoader["$init"].overloads.length;
+    // for (var i = 0; i < overloadCount; i++) {
+    //     BaseDexClassLoader["$init"].overloads[i].implementation = function () {
+    //         var retval = this["$init"].apply(this, arguments);
+    //         findClassesInClassLoader(this, targetClass,targetMethod,trace);
+    //         return retval;
     //     }
     // }
 }
-// 钩住所有的类加载器
-export function findAllJavaClasses(targetClass, targetMethod, trace) {
-    // 第一种，通过加载资源文件的方式，例如：jar
-    var loadClass = classloader["loadClass"].overloads.length;
-    for (var i = 0; i < loadClass; i++) {
-        classloader["loadClass"].overloads[i].implementation = function () {
-            var retval = this["loadClass"].apply(this, arguments);
-            var className = arguments[0];
-            if (className.includes(targetClass)) {
-                log("Find class: " + className);
-                if (trace) {
-                    enumerateClassLoaders(targetClass, targetMethod);
-                }
-            }
-            return retval;
-        };
-    }
-    // 第二种，通过热加载dex的方式
-    var overloadCount = BaseDexClassLoader["$init"].overloads.length;
-    for (var i = 0; i < overloadCount; i++) {
-        BaseDexClassLoader["$init"].overloads[i].implementation = function () {
-            var retval = this["$init"].apply(this, arguments);
-            findClassesInClassLoader(this, targetClass, targetMethod, trace);
-            return retval;
-        };
-    }
-}
 function enumerateClassLoaders(targetClass, targetMethod) {
-    Java.enumerateClassLoaders({
-        onMatch: function (loader) {
-            try {
-                console.log(loader);
-                if (loader.findClass(targetClass)) {
-                    // log("Successfully found loader")
-                    log(loader);
-                    Java.classFactory.loader = loader;
-                    // log("Switch Classloader Successfully ! ")
+    var find = false;
+    while (!find) {
+        Java.enumerateClassLoaders({
+            onMatch: function (loader) {
+                try {
+                    if (loader.findClass(targetClass)) {
+                        log("Successfully found loader");
+                        // log(loader)
+                        Java.classFactory.loader = loader;
+                        log("Switch Classloader Successfully ! ");
+                    }
                 }
+                catch (error) {
+                    // console.log('enumerateClassLoaders error: ' + error + '\n')
+                }
+            },
+            onComplete: function () {
+                // log("EnumerateClassloader END")
             }
-            catch (error) {
-                // console.log('enumerateClassLoaders error: ' + error + '\n')
+        });
+        log('Begin enumerateClasses ...');
+        var targetClasses = new Array();
+        Java.enumerateLoadedClasses({
+            onMatch: function (clazz) {
+                // console.log(clazz)
+                // if (clazz.toLowerCase().indexOf(targetClass.toLowerCase()) > -1) {
+                if (clazz.toLowerCase() == targetClass.toLowerCase()) {
+                    log('find targetClass class: ' + clazz);
+                    find = true;
+                    targetClasses.push(clazz);
+                    _trace(clazz, targetMethod);
+                }
+            },
+            onComplete: function () {
+                log("Search Class Completed!");
             }
-        },
-        onComplete: function () {
-            // log("EnumerateClassloader END")
-        }
-    });
-    log('Begin enumerateClasses ...');
-    var targetClasses = new Array();
-    Java.enumerateLoadedClasses({
-        onMatch: function (clazz) {
-            // console.log(clazz)
-            if (clazz.toLowerCase().indexOf(targetClass.toLowerCase()) > -1) {
-                // if (clazz.toLowerCase() == targetClass.toLowerCase()) {
-                log('find targetClass class: ' + clazz);
-                targetClasses.push(clazz);
-                _trace(clazz, targetMethod);
-            }
-        },
-        onComplete: function () {
-            log("Search Class Completed!");
-        }
-    });
-    var output = "On Total Tracing :" + String(targetClasses.length) + " classes :\r\n";
-    targetClasses.forEach(function (target) {
-        output = output.concat(target);
-        output = output.concat("\r\n");
-    });
-    log(output);
+        });
+        var output = "On Total Tracing :" + String(targetClasses.length) + " classes :\r\n";
+        targetClasses.forEach(function (target) {
+            output = output.concat(target);
+            output = output.concat("\r\n");
+        });
+        log(output);
+    }
 }
 export function trace(targetClass, targetMethod) {
-    findAllJavaClasses(targetClass, targetMethod, true);
+    // findAllJavaClasses(targetClass,targetMethod,true);
     enumerateClassLoaders(targetClass, targetMethod);
 }
 ✄
@@ -1350,12 +1394,12 @@ export function hook_dlopen(so_name, hook_func, args) {
 ✄
 export declare function log(message: string): void;
 export declare function stacktrace(): any;
-export declare function hook_byte(byte: any): string;
+export declare function print_byte(byte: any): any;
 export declare function print_hashmap(hashmap: any): string | undefined;
 export declare function native_print(so_name: any, so_addr: any): void;
 
 ✄
-{"version":3,"file":"log.js","sourceRoot":"/home/thouger/Desktop/code/frida_script/","sources":["src/utils/log.ts"],"names":[],"mappings":"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"}
+{"version":3,"file":"log.js","sourceRoot":"/home/thouger/Desktop/code/frida_script/","sources":["src/utils/log.ts"],"names":[],"mappings":"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"}
 ✄
 // @ts-nocheck
 import { hook_dlopen } from "../so/utils.js";
@@ -1389,9 +1433,9 @@ export function log(message) {
 export function stacktrace() {
     return Java.use("android.util.Log").getStackTraceString(Java.use("java.lang.Throwable").$new());
 }
-export function hook_byte(byte) {
-    var str = Java.use("java.lang.String").$new(arg1);
-    return JSON.stringify(str);
+export function print_byte(byte) {
+    var str = Java.use("java.lang.String").$new(byte);
+    return str;
 }
 export function print_hashmap(hashmap) {
     if (!hashmap) {
