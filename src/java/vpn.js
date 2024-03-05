@@ -14,30 +14,30 @@ function main() {
             return gname;
         }
 
-//            Java.use("java.net.InetAddress").isLoopbackAddress.implementation = function(){
-//                var res = this.isLoopbackAddress()
-//                // var res1 = res.$new();
-//                // var res2 = res1.class.getDeclaredField("isLoopbackAddress")
-//                // res2.setAccessible(true)
-//                // //调用get()来获取值
-//                // var value = res2.get(res1);
-//                // console.log("res ==> ",value)
-//                console.log("res ==> ",res)
-//                return res;
-//             }
+           Java.use("java.net.InetAddress").isLoopbackAddress.implementation = function(){
+               var res = this.isLoopbackAddress()
+               var res1 = res.$new();
+               var res2 = res1.class.getDeclaredField("isLoopbackAddress")
+               res2.setAccessible(true)
+               //调用get()来获取值
+               var value = res2.get(res1);
+               console.log("res ==> ",value)
+               console.log("res ==> ",res)
+               return res;
+            }
 
-    //     Java.use("java.net.NetworkInterface").getInetAddresses.implementation = function(){
-    //         var res = this.getInetAddresses()
-    //         console.log("thouger ===>",res)
-    //         return res;
-    //    }
+        Java.use("java.net.NetworkInterface").getInetAddresses.implementation = function(){
+            var res = this.getInetAddresses()
+            console.log("thouger ===>",res)
+            return res;
+       }
 
-//              Java.use("android.net.ConnectivityManager").getNetworkCapabilities.implementation = function(v){
-//                  console.log(v)
-//                  var res = this.getNetworkCapabilities(v)
-// //                 console.log("res ==> ", res)
-//                  return null;
-//              }
+             Java.use("android.net.ConnectivityManager").getNetworkCapabilities.implementation = function(v){
+                 console.log(v)
+                 var res = this.getNetworkCapabilities(v)
+                console.log("res ==> ", res)
+                 return null;
+             }
      })
     }
 
@@ -49,17 +49,17 @@ function main() {
 //                        console.log("[GetStringUTFChars] result:" + bytes);
 //                        var threadef = Java.use('java.lang.Thread');
 //                        var threadinstance = threadef.$new();
-//
+
 //                        var stack = threadinstance.currentThread().getStackTrace();
 //                        console.log("Rc Full call stack:" + Where(stack));
-//
+
 //                        // Native 层 堆栈
 //                        console.log(Thread.backtrace(this.context, Backtracer.FUZZY)
 //                        .map(DebugSymbol.fromAddress).join("\n"))
-//
+
 //                    }
 //                }
-//
+
 //            }
 //        }
 //    });

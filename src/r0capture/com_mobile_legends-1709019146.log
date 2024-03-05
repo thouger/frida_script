@@ -1,0 +1,296 @@
+2024-02-27 15:32:29.409 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:29.410 | INFO     | __main__:on_message:233 - [HTTP_send] 1.1.1.1:44366 --> 240.0.0.22:30071
+2024-02-27 15:32:29.410 | INFO     | __main__:on_message:241 - .574,18589312|18589312|0|133|unity2017_launch_log|c932d1d0-f2f1-4a89-b10b-ed0acdee1b3e|0e76352fcb0597673bc1003665fdf010|080fd9745de90d95|and_usa&d3e17169-1ae3-4e85-83e5-5cd4bc620173|armeabi-v7a|MI 6&Xiaomi|nil|MobaGameMainActivity, onCreate, This is Repack IL2CPP version: 2010033|0||0|0|0|0|0|0|10|2019.4.33|2.01.0040||0|0|0|0|0|0|RepackIL2CPP|5c561677-4db3-4470-a6bb-47aedaeaec42|8|MobaGameMainActivityWithExtractor|28040-28040-2|a249b6e4-7f33-45bb-8d37-cba8962f87a5|5c561677-4db3-4470-a6bb-47aedaeaec42&d3e17169-1ae3-4e85-83e5-5cd4bc620173&15ea7df3-873d-4ffb-b1ce-196b21879304..........
+2024-02-27 15:32:29.410 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.moonton.sdk.SDKReportClient$SendReportThread.run(SDKReportClient.java:334)
+
+2024-02-27 15:32:29.518 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:29.518 | INFO     | __main__:on_message:233 - [HTTP_send] 1.1.1.1:44370 --> 240.0.0.22:30071
+2024-02-27 15:32:29.518 | INFO     | __main__:on_message:241 - .273,18589312|18589312|0|40|sdk_coldstartapp_elapsedtime_log|Main-InitGPMDone|2457600|5724|3492|c932d1d0-f2f1-4a89-b10b-ed0acdee1b3e|0e76352fcb0597673bc1003665fdf010|080fd9745de90d95|and_usa&d3e17169-1ae3-4e85-83e5-5cd4bc620173|armeabi-v7a|MI 6&Xiaomi|10|2019.4.33|2.01.0040|0|8..........
+2024-02-27 15:32:29.518 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.moba.unityplugin.SDKCommonReport$SendReportThread.run(SDKCommonReport.java:116)
+
+2024-02-27 15:32:29.542 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:29.543 | INFO     | __main__:on_message:233 - [HTTP_send] 1.1.1.1:44380 --> 240.0.0.22:30071
+2024-02-27 15:32:29.543 | INFO     | __main__:on_message:241 - .277,18589312|18589312|0|118|sdk_coldstartapp_elapsedtime_log|Main-InitReportDone|2457600|5724|3487|c932d1d0-f2f1-4a89-b10b-ed0acdee1b3e|0e76352fcb0597673bc1003665fdf010|080fd9745de90d95|and_usa&d3e17169-1ae3-4e85-83e5-5cd4bc620173|armeabi-v7a|MI 6&Xiaomi|10|2019.4.33|2.01.0040|0|8..........
+2024-02-27 15:32:29.543 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.moba.unityplugin.SDKCommonReport$SendReportThread.run(SDKCommonReport.java:116)
+
+2024-02-27 15:32:29.560 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:29.560 | INFO     | __main__:on_message:233 - [HTTP_send] 1.1.1.1:44390 --> 240.0.0.22:30071
+2024-02-27 15:32:29.560 | INFO     | __main__:on_message:241 - .278,18589312|18589312|0|135|sdk_coldstartapp_elapsedtime_log|Main-Load_il2cppDone|2457600|5724|3487|c932d1d0-f2f1-4a89-b10b-ed0acdee1b3e|0e76352fcb0597673bc1003665fdf010|080fd9745de90d95|and_usa&d3e17169-1ae3-4e85-83e5-5cd4bc620173|armeabi-v7a|MI 6&Xiaomi|10|2019.4.33|2.01.0040|0|8..........
+2024-02-27 15:32:29.560 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.moba.unityplugin.SDKCommonReport$SendReportThread.run(SDKCommonReport.java:116)
+
+2024-02-27 15:32:29.578 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:29.578 | INFO     | __main__:on_message:233 - [HTTP_send] 1.1.1.1:44396 --> 240.0.0.22:30071
+2024-02-27 15:32:29.578 | INFO     | __main__:on_message:241 - .285,18589312|18589312|0|182|sdk_coldstartapp_elapsedtime_log|Main-CheckAssetsAndFileDone|2457600|5724|3487|c932d1d0-f2f1-4a89-b10b-ed0acdee1b3e|0e76352fcb0597673bc1003665fdf010|080fd9745de90d95|and_usa&d3e17169-1ae3-4e85-83e5-5cd4bc620173|armeabi-v7a|MI 6&Xiaomi|10|2019.4.33|2.01.0040|0|8..........
+2024-02-27 15:32:29.578 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.moba.unityplugin.SDKCommonReport$SendReportThread.run(SDKCommonReport.java:116)
+
+2024-02-27 15:32:29.601 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:29.601 | INFO     | __main__:on_message:233 - [HTTP_send] 1.1.1.1:44402 --> 240.0.0.22:30071
+2024-02-27 15:32:29.602 | INFO     | __main__:on_message:241 - .283,18589312|18589312|0|184|sdk_coldstartapp_elapsedtime_log|Main-RenameUnityDataStart|2457600|5724|3487|c932d1d0-f2f1-4a89-b10b-ed0acdee1b3e|0e76352fcb0597673bc1003665fdf010|080fd9745de90d95|and_usa&d3e17169-1ae3-4e85-83e5-5cd4bc620173|armeabi-v7a|MI 6&Xiaomi|10|2019.4.33|2.01.0040|0|8..........
+2024-02-27 15:32:29.602 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.moba.unityplugin.SDKCommonReport$SendReportThread.run(SDKCommonReport.java:116)
+
+2024-02-27 15:32:29.616 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:29.616 | INFO     | __main__:on_message:233 - [HTTP_send] 1.1.1.1:44406 --> 240.0.0.22:30071
+2024-02-27 15:32:29.616 | INFO     | __main__:on_message:241 - .282,18589312|18589312|0|341|sdk_coldstartapp_elapsedtime_log|Main-RenameUnityDataDone|2457600|5724|3485|c932d1d0-f2f1-4a89-b10b-ed0acdee1b3e|0e76352fcb0597673bc1003665fdf010|080fd9745de90d95|and_usa&d3e17169-1ae3-4e85-83e5-5cd4bc620173|armeabi-v7a|MI 6&Xiaomi|10|2019.4.33|2.01.0040|0|8..........
+2024-02-27 15:32:29.616 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.moba.unityplugin.SDKCommonReport$SendReportThread.run(SDKCommonReport.java:116)
+
+2024-02-27 15:32:29.627 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:29.628 | INFO     | __main__:on_message:233 - [HTTP_send] 1.1.1.1:44408 --> 240.0.0.22:30071
+2024-02-27 15:32:29.628 | INFO     | __main__:on_message:241 - .277,18589312|18589312|0|342|sdk_coldstartapp_elapsedtime_log|Main-LoadDexFromAPK|2457600|5724|3485|c932d1d0-f2f1-4a89-b10b-ed0acdee1b3e|0e76352fcb0597673bc1003665fdf010|080fd9745de90d95|and_usa&d3e17169-1ae3-4e85-83e5-5cd4bc620173|armeabi-v7a|MI 6&Xiaomi|10|2019.4.33|2.01.0040|0|8..........
+2024-02-27 15:32:29.628 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.moba.unityplugin.SDKCommonReport$SendReportThread.run(SDKCommonReport.java:116)
+
+2024-02-27 15:32:29.641 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:29.641 | INFO     | __main__:on_message:233 - [HTTP_send] 1.1.1.1:44414 --> 240.0.0.22:30071
+2024-02-27 15:32:29.641 | INFO     | __main__:on_message:241 - .281,18589312|18589312|0|346|sdk_coldstartapp_elapsedtime_log|Main-StartUnityActivity|2457600|5724|3485|c932d1d0-f2f1-4a89-b10b-ed0acdee1b3e|0e76352fcb0597673bc1003665fdf010|080fd9745de90d95|and_usa&d3e17169-1ae3-4e85-83e5-5cd4bc620173|armeabi-v7a|MI 6&Xiaomi|10|2019.4.33|2.01.0040|0|8..........
+2024-02-27 15:32:29.641 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:117)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:149)
+	at com.moba.unityplugin.SDKCommonReport$SendReportThread.run(SDKCommonReport.java:116)
+
+2024-02-27 15:32:32.231 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:32.232 | INFO     | __main__:on_message:233 - [SSL_write] 1.1.1.1:48884 --> 240.0.0.23:443
+2024-02-27 15:32:32.232 | INFO     | __main__:on_message:241 - PRI * HTTP/2.0....SM....
+2024-02-27 15:32:32.232 | INFO     | __main__:on_message:242 - None
+2024-02-27 15:32:32.232 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:32.232 | INFO     | __main__:on_message:233 - [SSL_write] 1.1.1.1:48884 --> 240.0.0.23:443
+2024-02-27 15:32:32.232 | INFO     | __main__:on_message:241 - ...............
+2024-02-27 15:32:32.232 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at com.android.org.conscrypt.ConscryptFileDescriptorSocket$SSLOutputStream.write(Native Method)
+	at okio.OutputStreamSink.write(JvmOkio.kt:53)
+	at okio.AsyncTimeout$sink$1.write(AsyncTimeout.kt:103)
+	at okio.RealBufferedSink.flush(RealBufferedSink.kt:247)
+	at okhttp3.internal.http2.Http2Writer.connectionPreface(Http2Writer.kt:62)
+	at okhttp3.internal.http2.Http2Connection.start(Http2Connection.kt:497)
+	at okhttp3.internal.http2.Http2Connection.start$default(Http2Connection.kt:495)
+	at okhttp3.internal.connection.RealConnection.startHttp2(RealConnection.kt:346)
+	at okhttp3.internal.connection.RealConnection.establishProtocol(RealConnection.kt:329)
+	at okhttp3.internal.connection.RealConnection.connect(RealConnection.kt:197)
+	at okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.kt:249)
+	at okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.kt:108)
+	at okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.kt:76)
+	at okhttp3.internal.connection.RealCall.initExchange$okhttp(RealCall.kt:245)
+	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:32)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:100)
+	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:82)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:100)
+	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:100)
+	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:100)
+	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:197)
+	at okhttp3.internal.connection.RealCall.execute(RealCall.kt:148)
+	at gsdk.impl.crash.isolate.b.post(DefaultOkHttpClient.kt:121)
+	at com.ss.android.common.applog.NetUtil.sendEncryptLog(NetUtil.java:544)
+	at com.ss.android.common.applog.LogReaper.sendLog(LogReaper.java:419)
+	at com.ss.android.common.applog.LogReaper.sendBatchLog(LogReaper.java:782)
+	at com.ss.android.common.applog.LogReaper.switchSession(LogReaper.java:273)
+	at com.ss.android.common.applog.LogReaper.switchSession(LogReaper.java:190)
+	at com.ss.android.common.applog.LogReaper.processItem(LogReaper.java:125)
+	at com.ss.android.common.applog.LogReaper.run(LogReaper.java:689)
+
+2024-02-27 15:32:32.233 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:32.233 | INFO     | __main__:on_message:233 - [SSL_write] 1.1.1.1:48884 --> 240.0.0.23:443
+2024-02-27 15:32:32.233 | INFO     | __main__:on_message:241 - .............
+2024-02-27 15:32:32.233 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at com.android.org.conscrypt.ConscryptFileDescriptorSocket$SSLOutputStream.write(Native Method)
+	at okio.OutputStreamSink.write(JvmOkio.kt:53)
+	at okio.AsyncTimeout$sink$1.write(AsyncTimeout.kt:103)
+	at okio.RealBufferedSink.flush(RealBufferedSink.kt:247)
+	at okhttp3.internal.http2.Http2Writer.settings(Http2Writer.kt:189)
+	at okhttp3.internal.http2.Http2Connection.start(Http2Connection.kt:498)
+	at okhttp3.internal.http2.Http2Connection.start$default(Http2Connection.kt:495)
+	at okhttp3.internal.connection.RealConnection.startHttp2(RealConnection.kt:346)
+	at okhttp3.internal.connection.RealConnection.establishProtocol(RealConnection.kt:329)
+	at okhttp3.internal.connection.RealConnection.connect(RealConnection.kt:197)
+	at okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.kt:249)
+	at okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.kt:108)
+	at okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.kt:76)
+	at okhttp3.internal.connection.RealCall.initExchange$okhttp(RealCall.kt:245)
+	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:32)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:100)
+	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:82)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:100)
+	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:100)
+	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:100)
+	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:197)
+	at okhttp3.internal.connection.RealCall.execute(RealCall.kt:148)
+	at gsdk.impl.crash.isolate.b.post(DefaultOkHttpClient.kt:121)
+	at com.ss.android.common.applog.NetUtil.sendEncryptLog(NetUtil.java:544)
+	at com.ss.android.common.applog.LogReaper.sendLog(LogReaper.java:419)
+	at com.ss.android.common.applog.LogReaper.sendBatchLog(LogReaper.java:782)
+	at com.ss.android.common.applog.LogReaper.switchSession(LogReaper.java:273)
+	at com.ss.android.common.applog.LogReaper.switchSession(LogReaper.java:190)
+	at com.ss.android.common.applog.LogReaper.processItem(LogReaper.java:125)
+	at com.ss.android.common.applog.LogReaper.run(LogReaper.java:689)
+
+2024-02-27 15:32:32.245 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:32.245 | INFO     | __main__:on_message:233 - [SSL_write] 1.1.1.1:48884 --> 240.0.0.23:443
+2024-02-27 15:32:32.245 | INFO     | __main__:on_message:241 - ............a....V....*.3..r.....y..^m....$/s..W@.)....%.4.....X.$......i...b..k.f...t?.4.:.@.....u..u...Jb.i..A...-.k..%..u\..._..u.b.&=L..*VBl(..JV.i..\.886P....z.?Y...iv....v......tc....2k..].....pz....h....,.t/....l.e_)B....L.O.1.b.Crj.g..9.F().Z?.6....T....z....P..d.f..T.F....'.4.S..C...5...4FV..yu....(J.U.L..n.>|.).!...o\a..........>.I.\..^w@.I#..}rJ...].....CxF.\...&.1.J.... .......G.n..Z..Am.....hb...Ff....L.i........@.....p.i|`.<.,..0fu.W....$~....!.+/.5(.7V.v.N.`.........._....M1u..1...}..8.....H........sP1W..{e....&.;/.v....+.n..@a.......V0...Uc...a0,g;.....(..P^."......(p...l@...n~$....t.......e.....#&*a.u3-.-.4._oTE.<.0t.s.kwOc.XtW....;_+..m...i.M..GW....^..............y......D.......0.0^.>....a%.1...WF..j.#....$.........cz.)3....e|.....$.<.-3....1].....z@...x.".k.<. .H_..[a.v!8|..]j.}....Z...W.UjHD...Mh!.8.....xl......ia:..r:.....,...=0.......h.-..F....Z.._..j.......~........(RV.E.({...7...[s.....1{.n.69:.....x......0.....X.ab..y.iM..X..Q...~6..S.ogw..:r...da.M]...`/..?A.a.............n.-C..1.q..g...P.#d...I..m"........u.....L.v.L_.v+...V.
+2024-02-27 15:32:32.245 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at com.android.org.conscrypt.ConscryptFileDescriptorSocket$SSLOutputStream.write(Native Method)
+	at okio.OutputStreamSink.write(JvmOkio.kt:53)
+	at okio.AsyncTimeout$sink$1.write(AsyncTimeout.kt:103)
+	at okio.RealBufferedSink.flush(RealBufferedSink.kt:247)
+	at okhttp3.internal.http2.Http2Writer.windowUpdate(Http2Writer.kt:253)
+	at okhttp3.internal.http2.Http2Connection.start(Http2Connection.kt:501)
+	at okhttp3.internal.http2.Http2Connection.start$default(Http2Connection.kt:495)
+	at okhttp3.internal.connection.RealConnection.startHttp2(RealConnection.kt:346)
+	at okhttp3.internal.connection.RealConnection.establishProtocol(RealConnection.kt:329)
+	at okhttp3.internal.connection.RealConnection.connect(RealConnection.kt:197)
+	at okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.kt:249)
+	at okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.kt:108)
+	at okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.kt:76)
+	at okhttp3.internal.connection.RealCall.initExchange$okhttp(RealCall.kt:245)
+	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:32)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:100)
+	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:82)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:100)
+	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:100)
+	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:100)
+	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:197)
+	at okhttp3.internal.connection.RealCall.execute(RealCall.kt:148)
+	at gsdk.impl.crash.isolate.b.post(DefaultOkHttpClient.kt:121)
+	at com.ss.android.common.applog.NetUtil.sendEncryptLog(NetUtil.java:544)
+	at com.ss.android.common.applog.LogReaper.sendLog(LogReaper.java:419)
+	at com.ss.android.common.applog.LogReaper.sendBatchLog(LogReaper.java:782)
+	at com.ss.android.common.applog.LogReaper.switchSession(LogReaper.java:273)
+	at com.ss.android.common.applog.LogReaper.switchSession(LogReaper.java:190)
+	at com.ss.android.common.applog.LogReaper.processItem(LogReaper.java:125)
+	at com.ss.android.common.applog.LogReaper.run(LogReaper.java:689)
+
+2024-02-27 15:32:32.924 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:32.924 | INFO     | __main__:on_message:233 - [SSL_read] 240.0.0.23:443 --> 1.1.1.1:48884
+2024-02-27 15:32:32.925 | INFO     | __main__:on_message:241 - ....................d..........@.......
+2024-02-27 15:32:32.925 | INFO     | __main__:on_message:242 - None
+2024-02-27 15:32:32.933 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:32.933 | INFO     | __main__:on_message:233 - [SSL_read] 240.0.0.23:443 --> 1.1.1.1:48884
+2024-02-27 15:32:32.933 | INFO     | __main__:on_message:241 - .........
+2024-02-27 15:32:32.933 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at com.android.org.conscrypt.ConscryptFileDescriptorSocket$SSLInputStream.read(Native Method)
+	at okio.InputStreamSource.read(JvmOkio.kt:90)
+	at okio.AsyncTimeout$source$1.read(AsyncTimeout.kt:129)
+	at okio.RealBufferedSource.request(RealBufferedSource.kt:207)
+	at okio.RealBufferedSource.require(RealBufferedSource.kt:201)
+	at okhttp3.internal.http2.Http2Reader.nextFrame(Http2Reader.kt:88)
+	at okhttp3.internal.http2.Http2Reader.readConnectionPreface(Http2Reader.kt:72)
+	at okhttp3.internal.http2.Http2Connection$ReaderRunnable.invoke(Http2Connection.kt:617)
+	at okhttp3.internal.http2.Http2Connection$ReaderRunnable.invoke(Http2Connection.kt:609)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:98)
+	at okhttp3.internal.concurrent.TaskRunner.runTask(TaskRunner.kt:116)
+	at okhttp3.internal.concurrent.TaskRunner.access$runTask(TaskRunner.kt:42)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+	at java.lang.Thread.run(Thread.java:919)
+
+2024-02-27 15:32:32.937 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:32.937 | INFO     | __main__:on_message:233 - [SSL_write] 1.1.1.1:48884 --> 240.0.0.23:443
+2024-02-27 15:32:32.937 | INFO     | __main__:on_message:241 - .........
+2024-02-27 15:32:32.937 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at com.android.org.conscrypt.ConscryptFileDescriptorSocket$SSLOutputStream.write(Native Method)
+	at okio.OutputStreamSink.write(JvmOkio.kt:53)
+	at okio.AsyncTimeout$sink$1.write(AsyncTimeout.kt:103)
+	at okio.RealBufferedSink.flush(RealBufferedSink.kt:247)
+	at okhttp3.internal.http2.Http2Writer.flush(Http2Writer.kt:120)
+	at okhttp3.internal.http2.Http2Connection.flush(Http2Connection.kt:408)
+	at okhttp3.internal.http2.Http2Stream$FramingSink.close(Http2Stream.kt:626)
+	at okio.ForwardingSink.close(ForwardingSink.kt:37)
+	at okhttp3.internal.connection.Exchange$RequestBodySink.close(Exchange.kt:242)
+	at okio.RealBufferedSink.close(RealBufferedSink.kt:268)
+	at okhttp3.internal.http.CallServerInterceptor.intercept(CallServerInterceptor.kt:60)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:100)
+	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:34)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:100)
+	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:82)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:100)
+	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:100)
+	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:100)
+	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:197)
+	at okhttp3.internal.connection.RealCall.execute(RealCall.kt:148)
+	at gsdk.impl.crash.isolate.b.post(DefaultOkHttpClient.kt:121)
+	at com.ss.android.common.applog.NetUtil.sendEncryptLog(NetUtil.java:544)
+	at com.ss.android.common.applog.LogReaper.sendLog(LogReaper.java:419)
+	at com.ss.android.common.applog.LogReaper.sendBatchLog(LogReaper.java:782)
+	at com.ss.android.common.applog.LogReaper.switchSession(LogReaper.java:273)
+	at com.ss.android.common.applog.LogReaper.switchSession(LogReaper.java:190)
+	at com.ss.android.common.applog.LogReaper.processItem(LogReaper.java:125)
+	at com.ss.android.common.applog.LogReaper.run(LogReaper.java:689)
+
+2024-02-27 15:32:32.943 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:32.943 | INFO     | __main__:on_message:233 - [SSL_read] 240.0.0.23:443 --> 1.1.1.1:48884
+2024-02-27 15:32:32.944 | INFO     | __main__:on_message:241 - .._..............u.b.&=LtA..P....0Z.V{...71....R..........'@."d,.z..Y.}.\z.W...?..Al.[.I.5S..5U...$.......R.l....B....DP8'^.-..#!..4..t.$.......-.......:.1.A.......D....I$..q. ^..@..!FW$+....J.%.......G$....6.u.@Q...|.jF.~V..d.o.....#.y.D.D....O. .o4 ..?....R.l........@..........ag...q.._t7..... .}.p..X.X..'.TLB....i~...a,j..i@;q.\dJb......~V....JTu.2N_.*:.I./.....H.....d......i~...a,j..i@;q.\dJb.......I...{\Z2n.......k..X,.../!k....Q.3$....y.T.C....Q.3b.t%..v.........j.K......R.l...G7.4....IR..',....O.......Al.[.I.5S..$.,A.r..!PH4d...B.1~... k.C.i.W..[d.......4..k...R..MI..}...\ ..e..{........k....+.O....l..
+2024-02-27 15:32:32.944 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at com.android.org.conscrypt.ConscryptFileDescriptorSocket$SSLInputStream.read(Native Method)
+	at okio.InputStreamSource.read(JvmOkio.kt:90)
+	at okio.AsyncTimeout$source$1.read(AsyncTimeout.kt:129)
+	at okio.RealBufferedSource.request(RealBufferedSource.kt:207)
+	at okio.RealBufferedSource.require(RealBufferedSource.kt:201)
+	at okhttp3.internal.http2.Http2Reader.nextFrame(Http2Reader.kt:88)
+	at okhttp3.internal.http2.Http2Connection$ReaderRunnable.invoke(Http2Connection.kt:618)
+	at okhttp3.internal.http2.Http2Connection$ReaderRunnable.invoke(Http2Connection.kt:609)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:98)
+	at okhttp3.internal.concurrent.TaskRunner.runTask(TaskRunner.kt:116)
+	at okhttp3.internal.concurrent.TaskRunner.access$runTask(TaskRunner.kt:42)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+	at java.lang.Thread.run(Thread.java:919)
+
+2024-02-27 15:32:32.964 | INFO     | __main__:on_message:232 - SSL Session: 
+2024-02-27 15:32:32.964 | INFO     | __main__:on_message:233 - [SSL_read] 240.0.0.23:443 --> 1.1.1.1:48884
+2024-02-27 15:32:32.964 | INFO     | __main__:on_message:241 - ..G......{"magic_tag":"ss_app_log","message":"success","server_time":1709019152}
+2024-02-27 15:32:32.964 | INFO     | __main__:on_message:242 - java.lang.Throwable
+	at com.android.org.conscrypt.ConscryptFileDescriptorSocket$SSLInputStream.read(Native Method)
+	at okio.InputStreamSource.read(JvmOkio.kt:90)
+	at okio.AsyncTimeout$source$1.read(AsyncTimeout.kt:129)
+	at okio.RealBufferedSource.request(RealBufferedSource.kt:207)
+	at okio.RealBufferedSource.require(RealBufferedSource.kt:201)
+	at okhttp3.internal.http2.Http2Reader.nextFrame(Http2Reader.kt:88)
+	at okhttp3.internal.http2.Http2Connection$ReaderRunnable.invoke(Http2Connection.kt:618)
+	at okhttp3.internal.http2.Http2Connection$ReaderRunnable.invoke(Http2Connection.kt:609)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:98)
+	at okhttp3.internal.concurrent.TaskRunner.runTask(TaskRunner.kt:116)
+	at okhttp3.internal.concurrent.TaskRunner.access$runTask(TaskRunner.kt:42)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+	at java.lang.Thread.run(Thread.java:919)
+

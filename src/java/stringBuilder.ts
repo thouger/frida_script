@@ -18,7 +18,7 @@ export function hook_string(){
   //   return retval;
   // };
 
-      const StringBuilder = Java.use('java.lang.StringBuilder');
+    const StringBuilder = Java.use('java.lang.StringBuilder');
      StringBuilder.toString.implementation = function () {
     		var res = this.toString();
     		var tmp = "";
