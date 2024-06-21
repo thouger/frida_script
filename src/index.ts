@@ -37,9 +37,29 @@ Java.perform(function () {
 // sktrace('libnativeLib.so')
 
 //java
-// trace_change()
-// trace("com.cyjh.mobileanjian.vip.p377m.RootUtil",'upgradeRootPermission')
-// trace('com.appsflyer.internal.AFLogger')
+// setTimeout(() => {
+//     trace('SSLOutputStream')
+// }, 500);
+// trace('com.android.org.conscrypt.ConscryptFileDescriptorSocket$SSLOutputStream','write')
+// trace('android.content.res.ResourcesImpl')
+// trace("java.util.HashMap")
+// trace("org.json.JSONObject")
+// trace('java.io.BufferedOutputStream','write')
+// trace('dalvik.system.DexFile','loadDex')
+// trace('dalvik.system.BaseDexClassLoader')
+// trace('java.lang.Class','getDeclaredConstructor')
+trace('com.appsflyer.internal.AFa1vSDK$9249')
+
+// af相关
+// setTimeout(() => {
+//     trace('com.appsflyer.internal.AFa1uSDK')
+//     // trace("com.shopee.plugins.accountfacade.data.model.UserInfo",'setUserId')
+// },2000);
+// trace('com.appsflyer.internal.AFa1vSDK$9249')
+// trace('com.appsflyer.internal.AFa1uSDK')
+// trace("com.shopee.plugins.accountfacade.data.model.UserInfo",'setUserId')
+// trace("javax.crypto.spec.SecretKeySpec")
+// trace('java.lang.Class','getResourceAsStream')
 
 // ---------------常用java类-------------
 // trace('dalvik.system.DexPathList')
@@ -57,8 +77,10 @@ Java.perform(function () {
 
 // trace('com.adjust.sdk.AdjustConfig')
 // trace('com.adjust.sdk.network.ActivityPackageSender')
-trace('com.moba.unityplugin.MobaGameUnityActivity')
+// trace('com.moba.unityplugin.MobaGameUnityActivity')
 // trace('com.moba.unityplugin.MobaGameMainActivityWithExtractor')
+// trace("android.os.BaseBundle",'putString')
+// trace('oze')
 
 // mlbb的getDeviceId、getOpenUdid、getInstallId、getClientUDID
 // trace("com.ss.android.deviceregister.core.e",'getDeviceId')

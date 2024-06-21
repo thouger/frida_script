@@ -30,8 +30,12 @@ export function log(message: string) {
 }
 
 
-export function stacktrace(){
-    return Java.use("android.util.Log").getStackTraceString(Java.use("java.lang.Throwable").$new())
+export function stacktrace_java(){
+  return Java.use("android.util.Log").getStackTraceString(Java.use("java.lang.Throwable").$new())
+}
+
+export function stacktrace_so(context){
+log('stacktrace_so called from:\n' +Thread.backtrace(context, Backtracer.ACCURATE).map(DebugSymbol.fromAddress).join('\n') + '\n');
 }
 
 export function print_byte(byte){
@@ -39,32 +43,22 @@ export function print_byte(byte){
   return str;
 }
 
-export function print_hashmap(hashmap) {
-  if (!hashmap) {
-    console.log('Invalid hashmap');
-    return;
-  }
-
-  var output = "";
-
-  var HashMapNode = Java.use('java.util.HashMap$Node');
-  var iterator = hashmap.entrySet().iterator();
+export function print_hashmap(map) {
+  var result = "";
+  var HashMapNode = Java.use("java.util.HashMap$Node");
+  var iterator = map.entrySet().iterator();
   while (iterator.hasNext()) {
-    var entry = Java.cast(iterator.next(), HashMapNode);
-    var key = entry.getKey();
-    var value = entry.getValue();
-
-    if(!key)
-    key='null'
-    if(!value)
-    value='null'
-    output += key.toString() + " => " + value.toString() + "\n";
+      console.log("entry", iterator.next());
+      var entry = Java.cast(iterator.next(), HashMapNode);
+      console.log(entry.getKey());
+      console.log(entry.getValue());
+      result += entry.getValue();
   }
+  
+  console.log("result is :", result);
 
-  // console.log(output); // 输出到 Frida 控制台
-  return output; // 返回输出结果
+  return result
 }
-
 
 export function native_print(so_name,so_addr){
   function hexdumpMem(addr){

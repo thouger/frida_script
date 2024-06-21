@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { log, print_hashmap,print_byte, stacktrace } from "../utils/log.js";
+import { log, print_hashmap,print_byte, stacktrace_java } from "../utils/log.js";
 
 function hasOwnProperty(obj, name) {
     try {
@@ -63,6 +63,25 @@ function bytes2hex(array) {
         result += ",";
     }
     return result;
+}
+
+function print_bytes(bytes) {
+    var buf  = Memory.alloc(bytes.length);
+    Memory.writeByteArray(buf, byte_to_ArrayBuffer(bytes));
+    console.log(hexdump(buf, {offset: 0, length: bytes.length, header: false, ansi: true}));
+}
+//将java的数组转换成js的数组
+function byte_to_ArrayBuffer(bytes) {
+    var size=bytes.length;
+    var tmparray = [];
+    for (var i = 0; i < size; i++) {
+        var val = bytes[i];
+        if(val < 0){
+            val += 256;
+        }
+        tmparray[i] = val
+    }
+    return tmparray;
 }
 
 function getReflectFields(val1,output) {
@@ -163,19 +182,21 @@ function traceMethod(targetMethod, unparseMethod) {
                 output = output.concat("\n")
             }
             //调用栈
-            var stacktraceLog = stacktrace();
+            var stacktraceLog = stacktrace_java();
             output = output.concat(stacktraceLog);
             
             // //返回值
             output = output.concat("\n retval: " + retval + " => " + JSON.stringify(retval));
             output = output.concat("\n-------------------test---------------------\n")
             // 测试的地方
+            // output = output.concat(print_bytes(arguments[0]));
             // 将retval转为hashmap
             // var val1 = Java.cast(retval,Java.use("java.util.HashMap"));
             // // 修改vpn_ip键的值改为''
             // val1.put("vpn_ip","");
             // retval = null;
             // log(print_hashmap(retval))
+            // log(JSON.stringify(retval))
             // output = output.concat(this.e);
             // console.log('CopyOnWriteArrayList values: ' + val.size());
             //离开函数
@@ -185,7 +206,9 @@ function traceMethod(targetMethod, unparseMethod) {
             for (var p = 0; p < 100; p++) {
                 output = output.concat("==");
             }
-            // print_hashmap(retval)
+            if(!stacktraceLog.includes("appsflyer")){
+                return retval;
+            }
             log(output)
             return retval;
         }
@@ -193,6 +216,7 @@ function traceMethod(targetMethod, unparseMethod) {
 }
 
 export function _trace(targetClass, method) {
+    // 这一个移到下一行不行
     var output = "Tracing Class: " + hook + "\n";
     var hook = Java.use(targetClass)
     var methods = hook.class.getDeclaredMethods()
@@ -277,7 +301,6 @@ export function findAllJavaClasses(targetClass,targetMethod,is_trace) {
     //     classloader["loadClass"].overloads[i].implementation = function () {
     //         var retval = this["loadClass"].apply(this, arguments);
     //         var className = arguments[0];
-    //         log("class:"+className);
     //         if (className.includes(targetClass)) {
     //             log("Find class: " + className);
     //             Java.classFactory.loader = this;
@@ -338,6 +361,22 @@ export function findAllJavaClasses(targetClass,targetMethod,is_trace) {
     //         var retval = this["findResource"].apply(this, arguments);
     //         if (arguments[0].includes("com/appsflyer/internal")) {
     //             log("Find class: "); 
+    //             Java.classFactory.loader = loader;
+
+    //             Java.enumerateLoadedClasses({
+    //                 onMatch: function (clazz) {
+    //                     // console.log(clazz)
+    //                     if (clazz.toLowerCase().indexOf(targetClass.toLowerCase()) > -1) {
+    //                         // if (clazz.toLowerCase() == targetClass.toLowerCase()) {
+    //                         log('find targetClass class: ' + clazz)
+    //                         targetClasses.push(clazz);
+    //                         _trace(clazz,targetMethod);
+    //                     }
+    //                 },
+    //                 onComplete: function () {
+    //                     log("Search Class Completed!")
+    //                 }
+    //             });
     //         }
     //         return retval;
     //     }
@@ -352,10 +391,41 @@ export function findAllJavaClasses(targetClass,targetMethod,is_trace) {
     //         return retval;
     //     }
     // }
+
+    // const Class = Java.use('java.lang.Class');
+    // var hook = false;
+    // Class.getResourceAsStream.implementation = function(name) {
+    //     const originalResult = this.getResourceAsStream(name);
+    //     console.log(`[*] Hooked getResourceAsStream called with name: ${name}`);
+    //     if(name.indexOf("com/appsflyer/internal/b-")>0&& !hook){
+    //         hook = true;
+    //         enumerateClassLoaders(targetClass, targetMethod);
+    //     }
+
+    //     // 返回原始方法的结果
+    //     return originalResult;
+    // };
+
+
+    // 对于读取内存的jar文件的精准定位
+    const classLoaderClass = Java.use('java.lang.ClassLoader');
+    classLoaderClass.loadClass.overload('java.lang.String').implementation = function (className) {
+        const retval = this.loadClass(className);
+        if (className === targetClass) {
+            log(`[*] Loaded class: ${className}`)
+            // 加载了目标类，hook 其方法
+            enumerateClassLoaders(targetClass,targetMethod);
+        }
+        return retval;
+    };
+
 }
 
 function enumerateClassLoaders(targetClass, targetMethod){
-    var find = false;
+
+
+    log('Begin enumerateClasses ...')
+
     Java.enumerateClassLoaders({
         onMatch: function (loader) {
             try {
@@ -374,7 +444,6 @@ function enumerateClassLoaders(targetClass, targetMethod){
         }
     })
 
-    log('Begin enumerateClasses ...')
     var targetClasses = new Array();
     Java.enumerateLoadedClasses({
         onMatch: function (clazz) {
@@ -382,7 +451,6 @@ function enumerateClassLoaders(targetClass, targetMethod){
             if (clazz.toLowerCase().indexOf(targetClass.toLowerCase()) > -1) {
                 // if (clazz.toLowerCase() == targetClass.toLowerCase()) {
                 log('find targetClass class: ' + clazz)
-                find = true;
                 targetClasses.push(clazz);
                 _trace(clazz,targetMethod);
             }
@@ -401,8 +469,9 @@ function enumerateClassLoaders(targetClass, targetMethod){
 }
 
 
-export function trace(targetClass, targetMethod) {
-    // findAllJavaClasses(targetClass,targetMethod,true);
 
-    enumerateClassLoaders(targetClass, targetMethod);
+export function trace(targetClass, targetMethod) {
+    findAllJavaClasses(targetClass,targetMethod,true);
+
+    // enumerateClassLoaders(targetClass, targetMethod);
 }
