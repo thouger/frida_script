@@ -1,5 +1,5 @@
 //@ts-nocheck
-function hookNativeSocket() {
+export function hookNativeSocket() {
     const tcpSocketFDs = new Map()
   
     const fSocketConnect = Module.getExportByName("libc.so", "connect")

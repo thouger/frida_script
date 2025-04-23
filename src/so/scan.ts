@@ -1,4 +1,4 @@
-// //@ts-nocheck
+//@ts-nocheck
 // var _m = Process.enumerateModules();// enumerate loaded modules and take the first on_m
 // for (var module of _m) {
 

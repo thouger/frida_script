@@ -7,10 +7,9 @@ export function all_so(system: boolean = false) {
             onMatch: function (module) {
 
                 if (system) {
-                    // log('Module name: ' + module.name + " - " + "Base Address: " + module.base.toString() + " - " + "path: " + module.path);
-                    console.log('Module name: ' + module.name + " - " + "Base Address: " + module.base.toString() + " - " + "path: " + module.path);
-                } else {
                     if (!module.path.includes('/data/app'))
+                        console.log('Module name: ' + module.name + " - " + "Base Address: " + module.base.toString() + " - " + "path: " + module.path);
+                } else {
                     console.log('Module name: ' + module.name + " - " + "Base Address: " + module.base.toString() + " - " + "path: " + module.path);
                 }
             },

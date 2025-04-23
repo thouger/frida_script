@@ -1,5 +1,6 @@
 // @ts-nocheck
-import { hook_dlopen } from "../so/utils.js"
+import { hook_dlopen,printRegisters,nativeHookFunction } from "../so/utils.js"
+import {hexdumpAdvanced} from "../so/BufferUtils.js"
 
 export function log(message: string) {
   let colorCode;
@@ -35,7 +36,7 @@ export function stacktrace_java(){
 }
 
 export function stacktrace_so(context){
-log('stacktrace_so called from:\n' +Thread.backtrace(context, Backtracer.ACCURATE).map(DebugSymbol.fromAddress).join('\n') + '\n');
+return 'stacktrace_so called from:\n' +Thread.backtrace(context, Backtracer.ACCURATE).map(DebugSymbol.fromAddress).join('\n') + '\n';
 }
 
 export function print_byte(byte){
@@ -68,38 +69,57 @@ export function native_print(so_name,so_addr){
         return ptr(addr)+"\r\n";
     }
 }
-//比较通用的hook地址并且打印5个参数。如果参数是地址就打印下内存信息
-function nativeHookFunction(addr){
-    var base_addr=Module.getBaseAddress(so_name);
-    var hook_addr=base_addr.add(addr);
-    console.log("hook_addr:",hook_addr);
-    Interceptor.attach(hook_addr,{
-        onEnter:function(args){
-            this.logs=[];
-            this.logs.push("call",addr);
-            this.arg0=args[0];
-            this.arg1=args[1];
-            this.arg2=args[2];
-            this.arg3=args[3];
-            this.arg4=args[4];
-            this.arg5=args[5];
-            this.logs.push("arg0:",hexdumpMem(this.arg0));
-            this.logs.push("arg1:",hexdumpMem(this.arg1));
-            this.logs.push("arg2:",hexdumpMem(this.arg2));
-            this.logs.push("arg3:",hexdumpMem(this.arg3));
-            this.logs.push("arg4:",hexdumpMem(this.arg4));
-            this.logs.push("arg5:",hexdumpMem(this.arg5));
-        },onLeave:function(retval){
-            this.logs.push("arg0 leave:",hexdumpMem(this.arg0));
-            this.logs.push("arg1 leave:",hexdumpMem(this.arg1));
-            this.logs.push("arg2 leave:",hexdumpMem(this.arg2));
-            this.logs.push("arg3 leave:",hexdumpMem(this.arg3));
-            this.logs.push("arg4 leave:",hexdumpMem(this.arg4));
-            this.logs.push("arg5 leave:",hexdumpMem(this.arg5));
-            this.logs.push("retval leave:",hexdumpMem(retval));
-            console.log(this.logs);
-        }
-    })
-}
+
+  nativeHookFunction(so_name,so_addr);
   hook_dlopen(so_name,nativeHookFunction,so_addr);
 }
+
+
+/**
+ * 打印ARM64寄存器的值
+ * @param {Array<string>|null} regs - 要打印的寄存器数组，不传或null则打印全部
+ * @param {number} length - hexdump的长度参数，默认为5000
+ */
+export function printRegisters(context,regs = null, length = 5000) {
+    // 定义ARM64架构中的所有通用寄存器
+    const allRegisters = [
+      "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7",
+      "x8", "x9", "x10", "x11", "x12", "x13", "x14", "x15",
+      "x16", "x17", "x18", "x19", "x20", "x21", "x22", "x23",
+      "x24", "x25", "x26", "x27", "x28", "x29", "x30", "sp", "pc"
+    ];
+    
+    // 如果没有指定寄存器，则使用所有寄存器
+    const registersToPrint = regs || allRegisters;
+    
+  // 遍历并打印每个寄存器的值
+  for (let i = 0; i < registersToPrint.length; i++) {
+    const reg = registersToPrint[i];
+    try {
+      // 根据是否提供length参数，决定调用hexdump的方式
+      if (length !== null) {
+        log(reg + ":" + hexdump(context[reg], {length: length}));
+      } else {
+        log(reg + ":" + hexdump(context[reg]));
+      }
+    } catch (error) {
+      log("无法打印寄存器 " + reg + ": " + error.message);
+    }
+  }
+}
+
+  // 使用示例:
+  
+  // 1. 打印所有寄存器(默认长度5000)
+  // printRegisters();
+  
+  // 2. 只打印特定寄存器
+  // printRegisters(["x0", "x1", "x2"]);
+  
+  // 3. 使用自定义长度打印特定寄存器
+  // printRegisters(["x2", "x8"], 1000);
+  
+  // 4. 使用默认寄存器列表，但自定义长度
+  // printRegisters(null, 2000);
+  // 或者
+  // printRegisters(undefined, 2000);

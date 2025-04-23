@@ -205,7 +205,7 @@ function hook_java(){
         // hook_ssl();
         // hook_ssl2();
         // hook_jni_tcp();
-        hook_jni_ssl_enc();
+        // hook_jni_ssl_enc();
         hook_jni_ssl();
     })
 }

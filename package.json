@@ -20,5 +20,8 @@
     "prepare": "npm run build",
     "build": "frida-compile src/index.ts -o _agent.js -c",
     "watch": "frida-compile src/index.ts -o _agent.js -w"
+  },
+  "dependencies": {
+    "frida-compile": "^16.4.1"
   }
 }

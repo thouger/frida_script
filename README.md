@@ -24,3 +24,4 @@ NR==1是第一个进程，NR==2是第二个进程，frida-ps -U | rg -i Mobile�
 9. 增加sktrace native层的trace
 10. child_gating.py 适用于子进程的hook
 11. findAllJavaClasses方法，对于读取内存的jar文件的精准定位
+12. abstract.ts 增加hook抽象类下所有子类的功能

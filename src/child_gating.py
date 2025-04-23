@@ -6,13 +6,16 @@ import time
 import frida
 from frida_tools.application import Reactor
 
+package = "com.mobilechess.gp"
+child_gating = package+":UnityKillsMe"
+script_path = "/home/thouger/Desktop/code/frida_script/frida_script/_agent.js"
 
 class Application(object):
     def __init__(self):
         self._stop_requested = threading.Event()
         self._reactor = Reactor(run_until_return=lambda reactor: self._stop_requested.wait())
 
-        #self._device = frida.get_local_device()
+        # self._device = frida.get_local_device()
         self._device = frida.get_usb_device()
         self._sessions = set()
 
@@ -32,9 +35,8 @@ class Application(object):
         # }
         # # print("✔ spawn(argv={})".format(argv))
         # pid = self._device.spawn(argv, env=env, stdio='pipe')
-        package = "com.glive.niki"
         print("✔ spawn "+package)
-        pid = self._device.spawn([package,'com.glive.niki:code'])
+        pid = self._device.spawn([child_gating])
         self._instrument(pid)
 
     def _stop_if_idle(self):
@@ -48,7 +50,7 @@ class Application(object):
         print("✔ enable_child_gating()")
         session.enable_child_gating()
         print("✔ create_script()")
-        with open("/home/thouger/Desktop/code/frida_script/_agent.js") as f:
+        with open(script_path) as f:
             script = session.create_script(f.read())
         script.on("message", lambda message, data: self._reactor.schedule(lambda: self._on_message(pid, message)))
         print("✔ load()")

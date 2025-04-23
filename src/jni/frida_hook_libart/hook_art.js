@@ -62,7 +62,7 @@ function hook_libart() {
 
     for (var i = 0; i < symbols.length; i++) {
         var symbol = symbols[i];
-        console.log("symbol:",symbol.name)
+        console.log("symbol:", symbol.name)
         if (symbol.name.indexOf("art") >= 0 &&
             symbol.name.indexOf("JNI") >= 0 &&
             symbol.name.indexOf("CheckJNI") < 0 &&
@@ -71,81 +71,91 @@ function hook_libart() {
             if (symbol.name.indexOf("GetStringUTFChars") >= 0) {
                 addrGetStringUTFChars = symbol.address;
                 console.log("GetStringUTFChars is at ", symbol.address, symbol.name);
-            } else if (symbol.name.indexOf("NewStringUTF") >= 0) {
-                addrNewStringUTF = symbol.address;
-                console.log("NewStringUTF is at ", symbol.address, symbol.name);
-            } else if (symbol.name.indexOf("FindClass") >= 0) {
-                addrFindClass = symbol.address;
-                console.log("FindClass is at ", symbol.address, symbol.name);
-            } else if (symbol.name.indexOf("GetMethodID") >= 0) {
-                addrGetMethodID = symbol.address;
-                console.log("GetMethodID is at ", symbol.address, symbol.name);
-            } else if (symbol.name.indexOf("GetStaticMethodID") >= 0) {
-                addrGetStaticMethodID = symbol.address;
-                console.log("GetStaticMethodID is at ", symbol.address, symbol.name);
-            } else if (symbol.name.indexOf("GetFieldID") >= 0) {
-                addrGetFieldID = symbol.address;
-                console.log("GetFieldID is at ", symbol.address, symbol.name);
-            } else if (symbol.name.indexOf("GetStaticFieldID") >= 0) {
-                addrGetStaticFieldID = symbol.address;
-                console.log("GetStaticFieldID is at ", symbol.address, symbol.name);
-            } else if (symbol.name.indexOf("RegisterNatives") >= 0) {
-                addrRegisterNatives = symbol.address;
-                console.log("RegisterNatives is at ", symbol.address, symbol.name);
-            } else if (symbol.name.indexOf("CallStatic") >= 0) {
-                console.log("CallStatic is at ", symbol.address, symbol.name);
-                Interceptor.attach(symbol.address, {
-                    onEnter: function (args) {
-                        var module = Process.findModuleByAddress(this.returnAddress);
-                        // if (module != null && module.name.indexOf(so_name) == 0) {
-                            var java_class = args[1];
-                            var mid = args[2];
-                            var class_name = Java.vm.tryGetEnv().getClassName(java_class);
-                            if (class_name.indexOf("java.") == -1 && class_name.indexOf("android.") == -1) {
-                                var method_name = prettyMethod(mid, 1);
-                                console.log("<>CallStatic:", DebugSymbol.fromAddress(this.returnAddress), class_name, method_name);
-                            }
-                        // }
-                    },
-                    onLeave: function (retval) { }
-                });
-            } else if (symbol.name.indexOf("CallNonvirtual") >= 0) {
-                console.log("CallNonvirtual is at ", symbol.address, symbol.name);
-                Interceptor.attach(symbol.address, {
-                    onEnter: function (args) {
-                        var module = Process.findModuleByAddress(this.returnAddress);
-                        if (module != null && module.name.indexOf(so_name) == 0) {
-                            var jobject = args[1];
-                            var jclass = args[2];
-                            var jmethodID = args[3];
-                            var obj_class_name = Java.vm.tryGetEnv().getObjectClassName(jobject);
-                            var class_name = Java.vm.tryGetEnv().getClassName(jclass);
-                            if (class_name.indexOf("java.") == -1 && class_name.indexOf("android.") == -1) {
-                                var method_name = prettyMethod(jmethodID, 1);
-                                console.log("<>CallNonvirtual:", DebugSymbol.fromAddress(this.returnAddress), class_name, obj_class_name, method_name);
-                            }
-                        }
-                    },
-                    onLeave: function (retval) { }
-                });
-            } else if (symbol.name.indexOf("Call") >= 0 && symbol.name.indexOf("Method") >= 0) {
-                console.log("Call<>Method is at ", symbol.address, symbol.name);
-                Interceptor.attach(symbol.address, {
-                    onEnter: function (args) {
-                        var module = Process.findModuleByAddress(this.returnAddress);
-                        if (module != null && module.name.indexOf(so_name) == 0) {
-                            var java_class = args[1];
-                            var mid = args[2];
-                            var class_name = Java.vm.tryGetEnv().getObjectClassName(java_class);
-                            if (class_name.indexOf("java.") == -1 && class_name.indexOf("android.") == -1) {
-                                var method_name = prettyMethod(mid, 1);
-                                console.log("<>Call<>Method:", DebugSymbol.fromAddress(this.returnAddress), class_name, method_name);
-                            }
-                        }
-                    },
-                    onLeave: function (retval) { }
-                });
-            }
+            } 
+            // else if (symbol.name.indexOf("NewStringUTF") >= 0) {
+            //     addrNewStringUTF = symbol.address;
+            //     console.log("NewStringUTF is at ", symbol.address, symbol.name);
+            // } 
+            // else if (symbol.name.indexOf("FindClass") >= 0) {
+            //     addrFindClass = symbol.address;
+            //     console.log("FindClass is at ", symbol.address, symbol.name);
+            // } 
+            // else if (symbol.name.indexOf("GetMethodID") >= 0) {
+            //     addrGetMethodID = symbol.address;
+            //     console.log("GetMethodID is at ", symbol.address, symbol.name);
+            // } 
+            // else if (symbol.name.indexOf("GetStaticMethodID") >= 0) {
+            //     addrGetStaticMethodID = symbol.address;
+            //     console.log("GetStaticMethodID is at ", symbol.address, symbol.name);
+            // } 
+            // else if (symbol.name.indexOf("GetFieldID") >= 0) {
+            //     addrGetFieldID = symbol.address;
+            //     console.log("GetFieldID is at ", symbol.address, symbol.name);
+            // } 
+            // else if (symbol.name.indexOf("GetStaticFieldID") >= 0) {
+            //     addrGetStaticFieldID = symbol.address;
+            //     console.log("GetStaticFieldID is at ", symbol.address, symbol.name);
+            // } 
+            // else if (symbol.name.indexOf("RegisterNatives") >= 0) {
+            //     addrRegisterNatives = symbol.address;
+            //     console.log("RegisterNatives is at ", symbol.address, symbol.name);
+            // } 
+            // else if (symbol.name.indexOf("CallStatic") >= 0) {
+            //     console.log("CallStatic is at ", symbol.address, symbol.name);
+            //     Interceptor.attach(symbol.address, {
+            //         onEnter: function (args) {
+            //             var module = Process.findModuleByAddress(this.returnAddress);
+            //             // if (module != null && module.name.indexOf(so_name) == 0) {
+            //             var java_class = args[1];
+            //             var mid = args[2];
+            //             var class_name = Java.vm.tryGetEnv().getClassName(java_class);
+            //             if (class_name.indexOf("java.") == -1 && class_name.indexOf("android.") == -1) {
+            //                 var method_name = prettyMethod(mid, 1);
+            //                 console.log("<>CallStatic:", DebugSymbol.fromAddress(this.returnAddress), class_name, method_name);
+            //             }
+            //             // }
+            //         },
+            //         onLeave: function (retval) { }
+            //     });
+            // } 
+            // else if (symbol.name.indexOf("CallNonvirtual") >= 0) {
+            //     console.log("CallNonvirtual is at ", symbol.address, symbol.name);
+            //     Interceptor.attach(symbol.address, {
+            //         onEnter: function (args) {
+            //             var module = Process.findModuleByAddress(this.returnAddress);
+            //             if (module != null && module.name.indexOf(so_name) == 0) {
+            //                 var jobject = args[1];
+            //                 var jclass = args[2];
+            //                 var jmethodID = args[3];
+            //                 var obj_class_name = Java.vm.tryGetEnv().getObjectClassName(jobject);
+            //                 var class_name = Java.vm.tryGetEnv().getClassName(jclass);
+            //                 if (class_name.indexOf("java.") == -1 && class_name.indexOf("android.") == -1) {
+            //                     var method_name = prettyMethod(jmethodID, 1);
+            //                     console.log("<>CallNonvirtual:", DebugSymbol.fromAddress(this.returnAddress), class_name, obj_class_name, method_name);
+            //                 }
+            //             }
+            //         },
+            //         onLeave: function (retval) { }
+            //     });
+            // } 
+            // else if (symbol.name.indexOf("Call") >= 0 && symbol.name.indexOf("Method") >= 0) {
+            //     console.log("Call<>Method is at ", symbol.address, symbol.name);
+            //     Interceptor.attach(symbol.address, {
+            //         onEnter: function (args) {
+            //             var module = Process.findModuleByAddress(this.returnAddress);
+            //             if (module != null && module.name.indexOf(so_name) == 0) {
+            //                 var java_class = args[1];
+            //                 var mid = args[2];
+            //                 var class_name = Java.vm.tryGetEnv().getObjectClassName(java_class);
+            //                 if (class_name.indexOf("java.") == -1 && class_name.indexOf("android.") == -1) {
+            //                     var method_name = prettyMethod(mid, 1);
+            //                     console.log("<>Call<>Method:", DebugSymbol.fromAddress(this.returnAddress), class_name, method_name);
+            //                 }
+            //             }
+            //         },
+            //         onLeave: function (retval) { }
+            //     });
+            // }
         }
     }
 

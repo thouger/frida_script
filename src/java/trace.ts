@@ -195,7 +195,7 @@ function traceMethod(targetMethod, unparseMethod) {
             // // 修改vpn_ip键的值改为''
             // val1.put("vpn_ip","");
             // retval = null;
-            // log(print_hashmap(retval))
+            // log(print_hashmap(arguments[1]))
             // log(JSON.stringify(retval))
             // output = output.concat(this.e);
             // console.log('CopyOnWriteArrayList values: ' + val.size());
@@ -206,9 +206,9 @@ function traceMethod(targetMethod, unparseMethod) {
             for (var p = 0; p < 100; p++) {
                 output = output.concat("==");
             }
-            if(!stacktraceLog.includes("appsflyer")){
-                return retval;
-            }
+            // if(!stacktraceLog.includes("anythink")){
+            //     return retval;
+            // }
             log(output)
             return retval;
         }
@@ -216,21 +216,36 @@ function traceMethod(targetMethod, unparseMethod) {
 }
 
 export function _trace(targetClass, method) {
-    // 这一个移到下一行不行
-    var output = "Tracing Class: " + hook + "\n";
     var hook = Java.use(targetClass)
+    var output = "Tracing Class: " + hook + "\n";
     var methods = hook.class.getDeclaredMethods()
     hook.$dispose();
     var methodsDict = {};
     output += "\t\nSpec: => \n";
     methods.forEach(_method => {
-        _method = _method.toString()
-        
+        _method = _method.toString();
+    
         output += _method + "\n";
-        var parsedMethod = _method.replace(targetClass + ".", "TOKEN").match(/\sTOKEN(.*)\(/)[1];
+        
+        // 新的正则表达式匹配
+        var parsedMethod = _method.match(/[\w$]+\.([a-zA-Z0-9_$]+)\(/);
+        if (parsedMethod) {
+            parsedMethod = parsedMethod[1];
+        } else {
+            // 如果第一种匹配失败，尝试另一种模式
+            parsedMethod = _method.match(/\s([a-zA-Z0-9_$]+)\(/);
+            if (parsedMethod) {
+                parsedMethod = parsedMethod[1];
+            } else {
+                // 最后的备用方案
+                parsedMethod = _method.split(" ").pop().split("(")[0].split(".").pop();
+            }
+        }
+                
         if (method && method.toLowerCase() !== parsedMethod.toLowerCase())
-        return;
-    methodsDict[_method] = parsedMethod;
+            return;
+            
+        methodsDict[_method] = parsedMethod;
     });
 
     //添加构造函数
@@ -242,7 +257,7 @@ export function _trace(targetClass, method) {
         //有时候hook构造函数会报错，看情况取消
         methodsDict["$init"]='$init';
     }
-    log(output);
+    // log(output);
 
     //对数组中所有的方法进行hook，
     for (var unparseMethod in methodsDict) {
@@ -471,7 +486,7 @@ function enumerateClassLoaders(targetClass, targetMethod){
 
 
 export function trace(targetClass, targetMethod) {
-    findAllJavaClasses(targetClass,targetMethod,true);
+    // findAllJavaClasses(targetClass,targetMethod,true);
 
-    // enumerateClassLoaders(targetClass, targetMethod);
+    enumerateClassLoaders(targetClass, targetMethod);
 }

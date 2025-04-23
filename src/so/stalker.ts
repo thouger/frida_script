@@ -21,7 +21,7 @@ function stalkerTraceRange(tid, base, size) {
             const isModuleCode = startAddress.compare(base) >= 0 && 
                 startAddress.compare(base.add(size)) < 0;
             // const isModuleCode = true;
-              //transform是每个block触发。这里每个block触发的时候遍历出所有指令。
+            //transform是每个block触发。这里每个block触发的时候遍历出所有指令。
             do {
                 iterator.keep();
                 if (isModuleCode) {
