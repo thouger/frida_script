@@ -1,8 +1,8 @@
 //@ts-nocheck
 export function hookNativeSocket() {
     const tcpSocketFDs = new Map()
-  
-    const fSocketConnect = Module.getExportByName("libc.so", "connect")
+
+    const fSocketConnect = Process.getModuleByName("libc.so").getExportByName("connect")
     Interceptor.attach(fSocketConnect, {
       onEnter(args) {
         this.sockFd = args[0].toInt32()

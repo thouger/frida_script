@@ -1,5 +1,4 @@
 // @ts-nocheck
-import { hook_dlopen,printRegisters,nativeHookFunction } from "../so/utils.js"
 import {hexdumpAdvanced} from "../so/BufferUtils.js"
 
 export function log(message: string) {
@@ -61,18 +60,6 @@ export function print_hashmap(map) {
   return result
 }
 
-export function native_print(so_name,so_addr){
-  function hexdumpMem(addr){
-    if(Process.findRangeByAddress(addr)){
-        return hexdump(ptr(addr),{length:0x40})+"\r\n"
-    }else{
-        return ptr(addr)+"\r\n";
-    }
-}
-
-  nativeHookFunction(so_name,so_addr);
-  hook_dlopen(so_name,nativeHookFunction,so_addr);
-}
 
 
 /**

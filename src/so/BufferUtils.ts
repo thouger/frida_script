@@ -63,7 +63,7 @@ export function hexdumpAdvanced(buffer: any, length: number=500, options: Hexdum
 export function hexdumpAsciiOnly(buffer: any, length: number = 500) {
     try{
         let result = '';
-        
+
         for (let i = 0; i < length; i++) {
             const byte = buffer.add(i).readU8();
             // 只获取可打印的 ASCII 字符
@@ -71,7 +71,7 @@ export function hexdumpAsciiOnly(buffer: any, length: number = 500) {
                 result += String.fromCharCode(byte);
             }
         }
-        
+
         // 输出结果
         log(result);
         return result;
@@ -79,6 +79,17 @@ export function hexdumpAsciiOnly(buffer: any, length: number = 500) {
     }catch(e){
         return "";
     }
-    
+
     // 如果你需要返回结果而不是直接打印
 }
+
+/**
+ * 将字节数组转换为十六进制字符串
+ * @param bytes - 字节数组
+ * @returns 十六进制字符串
+ */
+export function toHex(bytes: any) {
+    let hex = '';
+    for (let i = 0; i < bytes.length; i++) {
+        let byte = bytes[i] & 0xff;
+        hex += ('0' + byte.toString(16)).slice(-2)

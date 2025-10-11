@@ -1,0 +1,14 @@
+Frida command before 17	Frida command for 17+
+Module.getGlobalExportByName(null, 'open');	Module.getGlobalExportByName('open');
+Module.findExportByName(null, "open");	Module.findGlobalExportByName('open');
+Module.getSymbolByName(null, 'open')	Module.getGlobalExportByName('open')
+Module.findExportByName(null, 'open');	Module.findGlobalExportByName("open");
+Module.findExportByName('libc.so', 'open')	Process.getModuleByName('libc.so').findExportByName('open')
+Module.getExportByName('libc.so', 'open')	Process.getModuleByName('libc.so').getExportByName('open')
+Module.getBaseAddress('libc.so')	Process.getModuleByName('libc.so').base
+Memory.readCString(somePtr)	somePtr.readCString()
+Memory.readUtf8String(somePtr)	somePtr.readUtf8String()
+Memory.readUtf16String(somePtr)	somePtr.readUtf16String()
+Memory.readAnsiString(somePtr)	somePtr.readAnsiString()
+Memory.readInt(somePtr)	somePtr.readInt()
+Memory.writeUInt(somePtr)	somePtr.writeUInt()
