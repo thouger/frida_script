@@ -2,148 +2,345 @@
 import { log } from "../utils/log.js";
 import { hook_dlopen } from "./utils.js"
 
-var so_name;
-export function stalker(_so_name,addr){
-    so_name = _so_name
-    hook_dlopen(so_name,_stalker,addr)
+/**
+ * 高级 Stalker 追踪 - 追踪指定地址范围
+ *
+ * @param {string} so_name - SO 文件名
+ * @param {number} start_addr - 开始地址（相对偏移）
+ * @param {number} end_addr - 结束地址（相对偏移），如果为 null 则追踪到函数结束
+ *
+ * 注意：对于有完整性检测的函数（如 VM dispatcher），不要在函数入口 hook！
+ * 应该找到调用这个函数的地方，在调用者处 hook。
+ */
+export function stalker(so_name, start_addr, end_addr) {
+    hook_dlopen(so_name, () => _stalker(so_name, start_addr, end_addr))
 }
 
-export function native_trace(_so_name,addr,size){
-    so_name = _so_name
-    hook_dlopen(so_name,_trace,addr,size)
+/**
+ * 轻量级追踪 - 只追踪指令执行和寄存器状态
+ * 不记录调用链，适合追踪小范围代码
+ */
+export function native_trace(so_name, addr, size) {
+    hook_dlopen(so_name, () => _native_trace(so_name, addr, size))
 }
 
-function stalkerTraceRange(tid, base, size) {
-    Stalker.follow(tid, {
-        transform: (iterator) => {
-            const instruction = iterator.next();
-            const startAddress = instruction.address;
-            const isModuleCode = startAddress.compare(base) >= 0 && 
-                startAddress.compare(base.add(size)) < 0;
-            // const isModuleCode = true;
-            //transform是每个block触发。这里每个block触发的时候遍历出所有指令。
-            do {
-                iterator.keep();
-                if (isModuleCode) {
-                      //这里可以看到数据如果是inst就是一个指令，我们就需要解析打印
-                      //输出样本如下
-                      //'payload': {'type': 'inst', 'tid': 19019, 'block': '0x74fd8d4ff4', 'val': '{"address":"0x74fd8d4ffc","next":"0x4","size":4,"mnemonic":"add","opStr":"sp, sp, #0x70","operands":[{"type":"reg","value":"sp"},{"type":"reg","value":"sp"},{"type":"imm","value":"112"}],"regsRead":[],"regsWritten":[],"groups":[]}'}}
-                      //py解析打印格式"add sp, sp, #0x70  //sp=112"        这里的处理应该还要更复杂。暂时先简单处理
-                      log(instruction)
+/**
+ * 内部实现：轻量级指令追踪
+ */
+function _native_trace(so_name, addr, size) {
+    size = size || 0x1000;
+    const module = Process.findModuleByName(so_name);
+    if (!module) {
+        console.log("[-] Module not found: " + so_name);
+        return;
+    }
 
-                         //这里是打印所有寄存器
-                      //输出样本如下
-                      //{'type': 'ctx', 'tid': 19019, 'val': '{"pc":"0x74fd8d4fe8","sp":"0x7fc28609d0","x0":"0x0","x1":"0x7fc2860908","x2":"0x0","x3":"0x756aec1349","x4":"0x7fc28608f0","x5":"0x14059dbe","x6":"0x7266206f6c6c6548","x7":"0x2b2b43206d6f7266","x8":"0x0","x9":"0x65af2e18847fd289","x10":"0x1","x11":"0x7fc2860a20","x12":"0xe","x13":"0x7fc2860a20","x14":"0xffffff0000000000","x15":"0x756aeed1b5","x16":"0x74fd8fadc8","x17":"0x74fd8d50d8","x18":"0x75f0bda000","x19":"0x75f02f9c00","x20":"0x756af59490","x21":"0x75f02f9c00","x22":"0x7fc2860c90","x23":"0x74ffcee337","x24":"0x4","x25":"0x75f04b4020","x26":"0x75f02f9cb0","x27":"0x1","x28":"0x756b3f2000","fp":"0x7fc2860a30","lr":"0x74fd8d4fdc"}'}}
-                      //这里是寄存器变化时调用
-                    iterator.putCallout((context) => {
-                            log(JSON.stringify(context)
-                            )
-                    })
+    const base_addr = module.base;
+    const func = base_addr.add(addr);
+    const end_address = base_addr.add(addr).add(size);
+
+    console.log("[+] Native trace setup:");
+    console.log("    Base: " + base_addr);
+    console.log("    Range: " + func + " - " + end_address);
+    console.log("    Size: 0x" + size.toString(16));
+
+    Interceptor.attach(func, {
+        onEnter: function(args) {
+            this.tid = Process.getCurrentThreadId();
+            console.log("[+] Thread " + this.tid + " entered, starting trace...");
+
+            Stalker.follow(this.tid, {
+                transform: function(iterator) {
+                    let instruction = iterator.next();
+
+                    // 安全检查：确保第一条指令有效
+                    if (!instruction) {
+                        return;
+                    }
+
+                    do {
+                        // 安全检查：确保指令对象有效
+                        if (!instruction || !instruction.address) {
+                            iterator.keep();
+                            continue;
+                        }
+
+                        // 在循环内检查每条指令是否在范围内
+                        const isInRange = instruction.address.compare(func) >= 0 &&
+                                        instruction.address.compare(end_address) < 0;
+
+                        if (isInRange) {
+                            try {
+                                // 打印指令
+                                log(instruction);
+
+                                // 打印寄存器状态
+                                iterator.putCallout((context) => {
+                                    log(JSON.stringify(context));
+                                });
+                            } catch(e) {
+                                // 打印失败，继续
+                            }
+                        }
+
+                        iterator.keep();
+                    } while ((instruction = iterator.next()) !== null);
                 }
-            } while (iterator.next() !== null);
-        }
-    })
-}
-
-function _trace(addr,size){
-    var size = size || 0x1000;
-    var base_addr=Module.getBaseAddress(so_name);
-    console.log("base_addr:",base_addr);
-    var func=base_addr.add(addr);
-    console.log("func:",func);
-    Interceptor.attach(func,{
-        onEnter:function(args){
-            this.tid=Process.getCurrentThreadId();
-            stalkerTraceRange(this.tid, func,size);
-        },onLeave(retval){
+            });
+        },
+        onLeave: function(retval) {
             Stalker.unfollow(this.tid);
+            console.log("[-] Thread " + this.tid + " left, trace stopped");
         }
-    })
+    });
 }
 
-function _stalker(addr){
-    var base_addr=Module.getBaseAddress(so_name);
-    console.log("base_addr:",base_addr);
-    var func=base_addr.add(addr);
-    console.log("func:",func);
-    Interceptor.attach(func,{
-        onEnter:function(args){
-            this.tid=Process.getCurrentThreadId();
-            // console.log("enter func tid:",this.tid);
+/**
+ * 内部实现：完整的 Stalker 追踪（带调用链分析）
+ */
+function _stalker(so_name, start_addr, end_addr) {
+    const module = Process.findModuleByName(so_name);
+    if (!module) {
+        console.log("[-] Module not found: " + so_name);
+        return;
+    }
+
+    const base_addr = module.base;
+    const func = base_addr.add(start_addr);
+    const end_address = end_addr ? base_addr.add(end_addr) : null;
+
+    // 参数验证
+    if (end_address && end_address.compare(func) <= 0) {
+        console.log("[-] 错误: end_addr 必须大于 start_addr!");
+        console.log("    start_addr: 0x" + start_addr.toString(16));
+        console.log("    end_addr: 0x" + end_addr.toString(16));
+        console.log("\n提示: 如果要追踪单条指令，请使用:");
+        console.log("  stalker('so_name', 0xXXXX, 0xXXXX + 4)");
+        return;
+    }
+
+    console.log("[+] Stalker setup:");
+    console.log("    Base: " + base_addr);
+    console.log("    Func: " + func);
+    console.log("    End:  " + end_address);
+
+    // 警告：如果函数有完整性检测，在这里 attach 可能导致崩溃
+    // 解决方案：找到调用这个函数的地方，在调用者处 hook
+    Interceptor.attach(func, {
+        onEnter: function(args) {
+            this.tid = Process.getCurrentThreadId();
+
             Stalker.follow(this.tid, {
                 events: {
-                    call: true, // CALL instructions: yes please
-                    // Other events:
-                    ret: false, // RET instructions
-                    exec: false, // all instructions: not recommended as it's
-                                 //                   a lot of data
-                    block: false, // block executed: coarse execution trace
-                    compile: false // block compiled: useful for coverage
+                    call: true,      // 记录 CALL 指令
+                    ret: false,      // 不记录 RET
+                    exec: false,     // 不记录所有指令（太多）
+                    block: false,    // 不记录基本块
+                    compile: false   // 不记录编译事件
                 },
-                onCallSummary:function(summary){        //有什么函数被这个函数调用的地址
-                    for(var iter in summary){
-                        try{
-                            var module= Process.getModuleByAddress(ptr(iter))
-                            if(module.name.indexOf(so_name)!=-1){
-                                console.log("onCallSummary",iter,ptr(iter).sub(module.base));
+
+                // 调用摘要：显示哪些函数被调用了
+                onCallSummary: function(summary) {
+                    for (let addr in summary) {
+                        try {
+                            const calleeModule = Process.getModuleByAddress(ptr(addr));
+                            if (calleeModule.name.indexOf(so_name) != -1) {
+                                console.log("[CallSummary]", addr, "offset:", ptr(addr).sub(calleeModule.base));
                             }
-                        }catch(err){
+                        } catch(err) {
+                            // 忽略不在模块内的地址
                         }
                     }
                 },
-                onReceive:function(events){             //调用的流程，地址1是哪里发生的调用。地址2是调用到了哪里
-                    console.log("enter onReceive")
-                    var eventsData=Stalker.parse(events,{
+
+                // 调用事件：显示调用链
+                onReceive: function(events) {
+                    console.log("[+] Received stalker events");
+                    const eventsData = Stalker.parse(events, {
                         annotate: true,
                         stringify: true
                     });
-                    for(var idx in eventsData){
-                        var dataSp=eventsData[idx];
-                        var addr1=dataSp[1];
-                        var addr2=dataSp[2];
-                        try{
-                            var module1=Process.getModuleByAddress(ptr(addr1));
-                            if(module1.name.indexOf(so_name)!=-1){
-                                var module2=Process.getModuleByAddress(ptr(addr2));
-                                // onReceive + call + so名字 + 调用的地址 + 被调用的地址
-                                // 只有被调用函数地址是原so时，才可以减去基地址
-                                if(module2.name.indexOf(so_name)!=-1){
-                                console.log("onReceive:",dataSp[0]+",调用的so:",module1.name,",调用函数地址:",ptr(addr1-base_addr),",被调用的so:",module2.name,",被调用的函数地址:",ptr(addr2-base_addr));
-                                }else{
-                                    console.log("onReceive:",dataSp[0]+",调用的so:",module1.name,",调用函数地址:",ptr(addr1-base_addr),",被调用的so:",module2.name,",被调用的函数地址:",base_addr);
-                                }
+
+                    for (let idx in eventsData) {
+                        const event = eventsData[idx];
+                        const [type, from, to, depth] = event;
+
+                        if (type !== 'call') continue;
+
+                        try {
+                            const fromModule = Process.getModuleByAddress(ptr(from));
+                            const toModule = Process.getModuleByAddress(ptr(to));
+
+                            // 只显示目标 SO 内的调用
+                            if (fromModule.name.indexOf(so_name) != -1) {
+                                const fromOffset = ptr(from).sub(fromModule.base);
+                                const toOffset = toModule.name.indexOf(so_name) != -1
+                                    ? ptr(to).sub(toModule.base)
+                                    : ptr(to);
+
+                                console.log(`[Call] ${fromModule.name}!${fromOffset} -> ${toModule.name}!${toOffset}`);
                             }
-                        }catch(err){
-                            console.log("onReceive error",dataSp[0],dataSp[1],dataSp[2]);
+                        } catch(err) {
+                            console.log("[Call Error]", type, from, to);
                         }
                     }
                 },
 
-                transform: function (iterator) {
-                    var instruction = iterator.next();
-                    const startAddress = instruction.address;
-                                        // 从ida里面 找到 Java_com_baidu_searchbox_NativeBds_dae1 函数的 代码 在 0xE84 和 0x126C 之间
-                    // var isModule = startAddress.compare(base_addr.add(addr)) >= 0 && startAddress.compare(base_addr.add(0x126C)) < 0;
-                    var isModule = startAddress.compare(base_addr.add(addr)) >= 0;
-                    do{
-                        if (isModule){
-                            console.log(instruction.address.sub(base_addr) + "\t:\t" + instruction);
-                    
-                            if(instruction.address.sub(base_addr) == 0x122c){
-                                iterator.putCallout((context) => {
-                                // var string = Memory.readCString(context["sp"]);
-                                // console.log("####  key = " + string)
-                                console.log("####  key = " + Memory.readUInt(context.w0))
-                                })
+                // Transform：修改/监控指令执行
+                transform: function(iterator) {
+                    let instruction = iterator.next();
+
+                    // 安全检查：确保第一条指令有效
+                    if (!instruction) {
+                        return;
+                    }
+
+                    do {
+                        // 安全检查：确保指令对象有效
+                        if (!instruction || !instruction.address) {
+                            iterator.keep();
+                            continue;
+                        }
+
+                        // 在循环内重新检查每条指令是否在范围内
+                        let isInRange;
+                        try {
+                            if (end_address) {
+                                isInRange = instruction.address.compare(base_addr.add(start_addr)) >= 0 &&
+                                           instruction.address.compare(end_address) < 0;
+                            } else {
+                                isInRange = instruction.address.compare(base_addr.add(start_addr)) >= 0;
+                            }
+                        } catch(e) {
+                            // 地址比较失败，跳过
+                            iterator.keep();
+                            continue;
+                        }
+
+                        if (isInRange) {
+                            try {
+                                const offset = instruction.address.sub(base_addr);
+                                console.log(offset + "\t:\t" + instruction);
+
+                                // 示例：在特定地址添加回调
+                                // if (offset.toInt32() == 0xC7E18) {
+                                //     iterator.putCallout((context) => {
+                                //         console.log("[0xC7E18] X10:", context.x10, "X11:", context.x11);
+                                //     });
+                                // }
+                            } catch(e) {
+                                // 打印失败，继续
                             }
                         }
+
                         iterator.keep();
                     } while ((instruction = iterator.next()) !== null);
-                },
+                }
+            });
+        },
 
-            })
-        },onLeave(retval){
+        onLeave: function(retval) {
             Stalker.unfollow(this.tid);
         }
-    })
+    });
+}
+
+/**
+ * 替代方案：在调用者处 hook，避免完整性检测
+ *
+ * 使用方法：
+ * 1. 先找到谁调用了目标函数
+ * 2. Hook 调用者，在调用前启动 Stalker
+ * 3. 这样可以避免修改目标函数本身
+ */
+export function stalker_at_caller(so_name, caller_addr, target_start, target_end) {
+    hook_dlopen(so_name, () => {
+        const module = Process.findModuleByName(so_name);
+        if (!module) {
+            console.log("[-] Module not found: " + so_name);
+            return;
+        }
+
+        const base_addr = module.base;
+        const caller = base_addr.add(caller_addr);
+        const target_start_addr = base_addr.add(target_start);
+        const target_end_addr = target_end ? base_addr.add(target_end) : null;
+
+        console.log("[+] Stalker at caller:");
+        console.log("    Caller: " + caller);
+        console.log("    Target: " + target_start_addr + " - " + target_end_addr);
+
+        Interceptor.attach(caller, {
+            onEnter: function(args) {
+                this.tid = Process.getCurrentThreadId();
+                console.log("[+] Caller entered, starting stalker for thread " + this.tid);
+
+                Stalker.follow(this.tid, {
+                    transform: function(iterator) {
+                        let instruction = iterator.next();
+
+                        // 安全检查：确保第一条指令有效
+                        if (!instruction) {
+                            return;
+                        }
+
+                        do {
+                            // 安全检查：确保指令对象有效
+                            if (!instruction || !instruction.address) {
+                                iterator.keep();
+                                continue;
+                            }
+
+                            // 只追踪目标范围内的指令
+                            let isInRange;
+                            try {
+                                if (target_end_addr) {
+                                    isInRange = instruction.address.compare(target_start_addr) >= 0 &&
+                                               instruction.address.compare(target_end_addr) < 0;
+                                } else {
+                                    isInRange = instruction.address.compare(target_start_addr) >= 0;
+                                }
+                            } catch(e) {
+                                iterator.keep();
+                                continue;
+                            }
+
+                            if (isInRange) {
+                                try {
+                                    const offset = instruction.address.sub(base_addr);
+                                    console.log(offset + "\t:\t" + instruction);
+
+                                    // 监控特定指令
+                                    if (offset.toInt32() == 0xC7E18) {
+                                        iterator.putCallout((context) => {
+                                            console.log("\n========== 0xC7E18: SUB X10, X10, X11 ==========");
+                                            console.log("X10 (加密地址):", context.x10);
+                                            console.log("X11 (密钥):     ", context.x11);
+                                            console.log("X10 - X11 =     ", context.x10.sub(context.x11));
+                                            console.log("===============================================\n");
+                                        });
+                                    }
+
+                                    if (offset.toInt32() == 0xC7E44) {
+                                        iterator.putCallout((context) => {
+                                            console.log("\n[BR X10] 跳转目标:", context.x10, "偏移:", context.x10.sub(base_addr));
+                                        });
+                                    }
+                                } catch(e) {
+                                    // 打印失败，继续
+                                }
+                            }
+
+                            iterator.keep();
+                        } while ((instruction = iterator.next()) !== null);
+                    }
+                });
+            },
+
+            onLeave: function(retval) {
+                Stalker.unfollow(this.tid);
+                console.log("[-] Caller left, stalker stopped");
+            }
+        });
+    });
 }

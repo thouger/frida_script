@@ -25,3 +25,7 @@ NR==1是第一个进程，NR==2是第二个进程，frida-ps -U | rg -i Mobile�
 10. child_gating.py 适用于子进程的hook
 11. findAllJavaClasses方法，对于读取内存的jar文件的精准定位
 12. abstract.ts 增加hook抽象类下所有子类的功能
+13. ssl_bypass.js 抖音抓包
+14. run_breakpoint.py ,python run_breakpoint.py -r 'x8' -o 0x10D7744C4 设置断点查看寄存器的值
+15. hook_all_jni_final.js hook所有jni方法
+16. 

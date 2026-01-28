@@ -92,4 +92,7 @@ export function toHex(bytes: any) {
     let hex = '';
     for (let i = 0; i < bytes.length; i++) {
         let byte = bytes[i] & 0xff;
-        hex += ('0' + byte.toString(16)).slice(-2)
+        hex += ('0' + byte.toString(16)).slice(-2);
+    }
+    return hex;
+}

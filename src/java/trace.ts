@@ -257,7 +257,7 @@ export function _trace(targetClass, method) {
         //有时候hook构造函数会报错，看情况取消
         methodsDict["$init"]='$init';
     }
-    // log(output);
+    log(output);
 
     //对数组中所有的方法进行hook，
     for (var unparseMethod in methodsDict) {

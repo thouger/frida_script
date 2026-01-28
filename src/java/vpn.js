@@ -10,7 +10,7 @@ function main() {
                 var interfaceName = this.getName();
 
                 // If this is a VPN interface (tun0 or ppp0), return false
-                if (interfaceName && (interfaceName.equals("tun0") || interfaceName.equals("ppp0"))) {
+                if (interfaceName && (interfaceName === "tun0" || interfaceName === "ppp0")) {
                     console.log("[+] NetworkInterface.isUp() hooked for " + interfaceName + " - returning false");
                     return false;
                 }
@@ -30,7 +30,7 @@ function main() {
                 var interfaceName = this.getName();
 
                 // If this is a VPN interface, return empty list
-                if (interfaceName && (interfaceName.equals("tun0") || interfaceName.equals("ppp0"))) {
+                if (interfaceName && (interfaceName === "tun0" || interfaceName === "ppp0")) {
                     console.log("[+] NetworkInterface.getInterfaceAddresses() hooked for " + interfaceName + " - returning empty list");
                     var ArrayList = Java.use("java.util.ArrayList");
                     return ArrayList.$new();
@@ -50,10 +50,10 @@ function main() {
                 var originalName = this.getName();
 
                 // Replace VPN interface names with normal interface names
-                if (originalName && originalName.equals("tun0")) {
+                if (originalName && originalName === "tun0") {
                     console.log("[+] NetworkInterface.getName() hooked - hiding tun0, returning rmnet_data0");
                     return "rmnet_data0";
-                } else if (originalName && originalName.equals("ppp0")) {
+                } else if (originalName && originalName === "ppp0") {
                     console.log("[+] NetworkInterface.getName() hooked - hiding ppp0, returning wlan0");
                     return "wlan0";
                 }
@@ -72,10 +72,10 @@ function main() {
                 var originalValue = this.getProperty(key);
 
                 // Hide proxy-related system properties
-                if (key && (key.equals("http.proxyHost") || key.equals("https.proxyHost"))) {
+                if (key && (key === "http.proxyHost" || key === "https.proxyHost")) {
                     console.log("[+] System.getProperty() hooked for " + key + " - returning null");
                     return null;
-                } else if (key && (key.equals("http.proxyPort") || key.equals("https.proxyPort"))) {
+                } else if (key && (key === "http.proxyPort" || key === "https.proxyPort")) {
                     console.log("[+] System.getProperty() hooked for " + key + " - returning null");
                     return null;
                 }
@@ -87,10 +87,10 @@ function main() {
                 var originalValue = this.getProperty(key, defaultValue);
 
                 // Hide proxy-related system properties
-                if (key && (key.equals("http.proxyHost") || key.equals("https.proxyHost"))) {
+                if (key && (key === "http.proxyHost" || key === "https.proxyHost")) {
                     console.log("[+] System.getProperty() hooked for " + key + " - returning null");
                     return null;
-                } else if (key && (key.equals("http.proxyPort") || key.equals("https.proxyPort"))) {
+                } else if (key && (key === "http.proxyPort" || key === "https.proxyPort")) {
                     console.log("[+] System.getProperty() hooked for " + key + " - returning null");
                     return null;
                 }
@@ -124,14 +124,8 @@ function main() {
         }
 
            Java.use("java.net.InetAddress").isLoopbackAddress.implementation = function(){
-               var res = this.isLoopbackAddress()
-               var res1 = res.$new();
-               var res2 = res1.class.getDeclaredField("isLoopbackAddress")
-               res2.setAccessible(true)
-               //调用get()来获取值
-               var value = res2.get(res1);
-               console.log("res ==> ",value)
-               console.log("res ==> ",res)
+               var res = this.isLoopbackAddress();
+               console.log("InetAddress.isLoopbackAddress() called, result: " + res);
                return res;
             }
 

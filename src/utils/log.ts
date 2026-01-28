@@ -34,8 +34,16 @@ export function stacktrace_java(){
   return Java.use("android.util.Log").getStackTraceString(Java.use("java.lang.Throwable").$new())
 }
 
-export function stacktrace_so(context){
-return 'stacktrace_so called from:\n' +Thread.backtrace(context, Backtracer.ACCURATE).map(DebugSymbol.fromAddress).join('\n') + '\n';
+// export function stacktrace_so(context){
+// return 'stacktrace_so called from:\n' +Thread.backtrace(context, Backtracer.ACCURATE).map(DebugSymbol.fromAddress).join('\n') + '\n';
+// }
+
+// 抖音app估计抹除x29寄存器，ACCURATE 回溯器依赖 FP (X29) 寄存器来追踪栈帧链，导致栈回溯失败
+ export function stacktrace_so(context) {
+    return 'stacktrace_so called from:\n' +
+      Thread.backtrace(context, Backtracer.ACCURATE)  // 改成 FUZZY
+        .map(DebugSymbol.fromAddress)
+        .join('\n') + '\n';
 }
 
 export function print_byte(byte){

@@ -1,29 +1,95 @@
 //@ts-nocheck
 import { log,stacktrace_so,printRegisters } from "../utils/log.js";
-import { hexdumpAdvanced } from "./BufferUtils.js"
+import { hexdumpAdvanced } from "./BufferUtils.js";
+import { smartPrintArg, smartPrintArgs } from "./param_tracker.js";
+
+// ==================== Frida 17 兼容层 ====================
+// 检测是否为 Frida 17+
+// Frida 17+ 有 Module.getGlobalExportByName (单参数版本)
+// Frida <17 只有 Module.findExportByName(moduleName, exportName) (双参数版本)
+let isFrida17 = false;
+try {
+    // 尝试检测 Module.getGlobalExportByName 是否存在
+    isFrida17 = typeof Module.getGlobalExportByName === 'function';
+} catch (e) {
+    isFrida17 = false;
+}
+
+// 如果 getGlobalExportByName 不存在，再检测 findGlobalExportByName
+if (!isFrida17) {
+    try {
+        isFrida17 = typeof Module.findGlobalExportByName === 'function';
+    } catch (e) {
+        isFrida17 = false;
+    }
+}
+
+/**
+ * 兼容版本的 findGlobalExportByName
+ * Frida 17+: Module.findGlobalExportByName(name) 或 Module.getGlobalExportByName(name)
+ * Frida <17: Module.findExportByName(null, name)
+ */
+function findGlobalExport(name) {
+    if (isFrida17) {
+        // Frida 17+ 优先使用 getGlobalExportByName，如果不存在则用 findGlobalExportByName
+        if (typeof Module.getGlobalExportByName === 'function') {
+            return Module.getGlobalExportByName(name);
+        } else {
+            return Module.findGlobalExportByName(name);
+        }
+    } else {
+        // Frida <17 使用旧的双参数版本
+        return Module.findExportByName(null, name);
+    }
+}
+
+/**
+ * 兼容版本的 readCString
+ * Frida 17+: ptr.readCString()
+ * Frida <17: 可能也支持 ptr.readCString()，但为了安全起见检测一下
+ */
+function readCString(ptr) {
+    if (typeof ptr.readCString === 'function') {
+        return ptr.readCString();
+    } else {
+        return Memory.readCString(ptr);
+    }
+}
+
+/**
+ * 兼容版本的 readUtf8String
+ * Frida 17+: ptr.readUtf8String(length)
+ * Frida <17: 可能也支持 ptr.readUtf8String()，但为了安全起见检测一下
+ */
+function readUtf8String(ptr, length) {
+    if (typeof ptr.readUtf8String === 'function') {
+        return ptr.readUtf8String(length);
+    } else {
+        return Memory.readUtf8String(ptr, length);
+    }
+}
+
+// log(`[*] Frida 版本检测: ${isFrida17 ? 'Frida 17+' : 'Frida <17'}`);
+// ==================== 兼容层结束 ====================
 
 // 全局回调管理器
 const dlopenCallbacks = {};
 let dlopenHooked = false;
 
 export function hook_dlopen(so_name = null, hook_func = null, so_addr = null) {
-    log('[+] hook_dlopen for: ' + so_name)
+    // log('[+] hook_dlopen for: ' + so_name)
 
     // 首先检查 so 是否已经加载
     try {
         var existingModule = Process.findModuleByName(so_name);
         if (existingModule) {
-            log('[!] WARNING: ' + so_name + ' is already loaded at: ' + existingModule.base);
-            log('[!] The SO was loaded before hook_dlopen was called!');
-
             // 如果已经加载，直接调用回调
-            if (hook_func) {
-                log('[+] Calling hook_func immediately since SO is already loaded');
+            if (typeof hook_func === 'function') {
                 hook_func(so_addr);
+            } else {
+                log('[-] hook_func is not a function, type: ' + typeof hook_func);
             }
             return;
-        } else {
-            log('[+] ' + so_name + ' is not loaded yet, setting up dlopen hooks...');
         }
     } catch (e) {
         log('[-] Error checking for existing module: ' + e.message);
@@ -42,13 +108,11 @@ export function hook_dlopen(so_name = null, hook_func = null, so_addr = null) {
     }
     dlopenHooked = true;
 
-    var android_dlopen_ext = Module.findGlobalExportByName("android_dlopen_ext");
-    log('[+] android_dlopen_ext: ' + android_dlopen_ext);
-
+    var android_dlopen_ext = findGlobalExport("android_dlopen_ext");
     if (android_dlopen_ext != null) {
         Interceptor.attach(android_dlopen_ext, {
             onEnter: function (args) {
-                var soName = args[0].readCString();
+                var soName = readCString(args[0]);
                 this.soName = soName;
 
                 // 检查是否有匹配的回调
@@ -62,20 +126,21 @@ export function hook_dlopen(so_name = null, hook_func = null, so_addr = null) {
             },
             onLeave: function (retval) {
                 if (this.matchedSo) {
-                    log('[+] android_dlopen_ext onLeave for: ' + this.matchedSo);
-
                     const callbacks = dlopenCallbacks[this.matchedSo];
                     if (callbacks && callbacks.length > 0) {
-                        log('[+] ' + this.matchedSo + ' 加载完成 (android_dlopen_ext), executing ' + callbacks.length + ' callbacks');
+                        // log('[+] ' + this.matchedSo + ' 加载完成 (android_dlopen_ext), executing ' + callbacks.length + ' callbacks');
 
                         // 执行所有回调
                         callbacks.forEach(cb => {
-                            if (cb.func) {
+                            if (typeof cb.func === 'function') {
                                 try {
                                     cb.func(cb.addr);
                                 } catch (e) {
                                     log('[-] Error executing callback: ' + e.message);
+                                    log('[-] Stack: ' + e.stack);
                                 }
+                            } else {
+                                log('[-] Invalid callback: cb.func is not a function, type: ' + typeof cb.func);
                             }
                         });
 
@@ -87,13 +152,12 @@ export function hook_dlopen(so_name = null, hook_func = null, so_addr = null) {
         });
     }
 
-    var dlopen = Module.findGlobalExportByName("dlopen");
-    log('[+] dlopen: ' + dlopen);
+    var dlopen = findGlobalExport("dlopen");
 
     if (dlopen != null) {
         Interceptor.attach(dlopen, {
             onEnter: function (args) {
-                var soName = args[0].readCString();
+                var soName = readCString(args[0]);
                 this.soName = soName;
 
                 // 检查是否有匹配的回调
@@ -115,12 +179,15 @@ export function hook_dlopen(so_name = null, hook_func = null, so_addr = null) {
 
                         // 执行所有回调
                         callbacks.forEach(cb => {
-                            if (cb.func) {
+                            if (typeof cb.func === 'function') {
                                 try {
                                     cb.func(cb.addr);
                                 } catch (e) {
                                     log('[-] Error executing callback: ' + e.message);
+                                    log('[-] Stack: ' + e.stack);
                                 }
+                            } else {
+                                log('[-] Invalid callback: cb.func is not a function, type: ' + typeof cb.func);
                             }
                         });
 
@@ -131,142 +198,6 @@ export function hook_dlopen(so_name = null, hook_func = null, so_addr = null) {
             }
         });
     }
-}
-
-/**
- * 智能参数打印器 - 自动识别参数类型并选择合适的打印方式
- * @param {NativePointer} value - 要打印的参数值
- * @param {Object} options - 打印选项
- * @returns {string} 格式化的输出
- */
-function smartPrintArg(value, options = {}) {
-    const {
-        lengthFrom = null,     // 从哪个参数获取长度，如 'args[1]' 或直接传值
-        readMethod = 'auto',   // 读取方式: 'auto', 'u32', 'u64', 'string', 'hexdump'
-        maxLength = 256,       // hexdump 的最大长度
-        label = ''             // 标签
-    } = options;
-
-    try {
-        let output = label ? `${label}: ` : '';
-
-        // 如果是null或undefined
-        if (!value || value.isNull()) {
-            return output + 'NULL';
-        }
-
-        // 自动检测模式
-        if (readMethod === 'auto') {
-            // 尝试读取为字符串
-            try {
-                const str = value.readUtf8String(64);
-                if (str && /^[\x20-\x7E]+$/.test(str)) {
-                    return output + `"${str}"`;
-                }
-            } catch (e) {}
-
-            // 尝试读取为整数
-            try {
-                const num = value.toInt32();
-                if (num > 0 && num < 0x10000) {
-                    return output + `${num} (0x${num.toString(16)})`;
-                }
-            } catch (e) {}
-        }
-
-        // 指定读取方式
-        switch (readMethod) {
-            case 'u32':
-                return output + `${value.readU32()} (0x${value.readU32().toString(16)})`;
-            case 'u64':
-                return output + `${value.readU64()} (0x${value.readU64().toString(16)})`;
-            case 'string':
-                return output + `"${value.readUtf8String()}"`;
-            case 'hexdump':
-                const len = lengthFrom || maxLength;
-                return output + '\n' + hexdump(value, { length: len });
-        }
-
-        // 默认: 打印地址
-        return output + value.toString();
-    } catch (e) {
-        return `${label ? label + ': ' : ''}[无法读取: ${e.message}]`;
-    }
-}
-
-/**
- * 智能打印参数数组
- * @param {Array} args - 参数数组
- * @param {Object|Array} config - 配置对象或配置数组
- *
- * 配置示例:
- * - ['hexdump:1'] - args[0] 以 hexdump 打印，长度从 args[1] 获取
- * - ['string', 'u32', 'hexdump:100'] - args[0]字符串, args[1]整数, args[2] hexdump(长度100)
- * - {0: {type: 'hexdump', lengthFrom: 'args[1]'}, 2: {type: 'string'}}
- */
-function smartPrintArgs(args, config) {
-    const results = [];
-
-    if (Array.isArray(config)) {
-        // 数组配置模式
-        config.forEach((cfg, idx) => {
-            if (typeof cfg === 'string') {
-                const parts = cfg.split(':');
-                const type = parts[0];
-                const lengthArg = parts[1];
-
-                let options = { label: `args[${idx}]`, readMethod: type };
-
-                if (lengthArg) {
-                    // 支持 'hexdump:1' 表示长度从 args[1] 获取
-                    if (/^\d+$/.test(lengthArg)) {
-                        const lengthIdx = parseInt(lengthArg);
-                        try {
-                            options.lengthFrom = args[lengthIdx].toInt32();
-                        } catch (e) {
-                            options.maxLength = 256;
-                        }
-                    } else {
-                        options.maxLength = parseInt(lengthArg) || 256;
-                    }
-                }
-
-                results.push(smartPrintArg(args[idx], options));
-            }
-        });
-    } else if (typeof config === 'object') {
-        // 对象配置模式
-        for (let idx in config) {
-            const cfg = config[idx];
-            const argIdx = parseInt(idx);
-
-            let options = {
-                label: `args[${argIdx}]`,
-                readMethod: cfg.type || 'auto'
-            };
-
-            if (cfg.lengthFrom) {
-                // 支持 lengthFrom: 'args[1]' 或 lengthFrom: 1
-                if (typeof cfg.lengthFrom === 'string') {
-                    const match = cfg.lengthFrom.match(/args\[(\d+)\]/);
-                    if (match) {
-                        const lenIdx = parseInt(match[1]);
-                        try {
-                            options.lengthFrom = args[lenIdx].toInt32();
-                        } catch (e) {}
-                    }
-                } else {
-                    try {
-                        options.lengthFrom = args[cfg.lengthFrom].toInt32();
-                    } catch (e) {}
-                }
-            }
-
-            results.push(smartPrintArg(args[argIdx], options));
-        }
-    }
-
-    return results.join('\n');
 }
 
 /**
@@ -285,7 +216,7 @@ export function monitorStrings(so_name) {
     ];
 
     for (const funcName of functions) {
-        const address = Module.findGlobalExportByName(funcName);
+        const address = findGlobalExport(funcName);
         if (!address) continue;
 
         Interceptor.attach(address, {
@@ -298,14 +229,14 @@ export function monitorStrings(so_name) {
                         case 'strcpy':
                         case 'strcat':
                         case 'strncpy': {
-                            const sourceStr = args[1].readUtf8String();
+                            const sourceStr = readUtf8String(args[1]);
                             log(`[${funcName}] 字符串内容: ${sourceStr}`);
                             break;
                         }
 
                         case 'sprintf':
                         case 'snprintf': {
-                            const formatStr = args[1].readUtf8String();
+                            const formatStr = readUtf8String(args[1]);
                             log(`[${funcName}] 格式字符串: ${formatStr}`);
                             break;
                         }
@@ -313,7 +244,7 @@ export function monitorStrings(so_name) {
                         case 'memcpy': {
                             try {
                                 const size = args[2].toInt32();
-                                const content = args[1].readUtf8String(size);
+                                const content = readUtf8String(args[1], size);
                                 if (content) {
                                     log(`[${funcName}] 复制内容: ${content}`);
                                 }
@@ -333,7 +264,7 @@ export function monitorStrings(so_name) {
                 // 检查结果字符串
                 if (this.funcName === 'strcpy' || this.funcName === 'sprintf') {
                     try {
-                        const result = this.args[0].readUtf8String();
+                        const result = readUtf8String(this.args[0]);
                         log(`[${this.funcName}_result] 结果: ${result}`);
                     } catch (e) {}
                 }
@@ -349,7 +280,7 @@ export function monitorStrings(so_name) {
  *
  * 推荐使用:
  * - hook_so_function (在 hook_func.ts) - 基础 hook
- * - trace_so_function (在 hook_func.ts) - Stalker trace
+ * - trace_so_call (在 hook_func.ts) - Stalker trace
  *
  * 保留此函数仅为向后兼容
  *
@@ -606,14 +537,9 @@ export function native_hook(onEnterCallback, onLeaveCallback, so_name, so_addr) 
     }
 
     // 完整模式：native_hook(onEnterCallback, onLeaveCallback, so_name, so_addr)
-    log("[*] native_hook called with so_name: " + so_name + ", offset: 0x" + so_addr.toString(16));
-
     // 使用hook_dlopen等待SO加载
     hook_dlopen(so_name, function(dlopen_addr) {
-        log("[*] hook_dlopen callback triggered for: " + so_name);
-
         try {
-            log("[*] Attempting to find module: " + so_name);
             var module = Process.findModuleByName(so_name);
             if (!module) {
                 log("[-] Failed to find module " + so_name);
@@ -622,20 +548,13 @@ export function native_hook(onEnterCallback, onLeaveCallback, so_name, so_addr) 
             var base_addr = module.base;
             var hook_addr = base_addr.add(so_addr);
 
-            log("[+] ========== Hook Setup Info ==========");
-            log("[+] Module name: " + so_name);
-            log("[+] Base address: " + base_addr);
-            log("[+] Offset: 0x" + so_addr.toString(16));
-            log("[+] Hook address: " + hook_addr);
-            log("[+] Module range: " + base_addr + " - " + base_addr.add(module.size));
-
             // 验证地址是否在模块范围内
             if (hook_addr.compare(base_addr) < 0 || hook_addr.compare(base_addr.add(module.size)) >= 0) {
                 log("[-] ERROR: Hook address is outside module range!");
                 return;
             }
 
-            // 读取目标地址的指令
+            // 读取目标地址的指令 - 对逆向分析很重要
             try {
                 var instruction = Instruction.parse(hook_addr);
                 log("[+] Instruction at hook address: " + instruction);
@@ -643,53 +562,20 @@ export function native_hook(onEnterCallback, onLeaveCallback, so_name, so_addr) 
                 log("[-] WARNING: Cannot parse instruction at hook address: " + e.message);
             }
 
-            log("[+] ========================================");
-
-            // 添加一个简单的测试 hook 来确认函数是否正常返回
-            log("[*] Calling Interceptor.attach on: " + hook_addr);
             Interceptor.attach(hook_addr, {
                 onEnter: function(args) {
                     try {
                         this.tid = Process.getCurrentThreadId();
-                        log("[+] !!!!! Function called at: " + hook_addr + " !!!!!");
 
-                        // 使用printRegisters函数打印寄存器
-                        // log("this.context:" + JSON.stringify(this.context, null, 4));
-                        // log("x0:"+hexdump(this.context.x0));
-                        // log("x1:"+hexdump(this.context.x1));
-                        // log("x2:"+hexdump(this.context.x2,{length:5000}));
-                        // log("x3:"+hexdump(this.context.x3));
-                        // log("x4:"+hexdump(this.context.x4));
-                        // log("x8:"+hexdump(this.context.x8));
-                        // log("x16:"+hexdump(this.context.x16));
-                        // log("x17:"+hexdump(this.context.x17));
-                        // log("x18:"+hexdump(this.context.x18));
-                        // log("x19:"+hexdump(this.context.x19));
-                        // log("x20:"+hexdump(this.context.x20));
-                        // log("x21:"+hexdump(this.context.x21));
-                        // log("x22:"+hexdump(this.context.x22));
-                        // log("x25:"+hexdump(this.context.x25));
-                        // log("x28:"+hexdump(this.context.x28));
-                        // printRegisters(this.context, null, null);
-
-                        // 如果提供了onEnter回调函数，则调用它
-                        // 传递args、this.context和base_addr作为参数
-                        // 使用 .call(this) 来传递 this 上下文
                         if (typeof onEnterCallback === 'function') {
                             onEnterCallback.call(this, args, this.context, null, base_addr, hook_addr, this.tid);
                         }
-
-                        // 记录调用栈信息（可选，取消注释以启用）
-                        // log("Call stack:\n" + Thread.backtrace(this.context, Backtracer.ACCURATE)
-                        //     .map(DebugSymbol.fromAddress).join("\n"));
                     } catch(e) {
                         log("Error in onEnter: " + e.message);
                     }
                 },
                 onLeave: function(retval) {
                     try {
-                        log(`[${this.tid}] - Leave`);
-
                         // 只在启用了 Stalker trace 时才停止
                         if (this.start_follow && this.tid) {
                             Stalker.unfollow(this.tid);
@@ -699,8 +585,6 @@ export function native_hook(onEnterCallback, onLeaveCallback, so_name, so_addr) 
                             log("Return value: " + retval.toString());
                         }
 
-                        // 如果提供了onLeave回调函数，则调用它
-                        // 传递retval、this.context和base_addr作为参数
                         if (typeof onLeaveCallback === 'function') {
                             onLeaveCallback(this, retval, this.context, null, base_addr, hook_addr);
                         }
@@ -710,16 +594,8 @@ export function native_hook(onEnterCallback, onLeaveCallback, so_name, so_addr) 
                 }
             });
 
-            log("[+] ========== Hook Successfully Installed ==========");
-            log("[+] Module: " + so_name);
-            log("[+] Offset: 0x" + so_addr.toString(16));
-            log("[+] Address: " + hook_addr);
-            log("[+] Waiting for function to be called...");
-            log("[+] ===================================================");
-
         } catch(e) {
             log("[-] Error in native_hook: " + e.message);
-            // 打印详细错误信息用于调试
             log("[-] Stack trace: " + e.stack);
         }
     }, so_addr);
