@@ -462,9 +462,12 @@ function enumerateClassLoaders(targetClass, targetMethod){
     var targetClasses = new Array();
     Java.enumerateLoadedClasses({
         onMatch: function (clazz) {
+            // if (clazz.indexOf("DBHelper") > -1){
+            //     console.log("found DBHelper class: " + clazz);
+            // }
             // console.log(clazz)
-            if (clazz.toLowerCase().indexOf(targetClass.toLowerCase()) > -1) {
-                // if (clazz.toLowerCase() == targetClass.toLowerCase()) {
+            // if (clazz.toLowerCase().indexOf(targetClass.toLowerCase()) > -1) {
+                if (clazz.toLowerCase() == targetClass.toLowerCase()) {
                 log('find targetClass class: ' + clazz)
                 targetClasses.push(clazz);
                 _trace(clazz,targetMethod);

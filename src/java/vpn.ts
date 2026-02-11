@@ -5,12 +5,84 @@
  */
 export function bypassVpnDetection() {
     Java.perform(function() {
+        // --- Targeted bypass for this app ---
+        // index.android.bundle calls `NativeModules.Toast.isProxy()/isVpn()` and then shows an Alert
+        // if they resolve to true. The Android implementation we found is in:
+        // - com.remobile.toast.Toast.isProxy(Promise)  -> System.getProperty("http.proxyHost/http.proxyPort")
+        // - com.remobile.toast.Toast.isVpn(Promise)    -> isVpnUsed()
+        // - com.remobile.toast.Toast.isVpnUsed()       -> NetworkInterface enum, checks tun0/ppp0
+        //
+        // The safest bypass is to force these methods to always return/resolve false.
+        try {
+            const ToastModule = Java.use("com.remobile.toast.Toast");
+            const BooleanCls = Java.use("java.lang.Boolean");
+
+            if (ToastModule.isVpnUsed) {
+                ToastModule.isVpnUsed.implementation = function() {
+                    console.log("[+] com.remobile.toast.Toast.isVpnUsed() -> false");
+                    return false;
+                };
+            }
+
+            if (ToastModule.isVpn) {
+                ToastModule.isVpn.implementation = function(promise) {
+                    console.log("[+] com.remobile.toast.Toast.isVpn(Promise) -> resolve(false)");
+                    try {
+                        promise.resolve(BooleanCls.valueOf(false));
+                    } catch (e) {
+                        // If Promise impl differs, fall back to raw JS boolean.
+                        promise.resolve(false);
+                    }
+                };
+            }
+
+            if (ToastModule.isProxy) {
+                ToastModule.isProxy.implementation = function(promise) {
+                    console.log("[+] com.remobile.toast.Toast.isProxy(Promise) -> resolve(false)");
+                    try {
+                        promise.resolve(BooleanCls.valueOf(false));
+                    } catch (e) {
+                        promise.resolve(false);
+                    }
+                };
+            }
+
+            console.log("[+] Successfully hooked com.remobile.toast.Toast (VPN/proxy checks)");
+        } catch (e) {
+            console.log("[-] Failed to hook com.remobile.toast.Toast: " + e);
+        }
+
+        // Also bypass UMeng's collection fields (vpn_pxy) to reduce risk telemetry.
+        try {
+            const Umeng = Java.use("com.umeng.umzid.C6584d");
+            if (Umeng.m20769i) {
+                Umeng.m20769i.implementation = function(ctx) {
+                    console.log("[+] com.umeng.umzid.C6584d.m20769i(Context) -> false");
+                    return false;
+                };
+            }
+            if (Umeng.m20770j) {
+                Umeng.m20770j.implementation = function(ctx) {
+                    console.log("[+] com.umeng.umzid.C6584d.m20770j(Context) -> false");
+                    return false;
+                };
+            }
+            console.log("[+] Successfully hooked com.umeng.umzid.C6584d (vpn/proxy flags)");
+        } catch (e) {
+            console.log("[-] Failed to hook com.umeng.umzid.C6584d: " + e);
+        }
+
+        // --- Generic/fallback hooks (fix recursion issues) ---
         // Hook NetworkInterface.isUp() to return false for VPN interfaces
         try {
             var NetworkInterface = Java.use("java.net.NetworkInterface");
-            NetworkInterface.isUp.implementation = function() {
-                var originalResult = this.isUp();
-                var interfaceName = this.getName();
+            var niGetName = NetworkInterface.getName;
+            var niIsUp = NetworkInterface.isUp;
+            niIsUp.implementation = function() {
+                var interfaceName = null;
+                try {
+                    interfaceName = niGetName.call(this);
+                } catch (_) {}
 
                 // If this is a VPN interface (tun0 or ppp0), return false
                 if (interfaceName && (interfaceName === "tun0" || interfaceName === "ppp0")) {
@@ -18,7 +90,7 @@ export function bypassVpnDetection() {
                     return false;
                 }
 
-                return originalResult;
+                return niIsUp.call(this);
             };
             console.log("[+] Successfully hooked NetworkInterface.isUp()");
         } catch (e) {
@@ -28,18 +100,22 @@ export function bypassVpnDetection() {
         // Hook NetworkInterface.getInterfaceAddresses().size() to return 0 for VPN interfaces
         try {
             var NetworkInterface = Java.use("java.net.NetworkInterface");
-            NetworkInterface.getInterfaceAddresses.implementation = function() {
-                var originalResult = this.getInterfaceAddresses();
-                var interfaceName = this.getName();
+            var niGetName = NetworkInterface.getName;
+            var niGetIfAddrs = NetworkInterface.getInterfaceAddresses;
+            niGetIfAddrs.implementation = function() {
+                var interfaceName = null;
+                try {
+                    interfaceName = niGetName.call(this);
+                } catch (_) {}
 
                 // If this is a VPN interface, return empty list
                 if (interfaceName && (interfaceName === "tun0" || interfaceName === "ppp0")) {
                     console.log("[+] NetworkInterface.getInterfaceAddresses() hooked for " + interfaceName + " - returning empty list");
-                    var ArrayList = Java.use("java.util.ArrayList");
-                    return ArrayList.$new();
+                    var Collections = Java.use("java.util.Collections");
+                    return Collections.emptyList();
                 }
 
-                return originalResult;
+                return niGetIfAddrs.call(this);
             };
             console.log("[+] Successfully hooked NetworkInterface.getInterfaceAddresses()");
         } catch (e) {
@@ -49,8 +125,9 @@ export function bypassVpnDetection() {
         // Hook NetworkInterface.getName() to hide VPN interface names
         try {
             var NetworkInterface = Java.use("java.net.NetworkInterface");
-            NetworkInterface.getName.implementation = function() {
-                var originalName = this.getName();
+            var niGetName = NetworkInterface.getName;
+            niGetName.implementation = function() {
+                var originalName = niGetName.call(this);
 
                 // Replace VPN interface names with normal interface names
                 if (originalName && originalName === "tun0") {
@@ -71,8 +148,10 @@ export function bypassVpnDetection() {
         // Hook System.getProperty() to hide proxy settings
         try {
             var System = Java.use("java.lang.System");
-            System.getProperty.overload('java.lang.String').implementation = function(key) {
-                var originalValue = this.getProperty(key);
+            var getProp1 = System.getProperty.overload('java.lang.String');
+            var getProp2 = System.getProperty.overload('java.lang.String', 'java.lang.String');
+            getProp1.implementation = function(key) {
+                var originalValue = getProp1.call(this, key);
 
                 // Hide proxy-related system properties
                 if (key && (key === "http.proxyHost" || key === "https.proxyHost")) {
@@ -86,8 +165,8 @@ export function bypassVpnDetection() {
                 return originalValue;
             };
 
-            System.getProperty.overload('java.lang.String', 'java.lang.String').implementation = function(key, defaultValue) {
-                var originalValue = this.getProperty(key, defaultValue);
+            getProp2.implementation = function(key, defaultValue) {
+                var originalValue = getProp2.call(this, key, defaultValue);
 
                 // Hide proxy-related system properties
                 if (key && (key === "http.proxyHost" || key === "https.proxyHost")) {
@@ -112,7 +191,7 @@ export function bypassVpnDetection() {
             var originalIsEmpty = TextUtils.isEmpty;
             TextUtils.isEmpty.implementation = function(str) {
                 // For proxy-related checks, always return true (empty)
-                if (str && typeof str === 'string') {
+                if (str) {
                     var strValue = str.toString();
                     if (strValue.indexOf("proxy") !== -1 || strValue.indexOf("127.0.0.1") !== -1) {
                         console.log("[+] TextUtils.isEmpty() hooked for proxy-related string - returning true");
@@ -126,41 +205,7 @@ export function bypassVpnDetection() {
             console.log("[-] Failed to hook TextUtils.isEmpty(): " + e);
         }
 
-        // Hook InetAddress.isLoopbackAddress()
-        try {
-            Java.use("java.net.InetAddress").isLoopbackAddress.implementation = function() {
-                var res = this.isLoopbackAddress();
-                console.log("InetAddress.isLoopbackAddress() called, result: " + res);
-                return res;
-            }
-            console.log("[+] Successfully hooked InetAddress.isLoopbackAddress()");
-        } catch (e) {
-            console.log("[-] Failed to hook InetAddress.isLoopbackAddress(): " + e);
-        }
-
-        // Hook NetworkInterface.getInetAddresses()
-        try {
-            Java.use("java.net.NetworkInterface").getInetAddresses.implementation = function() {
-                var res = this.getInetAddresses();
-                console.log("[+] NetworkInterface.getInetAddresses() called:", res);
-                return res;
-            }
-            console.log("[+] Successfully hooked NetworkInterface.getInetAddresses()");
-        } catch (e) {
-            console.log("[-] Failed to hook NetworkInterface.getInetAddresses(): " + e);
-        }
-
-        // Hook ConnectivityManager.getNetworkCapabilities()
-        try {
-            Java.use("android.net.ConnectivityManager").getNetworkCapabilities.implementation = function(v) {
-                console.log("[+] ConnectivityManager.getNetworkCapabilities() called with:", v);
-                var res = this.getNetworkCapabilities(v);
-                console.log("[+] Result:", res);
-                return null;
-            }
-            console.log("[+] Successfully hooked ConnectivityManager.getNetworkCapabilities()");
-        } catch (e) {
-            console.log("[-] Failed to hook ConnectivityManager.getNetworkCapabilities(): " + e);
-        }
+        // NOTE: Avoid hooking ConnectivityManager.getNetworkCapabilities()/InetAddress etc.
+        // Returning null or logging excessively here can break networking or crash some apps.
     });
 }
